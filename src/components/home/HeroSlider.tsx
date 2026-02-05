@@ -19,7 +19,7 @@ export function HeroSlider() {
             title2: t('home.hero.slide1.title2'),
             desc: t('home.hero.slide1.desc'),
             img: "/hero-3d.png",
-            bg: "from-[#E0F2FE] to-[#F0F9FF]"
+            bg: "from-[#0EA5E9] to-[#0EA5E9]"
         },
         {
             id: 2,
@@ -27,7 +27,7 @@ export function HeroSlider() {
             title2: t('home.hero.slide2.title2'),
             desc: t('home.hero.slide2.desc'),
             img: "/hero-slide-2.png",
-            bg: "from-[#FDF2F8] to-[#FFF1F2]"
+            bg: "from-[#0EA5E9] to-[#0EA5E9]"
         },
         {
             id: 3,
@@ -35,7 +35,7 @@ export function HeroSlider() {
             title2: t('home.hero.slide3.title2'),
             desc: t('home.hero.slide3.desc'),
             img: "/hero-carseat.png",
-            bg: "from-[#ECFEFF] to-[#F0FDFA]"
+            bg: "from-[#0EA5E9] to-[#0EA5E9]"
         }
     ], [t]);
 
@@ -148,7 +148,7 @@ export function HeroSlider() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2, duration: 0.6 }}
                             >
-                                <span className="inline-block px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-sm border border-white/50 text-sm font-bold text-primary mb-4 shadow-sm">
+                                <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-sm font-bold text-white mb-4 shadow-sm">
                                     {t('home.newArrival')}
                                 </span>
                             </motion.div>
@@ -157,11 +157,11 @@ export function HeroSlider() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3, duration: 0.6 }}
-                                className="text-5xl lg:text-7xl font-bold font-display text-gray-900 leading-[1.15] mb-6 drop-shadow-sm"
+                                className="text-5xl lg:text-7xl font-bold font-display text-white leading-[1.15] mb-6 drop-shadow-sm"
                             >
                                 {HERO_SLIDES[current].title1}{" "}
                                 <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary to-[#F97316]">
+                                <span className="text-[#F97316]">
                                     {HERO_SLIDES[current].title2}
                                 </span>
                             </motion.h1>
@@ -170,7 +170,7 @@ export function HeroSlider() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4, duration: 0.6 }}
-                                className="text-lg lg:text-xl text-gray-600 mb-10 max-w-lg leading-relaxed mix-blend-multiply"
+                                className="text-lg lg:text-xl text-white/90 mb-10 max-w-lg leading-relaxed"
                             >
                                 {HERO_SLIDES[current].desc}
                             </motion.p>
@@ -181,13 +181,13 @@ export function HeroSlider() {
                                 transition={{ delay: 0.5, duration: 0.6 }}
                                 className="flex flex-wrap gap-4"
                             >
-                                <Button size="xl" className="bg-primary hover:bg-primary/90 text-white gap-2 font-bold rounded-full shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:-translate-y-1 h-14 px-8 text-lg" asChild>
+                                <Button size="xl" className="bg-white hover:bg-gray-100 text-[#0EA5E9] gap-2 font-bold rounded-full shadow-lg shadow-black/10 transition-all hover:-translate-y-1 h-14 px-8 text-lg" asChild>
                                     <Link to="/shop">
                                         {t('home.shopNow')}
                                         {isRtl ? <ArrowLeft className="w-5 h-5 mr-1" /> : <ChevronRight className="w-5 h-5 ml-1" />}
                                     </Link>
                                 </Button>
-                                <Button size="xl" variant="outline" className="bg-white/50 backdrop-blur-sm border-2 hover:bg-white text-gray-800 font-bold rounded-full h-14 px-8 text-lg" asChild>
+                                <Button size="xl" variant="outline" className="bg-transparent backdrop-blur-sm border-2 border-white hover:bg-white text-white hover:text-[#0EA5E9] font-bold rounded-full h-14 px-8 text-lg" asChild>
                                     <Link to="/shop">{t('home.exploreCollection')}</Link>
                                 </Button>
                             </motion.div>
@@ -240,7 +240,7 @@ export function HeroSlider() {
                             setDirection(idx > current ? 1 : -1);
                             setCurrent(idx);
                         }}
-                        className={`transition-all duration-300 rounded-full h-2.5 ${current === idx ? "w-8 bg-primary" : "w-2.5 bg-primary/20 hover:bg-primary/40"}`}
+                        className={`transition-all duration-300 rounded-full h-2.5 ${current === idx ? "w-8 bg-white" : "w-2.5 bg-white/40 hover:bg-white/60"}`}
                         aria-label={`Go to slide ${idx + 1}`}
                     />
                 ))}
