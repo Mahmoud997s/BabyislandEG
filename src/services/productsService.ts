@@ -7,6 +7,13 @@ function mapDbToProduct(dbItem: any): Product {
     const isOutOfStock = (dbItem.stock || 0) <= 0;
 
     // Ensure images have full URL if stored as relative paths
+    const price = Number(dbItem.price);
+
+    // Global Fake Discount Strategy:
+    // User wants to show "25% Off" on all items, where the current price is the selling price.
+    // Original Price = Price / 0.75 (so that Price is 75% of Original).
+    const fakeOriginalPrice = Math.round(price / 0.75);
+
     const rawImages = dbItem.images || [];
     const processedImages = rawImages.map((img: string) => {
         if (img.startsWith('http')) return img;
@@ -18,10 +25,10 @@ function mapDbToProduct(dbItem: any): Product {
         name: dbItem.name,
         name_ar: dbItem.name_ar,
         slug: dbItem.slug || dbItem.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
-        price: Number(dbItem.price),
+        price: price,
         images: processedImages,
-        compareAtPrice: dbItem.compareAtPrice ? Number(dbItem.compareAtPrice) : undefined,
-        discountPercentage: undefined,
+        compareAtPrice: fakeOriginalPrice,
+        discountPercentage: 25,
         rating: Number(dbItem.rating) || 4.5,
         reviewCount: Number(dbItem.reviews) || 0,
         stockStatus: isOutOfStock ? "out-of-stock" : "in-stock",
