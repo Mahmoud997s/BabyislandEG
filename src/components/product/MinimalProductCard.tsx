@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { LocaleLink } from "@/components/LocaleLink";
 import { useTranslation } from "react-i18next";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export function MinimalProductCard({ product }: MinimalProductCardProps) {
         : 0;
 
     return (
-        <Link to={`/product/${product.slug}`} className="group block h-full">
+        <LocaleLink to={`/product/${product.id}`} className="group block h-full">
             {/* Image Container */}
             <div className="aspect-[1/1.1] bg-[#F0EEED] rounded-[20px] overflow-hidden mb-4 relative">
                 <img
@@ -77,6 +77,6 @@ export function MinimalProductCard({ product }: MinimalProductCardProps) {
                     className="justify-start mt-1"
                 />
             </div>
-        </Link>
+        </LocaleLink>
     );
 }

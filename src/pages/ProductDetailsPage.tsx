@@ -61,7 +61,7 @@ export default function ProductDetailsPage() {
         return (
             <Layout>
                 <div className="container-main py-20 text-center">
-                    <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
+                    <h1 className="text-2xl font-bold mb-4">{isRtl ? "المنتج غير موجود" : "Product Not Found"}</h1>
                     <Button asChild><Link to="/shop">Back to Shop</Link></Button>
                 </div>
             </Layout>

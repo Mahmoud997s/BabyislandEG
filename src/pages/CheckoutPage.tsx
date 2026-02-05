@@ -471,7 +471,7 @@ export default function CheckoutPage() {
                                         type="submit"
                                         className="w-full mt-6"
                                         size="lg"
-                                        disabled={isSubmitting || paymentMethod !== "cod"}
+                                        disabled={isSubmitting}
                                     >
                                         {isSubmitting ? (
                                             t("checkout.processing")
@@ -483,11 +483,7 @@ export default function CheckoutPage() {
                                         )}
                                     </Button>
 
-                                    {paymentMethod !== "cod" && (
-                                        <p className="text-sm text-muted-foreground text-center mt-3">
-                                            {t("checkout.paymentNotAvailable")}
-                                        </p>
-                                    )}
+                                    {/* Payment info text removed */}
                                 </div>
                             </div>
                         </div>
