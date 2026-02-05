@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,121 +8,110 @@
 /* Premium Baby Stroller Store - Design System */
 /* Luxury, clean, soft, Arabic-first RTL */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
-
 @layer base {
   :root {
-    /* Core Brand Colors - Warm Luxury Palette */
-    --background: 40 25% 98%;
-    --foreground: 30 10% 15%;
+    /* Core Brand Colors - Elegant Blue & Orange */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    /* Slate 900 */
 
-    --card: 40 30% 99%;
-    --card-foreground: 30 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 40 30% 99%;
-    --popover-foreground: 30 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    /* Primary - Warm Charcoal */
-    --primary: 30 8% 20%;
-    --primary-foreground: 40 25% 98%;
+    /* Primary - Brand Blue (Sky 500) */
+    --primary: 199 89% 48%;
+    /* #0EA5E9 */
+    --primary-foreground: 210 40% 98%;
 
-    /* Secondary - Soft Beige */
-    --secondary: 35 25% 94%;
-    --secondary-foreground: 30 10% 20%;
+    /* Secondary - Brand Orange (Orange 500) */
+    --secondary: 25 95% 53%;
+    /* #F97316 */
+    --secondary-foreground: 210 40% 98%;
 
-    /* Muted - Light Cream */
-    --muted: 38 20% 96%;
-    --muted-foreground: 30 8% 45%;
+    /* Muted - Slate 100 */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    /* Accent - Warm Gold */
-    --accent: 38 45% 88%;
-    --accent-foreground: 30 10% 15%;
+    /* Accent - Slate 100 / Light Blue Tint */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
 
-    /* Success - Soft Green */
-    --success: 145 40% 45%;
-    --success-foreground: 0 0% 100%;
+    /* Success - Emerald 500 */
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
 
-    /* Warning - Warm Orange */
-    --warning: 35 90% 55%;
-    --warning-foreground: 0 0% 100%;
+    /* Warning - Amber 500 */
+    --warning: 38 92% 50%;
+    --warning-foreground: 210 40% 98%;
 
-    /* Destructive */
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 0 0% 100%;
+    /* Destructive - Red 500 */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
 
     /* UI Elements */
-    --border: 35 20% 90%;
-    --input: 35 20% 92%;
-    --ring: 30 8% 20%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 89% 48%;
 
     --radius: 1rem;
 
     /* Sidebar */
-    --sidebar-background: 40 25% 98%;
-    --sidebar-foreground: 30 10% 25%;
-    --sidebar-primary: 30 8% 20%;
-    --sidebar-primary-foreground: 40 25% 98%;
-    --sidebar-accent: 38 25% 94%;
-    --sidebar-accent-foreground: 30 10% 15%;
-    --sidebar-border: 35 20% 90%;
-    --sidebar-ring: 30 8% 20%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Custom Brand Colors */
-    --brand-cream: 40 40% 95%;
-    --brand-beige: 35 30% 88%;
-    --brand-sand: 32 25% 80%;
-    --brand-taupe: 30 15% 60%;
-    --brand-charcoal: 30 10% 25%;
-    --brand-gold: 40 50% 70%;
-    --brand-sage: 140 20% 75%;
+    /* Custom Brand Colors for Gradients/Accents */
+    --brand-blue: 199 89% 48%;
+    --brand-orange: 25 95% 53%;
+    --brand-dark: 222 47% 11%;
+    --brand-light: 210 40% 98%;
 
-    /* Shadows */
-    --shadow-sm: 0 2px 8px -2px hsl(30 10% 15% / 0.06);
-    --shadow-md: 0 8px 24px -8px hsl(30 10% 15% / 0.1);
-    --shadow-lg: 0 16px 48px -12px hsl(30 10% 15% / 0.12);
-    --shadow-xl: 0 24px 64px -16px hsl(30 10% 15% / 0.15);
-    --shadow-card: 0 4px 20px -4px hsl(30 10% 15% / 0.08);
-    --shadow-hover: 0 12px 32px -8px hsl(30 10% 15% / 0.12);
-    --shadow-button: 0 4px 16px -4px hsl(30 8% 20% / 0.25);
+    /* Shadows - Soft & Elegant */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-card: 0 4px 6px -1px rgba(14, 165, 233, 0.05), 0 2px 4px -2px rgba(14, 165, 233, 0.05);
+    --shadow-hover: 0 20px 25px -5px rgba(14, 165, 233, 0.15), 0 8px 10px -6px rgba(14, 165, 233, 0.1);
+    --shadow-button: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
   }
 
   .dark {
-    --background: 30 10% 8%;
-    --foreground: 40 20% 95%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 30 10% 12%;
-    --card-foreground: 40 20% 95%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 30 10% 12%;
-    --popover-foreground: 40 20% 95%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 40 30% 92%;
-    --primary-foreground: 30 10% 10%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 30 10% 18%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 25 95% 53%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 30 10% 15%;
-    --muted-foreground: 35 15% 60%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 35 20% 25%;
-    --accent-foreground: 40 20% 95%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 60% 45%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 30 10% 20%;
-    --input: 30 10% 18%;
-    --ring: 40 30% 80%;
-
-    --sidebar-background: 30 10% 10%;
-    --sidebar-foreground: 40 20% 90%;
-    --sidebar-primary: 40 30% 85%;
-    --sidebar-primary-foreground: 30 10% 10%;
-    --sidebar-accent: 30 10% 18%;
-    --sidebar-accent-foreground: 40 20% 90%;
-    --sidebar-border: 30 10% 20%;
-    --sidebar-ring: 40 30% 80%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 89% 48%;
   }
 }
 
@@ -129,7 +121,6 @@
   }
 
   html {
-    direction: rtl;
     scroll-behavior: smooth;
   }
 
@@ -138,7 +129,12 @@
     font-family: 'Cairo', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Cairo', sans-serif;
     @apply font-bold tracking-tight;
   }
@@ -153,11 +149,11 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-brand-taupe rounded-full;
+    @apply bg-[#0EA5E9]/50 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-brand-charcoal;
+    @apply bg-[#0EA5E9];
   }
 }
 
@@ -258,12 +254,10 @@
 
   .shimmer {
     @apply relative overflow-hidden;
-    background: linear-gradient(
-      90deg,
-      hsl(var(--muted)) 0%,
-      hsl(var(--accent)) 50%,
-      hsl(var(--muted)) 100%
-    );
+    background: linear-gradient(90deg,
+        hsl(var(--muted)) 0%,
+        hsl(var(--accent)) 50%,
+        hsl(var(--muted)) 100%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
@@ -272,6 +266,7 @@
     0% {
       background-position: 200% 0;
     }
+
     100% {
       background-position: -200% 0;
     }
@@ -327,5 +322,24 @@
 
   .aspect-hero {
     aspect-ratio: 16/9;
+  }
+
+  /* Marquee Animation for Brands */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-25%);
+    }
+
+    /* Loop point for 4x duplicated content */
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+    min-width: max-content;
   }
 }

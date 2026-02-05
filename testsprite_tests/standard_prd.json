@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "project": "Stroller Chic",
+    "date": "2026-02-04",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "Stroller Chic is an e-commerce platform dedicated to luxury baby strollers, offering users a refined shopping experience with product browsing, detailed views, a seamless checkout process, and an admin dashboard for store management.",
+  "core_goals": [
+    "Provide an elegant and user-friendly platform for customers to browse and purchase luxury baby strollers.",
+    "Ensure smooth and secure user authentication through login and registration functionalities.",
+    "Enable customers to easily add products to their cart and complete purchases via a streamlined checkout process.",
+    "Offer detailed product information to help customers make informed buying decisions.",
+    "Equip store administrators with comprehensive tools to manage the product catalog and orders through an admin dashboard.",
+    "Support efficient local development and deployment workflows to maintain agility."
+  ],
+  "key_features": [
+    "Home Page as a welcoming landing page for the e-commerce site.",
+    "Shop Page showcasing a comprehensive product catalog with listing capabilities.",
+    "Product Details Page providing in-depth information about individual products.",
+    "Shopping Cart Page allowing customers to view and modify their selected items.",
+    "Checkout Page facilitating a secure and user-friendly checkout experience.",
+    "User Authentication Pages including Login and Registration for account management.",
+    "Admin Dashboard enabling store management including product and order handling.",
+    "Modern tech stack utilizing TypeScript, React, Vite, TailwindCSS, Shadcn UI, React Router, Tanstack Query, Zod, Zustand, and Supabase for robust frontend and backend integration.",
+    "Local development support with Bun package manager and straightforward build and deployment processes."
+  ],
+  "user_flow_summary": [
+    "Visitors land on the Home Page to get introduced to Stroller Chic and navigate to product listings.",
+    "Users browse the Shop Page to view available luxury baby strollers and select products for more detail.",
+    "On the Product Details Page, users examine features, images, and pricing of chosen strollers.",
+    "Customers add products to their Cart and review selections on the Cart Page with options to modify quantities or remove items.",
+    "Users proceed to Checkout, entering payment and shipping details to finalize their purchases securely.",
+    "New users can register for an account, while returning users log in to access personalized features and order history.",
+    "Admins access the Admin Dashboard for managing products and orders efficiently.",
+    "Throughout, users experience seamless navigation supported by React Router and data management with Tanstack Query and Zustand."
+  ],
+  "validation_criteria": [
+    "All pages (Home, Shop, Product Details, Cart, Checkout, Login, Register, Admin Dashboard) load correctly and render as expected across supported browsers.",
+    "User authentication workflows (registration, login, logout) function securely and reliably with proper input validation and error handling.",
+    "Product listing and details accurately display information retrieved from the backend and update dynamically as needed.",
+    "Cart management correctly reflects user actions including adding, removing, and updating product quantities.",
+    "Checkout process completes successfully with proper order placement and confirmation feedback.",
+    "Admin Dashboard allows authorized users to perform management tasks without errors or security breaches.",
+    "Local development environment setup instructions allow developers to run, build, and deploy the app without issues.",
+    "UI components are responsive and accessible, adhering to modern design and usability standards."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "React",
+      "Vite",
+      "TailwindCSS",
+      "Shadcn UI",
+      "React Router",
+      "Tanstack Query",
+      "Zod",
+      "Zustand",
+      "Supabase"
+    ],
+    "features": [
+      {
+        "name": "Home Page",
+        "description": "Landing page of the e-commerce site",
+        "files": [
+          "src/pages/Index.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Shop Page",
+        "description": "Product listing page",
+        "files": [
+          "src/pages/Shop.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Product Details",
+        "description": "Detailed view of a product",
+        "files": [
+          "src/pages/ProductDetailsPage.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Cart",
+        "description": "Shopping cart page",
+        "files": [
+          "src/pages/CartPage.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Checkout",
+        "description": "Checkout process",
+        "files": [
+          "src/pages/CheckoutPage.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Login",
+        "description": "User login page",
+        "files": [
+          "src/pages/LoginPage.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Register",
+        "description": "User registration page",
+        "files": [
+          "src/pages/RegisterPage.tsx"
+        ],
+        "api_doc": {}
+      },
+      {
+        "name": "Admin Dashboard",
+        "description": "Admin area for managing the store",
+        "files": [
+          "src/pages/admin/Dashboard.tsx"
+        ],
+        "api_doc": {}
+      }
+    ]
+  }
+}

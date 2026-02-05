@@ -2,6 +2,10 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Product, ProductVariant } from '@/data/products';
 
+// ============================================================================
+// Types
+// ============================================================================
+
 export interface CartItem {
   product: Product;
   variant: ProductVariant;
@@ -19,18 +23,14 @@ export interface CheckoutData {
 }
 
 interface CartStore {
+  // State
   items: CartItem[];
   isOpen: boolean;
   promoCode: string;
   promoDiscount: number;
   checkoutData: CheckoutData | null;
-  lastOrder: {
-    orderId: string;
-    items: CartItem[];
-    total: number;
-    checkoutData: CheckoutData;
-  } | null;
-  
+  lastOrder: any | null;
+
   // Actions
   addItem: (product: Product, variant: ProductVariant, quantity?: number) => void;
   removeItem: (productId: string, variantColor: string) => void;
@@ -41,14 +41,18 @@ interface CartStore {
   closeCart: () => void;
   applyPromoCode: (code: string) => boolean;
   setCheckoutData: (data: CheckoutData) => void;
-  placeOrder: () => string;
-  
+  placeOrder: (totalsOverride?: { shipping: number; total: number }) => Promise<string>;
+
   // Computed
   getItemCount: () => number;
   getSubtotal: () => number;
-  getShippingFee: (city: string) => number;
-  getTotal: (city?: string) => number;
+  getShippingFee: () => number;
+  getTotal: () => number;
 }
+
+// ============================================================================
+// Constants
+// ============================================================================
 
 const PROMO_CODES: Record<string, number> = {
   'WELCOME10': 10,
@@ -56,9 +60,17 @@ const PROMO_CODES: Record<string, number> = {
   'VIP15': 15,
 };
 
+const FREE_SHIPPING_THRESHOLD = 5000;
+const SHIPPING_FEE = 75;
+
+// ============================================================================
+// Store
+// ============================================================================
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
+      // Initial State
       items: [],
       isOpen: false,
       promoCode: '',
@@ -66,25 +78,32 @@ export const useCartStore = create<CartStore>()(
       checkoutData: null,
       lastOrder: null,
 
+      // Add item to cart
       addItem: (product, variant, quantity = 1) => {
         set((state) => {
           const existingIndex = state.items.findIndex(
             (item) => item.product.id === product.id && item.variant.color === variant.color
           );
 
+          const maxQty = product.stockQuantity ?? 5;
+
           if (existingIndex > -1) {
+            const currentQty = state.items[existingIndex].quantity;
+            if (currentQty >= maxQty) return state;
+
             const newItems = [...state.items];
-            newItems[existingIndex].quantity += quantity;
+            newItems[existingIndex].quantity = Math.min(currentQty + quantity, maxQty);
             return { items: newItems, isOpen: true };
           }
 
           return {
-            items: [...state.items, { product, variant, quantity }],
+            items: [...state.items, { product, variant, quantity: Math.min(quantity, maxQty) }],
             isOpen: true,
           };
         });
       },
 
+      // Remove item from cart
       removeItem: (productId, variantColor) => {
         set((state) => ({
           items: state.items.filter(
@@ -93,6 +112,7 @@ export const useCartStore = create<CartStore>()(
         }));
       },
 
+      // Update item quantity
       updateQuantity: (productId, variantColor, quantity) => {
         if (quantity <= 0) {
           get().removeItem(productId, variantColor);
@@ -100,30 +120,27 @@ export const useCartStore = create<CartStore>()(
         }
 
         set((state) => ({
-          items: state.items.map((item) =>
-            item.product.id === productId && item.variant.color === variantColor
-              ? { ...item, quantity }
-              : item
-          ),
+          items: state.items.map((item) => {
+            if (item.product.id === productId && item.variant.color === variantColor) {
+              const maxQty = item.product.stockQuantity ?? 5;
+              return { ...item, quantity: Math.min(quantity, maxQty) };
+            }
+            return item;
+          }),
         }));
       },
 
+      // Clear cart
       clearCart: () => {
         set({ items: [], promoCode: '', promoDiscount: 0 });
       },
 
-      toggleCart: () => {
-        set((state) => ({ isOpen: !state.isOpen }));
-      },
+      // Cart visibility
+      toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
+      openCart: () => set({ isOpen: true }),
+      closeCart: () => set({ isOpen: false }),
 
-      openCart: () => {
-        set({ isOpen: true });
-      },
-
-      closeCart: () => {
-        set({ isOpen: false });
-      },
-
+      // Promo code
       applyPromoCode: (code) => {
         const discount = PROMO_CODES[code.toUpperCase()];
         if (discount) {
@@ -133,34 +150,55 @@ export const useCartStore = create<CartStore>()(
         return false;
       },
 
-      setCheckoutData: (data) => {
-        set({ checkoutData: data });
-      },
+      // Checkout data
+      setCheckoutData: (data) => set({ checkoutData: data }),
 
-      placeOrder: () => {
+      // Place order
+      placeOrder: async (totalsOverride) => {
         const state = get();
-        const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-        
+
+        const authModule = await import('../store/authStore');
+        const { user } = authModule.useAuthStore.getState();
+        const { orderService } = await import('../services/orderService');
+
+        const subtotal = state.getSubtotal();
+        const shipping = totalsOverride?.shipping ?? state.getShippingFee();
+        const total = totalsOverride?.total ?? (subtotal + shipping);
+
+        const order = await orderService.createOrder(
+          state.items,
+          state.checkoutData!,
+          { subtotal, shipping, total },
+          user?.id || null
+        );
+
+        if (!order) {
+          throw new Error("Failed to create order");
+        }
+
+        // Send email confirmation (non-blocking)
+        import('../services/emailService').then(({ emailService }) => {
+          emailService.init();
+          emailService.sendOrderConfirmation(order);
+        }).catch(err => console.error("[Cart] Email failed:", err));
+
         set({
-          lastOrder: {
-            orderId,
-            items: state.items,
-            total: state.getTotal(state.checkoutData?.city),
-            checkoutData: state.checkoutData!,
-          },
+          lastOrder: order,
           items: [],
           promoCode: '',
           promoDiscount: 0,
           checkoutData: null,
         });
 
-        return orderId;
+        return order.id;
       },
 
+      // Computed: Item count
       getItemCount: () => {
         return get().items.reduce((sum, item) => sum + item.quantity, 0);
       },
 
+      // Computed: Subtotal
       getSubtotal: () => {
         return get().items.reduce(
           (sum, item) => sum + item.product.price * item.quantity,
@@ -168,20 +206,16 @@ export const useCartStore = create<CartStore>()(
         );
       },
 
-      getShippingFee: (city) => {
+      // Computed: Shipping fee
+      getShippingFee: () => {
         const subtotal = get().getSubtotal();
-        if (subtotal >= 5000) return 0; // Free shipping over 5000 EGP
-        
-        const cairoGiza = ['القاهرة', 'الجيزة', 'cairo', 'giza'];
-        if (cairoGiza.some((c) => city.toLowerCase().includes(c.toLowerCase()))) {
-          return 50;
-        }
-        return 100; // Other governorates
+        return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
       },
 
-      getTotal: (city = 'القاهرة') => {
+      // Computed: Total
+      getTotal: () => {
         const subtotal = get().getSubtotal();
-        const shipping = get().getShippingFee(city);
+        const shipping = get().getShippingFee();
         const discountAmount = (subtotal * get().promoDiscount) / 100;
         return subtotal - discountAmount + shipping;
       },

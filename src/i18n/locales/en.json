@@ -28,21 +28,191 @@
     "loading": "Loading...",
     "noResults": "No Results",
     "showMore": "Show More",
-    "showLess": "Show Less"
+    "showLess": "Show Less",
+    "viewAll": "View All",
+    "products": "Products",
+    "noProducts": "No products found matching your filters.",
+    "clearFilters": "Clear Filters",
+    "pageInfo": "Page {{current}} of {{total}}"
+  },
+  "footer": {
+    "aboutDesc": "We specialize in providing the best baby products.",
+    "quickLinks": "Quick Links",
+    "customerService": "Customer Service",
+    "contact": "Contact Us",
+    "address": "Cairo, Heliopolis<br />El Merghany St, Building 25",
+    "rights": "© {{year}} BabyislandEG. All rights reserved."
   },
   "nav": {
     "home": "Home",
     "shop": "Shop",
     "categories": "Categories",
-    "about": "About",
     "contact": "Contact",
     "cart": "Cart",
-    "account": "Account"
+    "account": "Account",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "about": "About Us",
+    "trackOrder": "Track Your Order"
+  },
+  "header": {
+    "topBar": {
+      "freeShipping": "🚚 Free Shipping on orders over 5,000 EGP",
+      "warranty": "✅ 3-Year Warranty",
+      "returns": "🔄 Easy 14-Day Returns"
+    },
+    "slogan": "WE SELL HAPPINESS"
+  },
+  "trust": {
+    "freeShipping": "Free Shipping",
+    "freeShippingDesc": "On orders over 5,000 EGP",
+    "warranty": "Comprehensive Warranty",
+    "warrantyDesc": "Up to 3 years",
+    "easyReturns": "Easy Returns",
+    "easyReturnsDesc": "Within 14 days",
+    "support": "Technical Support",
+    "supportDesc": "Available 24/7",
+    "cashOnDelivery": "Cash on Delivery",
+    "cashOnDeliveryDesc": "Available nationwide"
+  },
+  "categories": {
+    "all": "All Categories",
+    "strollersGear": "Strollers & Gear",
+    "feeding": "Feeding",
+    "toys": "Toys",
+    "nursery": "Nursery",
+    "bathing": "Bathing",
+    "lightweight": "Lightweight",
+    "lightweightDesc": "Easy to carry",
+    "travelSystem": "Travel System",
+    "travelSystemDesc": "Includes car seat",
+    "twin": "Twin",
+    "twinDesc": "For two babies",
+    "jogger": "Jogger",
+    "joggerDesc": "For sports",
+    "premium": "Premium",
+    "premiumDesc": "Top quality"
+  },
+  "about": {
+    "title": "About Us",
+    "heroTitle": "About Us",
+    "heroSubtitle": "BabyIslandEG specializes in premium baby products designed for comfort, safety, and convenience",
+    "ctaShop": "Shop Now",
+    "ctaContact": "Contact Us",
+    "offer": {
+      "title": "What We Offer",
+      "description": "Carefully selected to support your baby's growth and parenthood journey.",
+      "items": [
+        "High-quality Strollers",
+        "Comfortable Baby Carriers",
+        "Safe Car Seats",
+        "Cozy Carrycots",
+        "Practical High Chairs",
+        "Engaging Educational Toys"
+      ]
+    },
+    "services": {
+      "title": "Our Services",
+      "items": {
+        "delivery": "Fast Delivery Nationwide",
+        "discount": "Exclusive Discounts",
+        "support": "Dedicated Customer Support",
+        "returns": "Easy Return Policy"
+      }
+    },
+    "stores": {
+      "title": "Our Branches",
+      "mokattam": {
+        "name": "Mokattam Branch",
+        "address": "Modern University St - Middle Plateau - Mokattam (Opposite Koshary Abu Hanafy)"
+      },
+      "october": {
+        "name": "6th of October Branch",
+        "address": "Glory Mall, Central Axis, 10th District, October, Giza"
+      },
+      "hours": {
+        "weekdays": "Sat–Thu: 12:00 PM – 11:00 PM",
+        "friday": "Fri: 1:00 PM – 11:00 PM"
+      }
+    },
+    "support": {
+      "title": "Customer Support",
+      "phoneLabel": "WhatsApp / Phone:",
+      "emailLabel": "Email:",
+      "availability": "We are here to help you all week"
+    },
+    "returns": {
+      "title": "Return & Refund Policy",
+      "items": [
+        "14 days for return/exchange (original condition & packaging)",
+        "30 days for manufacturing defects",
+        "Refund within 3–10 business days after receipt & inspection",
+        "Return shipping covered by company only for: defects / wrong description",
+        "Some items non-returnable for hygiene reasons (e.g., diapers)"
+      ]
+    },
+    "afterSales": {
+      "title": "After-Sales & Consumer Rights",
+      "items": [
+        "Online Orders: Inspect upon delivery before payment (model/parts/color...)",
+        "In-Store: Physical samples available for inspection & trial",
+        "Inspect product before leaving the store",
+        "14-day return/exchange window per policy",
+        "30 days for manufacturing defects",
+        "After-sales support + professional lifetime maintenance"
+      ]
+    },
+    "finalCta": {
+      "title": "Ready to Help?",
+      "subtitle": "Our team is waiting to answer all your inquiries"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "sections": {
+      "collection": "Information We Collect",
+      "usage": "How We Use Information",
+      "sharing": "Data Sharing",
+      "cookies": "Cookies",
+      "contact": "Contact Us"
+    },
+    "placeholder": "Detailed text will be added here soon."
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "sections": {
+      "usage": "Terms of Use",
+      "orders": "Orders & Payment",
+      "shipping": "Shipping & Delivery",
+      "returns": "Returns & Exchange",
+      "liability": "Limitation of Liability"
+    },
+    "placeholder": "Detailed text will be added here soon."
   },
   "home": {
     "heroTitle": "Premium Baby Strollers",
     "heroSubtitle": "Because Your Baby Deserves the Best",
     "heroDescription": "Discover our exclusive collection of luxury baby strollers designed for comfort and safety",
+    "newArrival": "New Arrival ✨",
+    "hero": {
+      "slide1": {
+        "title1": "Baby Strollers",
+        "title2": "Premium",
+        "desc": "Discover our exclusive collection of luxury baby strollers designed for comfort and safety. Because your baby deserves the best."
+      },
+      "slide2": {
+        "title1": "Modern",
+        "title2": "Designs",
+        "desc": "Unmatched elegance with high-quality materials that suit your modern lifestyle."
+      },
+      "slide3": {
+        "title1": "Car Seats",
+        "title2": "Safe",
+        "desc": "Maximum protection for your child while on the move with globally certified car seats. Your child's safety is our priority."
+      }
+    },
     "shopNow": "Shop Now",
     "exploreCollection": "Explore Collection",
     "bestSellers": "Best Sellers",
@@ -56,6 +226,265 @@
     "faq": "FAQ",
     "faqDesc": "Answers to frequently asked questions",
     "newsletter": "Subscribe to Newsletter",
-    "newsletterDesc": "Get the latest offers and discounts"
+    "newsletterDesc": "Get the latest offers and discounts",
+    "newArrivalsTitle": "New Arrivals",
+    "browseByCategory": "BROWSE BY CATEGORY",
+    "ctaTitle": "Ready to choose your baby stroller?",
+    "ctaDesc": "Browse our full collection and enjoy free shipping on orders over 5000 EGP"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Enter your full name",
+      "email": "Enter your email",
+      "phone": "Enter your phone number",
+      "subject": "What is this regarding?",
+      "message": "Type your message here..."
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailInvalid": "Please enter a valid email address",
+      "messageRequired": "Message is required"
+    },
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "successToast": {
+      "title": "Message Sent",
+      "description": "We have received your message and will get back to you shortly."
+    },
+    "fallbackToast": {
+      "title": "Opening Email Client",
+      "description": "Please send the pre-filled email from your preferred mail app."
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "itemCount": "item",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Start shopping and discover our amazing products",
+    "shopNow": "Shop Now",
+    "continueShopping": "Continue Shopping",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "total": "Total",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "color": "Color",
+    "freeShippingNote": "Free shipping on orders over 5000 EGP",
+    "freeShippingCongrats": "🎉 Congratulations! Free shipping",
+    "addMoreForFree": "Add products worth",
+    "forFreeShipping": "for free shipping 🚚",
+    "free": "Free"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "customerInfo": "Customer Info",
+    "shippingInfo": "Shipping Info",
+    "paymentMethod": "Payment Method",
+    "orderSummary": "Order Summary",
+    "itemCount": "Items Count",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "email": "Email",
+    "emailOptional": "Email (Optional)",
+    "city": "City/Governorate",
+    "cityPlaceholder": "e.g. Cairo",
+    "address": "Detailed Address",
+    "addressPlaceholder": "Street - Building - Apartment",
+    "notes": "Additional Notes",
+    "notesOptional": "Additional Notes (Optional)",
+    "required": "*",
+    "cashOnDelivery": "Cash on Delivery",
+    "creditCard": "Credit Card",
+    "vodafoneCash": "Vodafone Cash",
+    "comingSoon": "Coming Soon",
+    "placeOrder": "Place Order",
+    "processing": "Processing your order...",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "free": "Free",
+    "paymentNotAvailable": "This payment method is not available",
+    "emptyCart": "Your cart is empty",
+    "emptyCartDesc": "Add products to your cart before checkout",
+    "shopNow": "Shop Now",
+    "haveAccount": "Already have an account?",
+    "loginToTrack": "Login to track your order easily",
+    "loginNow": "Login Now",
+    "validation": {
+      "nameRequired": "Name is required",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number",
+      "cityRequired": "City is required",
+      "addressRequired": "Address is required"
+    },
+    "discountCode": "Discount Code",
+    "apply": "Apply",
+    "discount": "Discount",
+    "validateCoupon": "Please enter a discount code",
+    "couponApplied": "Coupon applied!",
+    "invalidCoupon": "Invalid coupon code",
+    "removeCoupon": "Coupon removed"
+  },
+  "orderSuccess": {
+    "title": "Order Placed Successfully!",
+    "thankYou": "Thank you for your order",
+    "orderNumber": "Order Number",
+    "orderDetails": "Order Details",
+    "total": "Total",
+    "deliveryInfo": "Delivery Information",
+    "name": "Name",
+    "phone": "Phone",
+    "city": "City",
+    "address": "Address",
+    "deliveryNote": "📦 We will contact you within 24 hours to confirm delivery time",
+    "continueShopping": "Continue Shopping",
+    "backToHome": "Back to Home",
+    "noOrder": "No Order",
+    "noOrderDesc": "No order details found"
+  },
+  "auth": {
+    "email": "Email",
+    "emailPlaceholder": "example@email.com",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "phone": "Phone Number",
+    "login": {
+      "title": "Login",
+      "subtitle": "Welcome back",
+      "submit": "Login",
+      "processing": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Create Account",
+      "continueGuest": "Continue as Guest",
+      "forgotPassword": "Forgot Password?"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join us today",
+      "submit": "Create Account",
+      "processing": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login"
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email address",
+      "emailExists": "Email already registered",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "confirmRequired": "Confirm password is required",
+      "passwordMismatch": "Passwords do not match",
+      "invalidCredentials": "Invalid email or password",
+      "loginFailed": "Login failed",
+      "registerFailed": "Registration failed"
+    }
+  },
+  "account": {
+    "title": "My Account",
+    "welcome": "Welcome",
+    "profileInfo": "Profile Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "orders": "My Orders",
+    "noOrders": "No orders yet",
+    "startShopping": "Start Shopping",
+    "logout": "Logout",
+    "adminPanel": "Admin Panel",
+    "totalOrder": "Total",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "welcome": "Welcome",
+    "orders": "Orders",
+    "products": "Products",
+    "customers": "Customers",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "totalCustomers": "Total Customers",
+    "totalProducts": "Total Products",
+    "items": "items",
+    "comingSoon": "Coming Soon",
+    "backToAccount": "Back to Account",
+    "migration": {
+      "confirmStart": "Start migration? This will upload local products to Supabase.",
+      "dbHasProducts": "Database already has {{count}} products. Continue anyway (may duplicate)?",
+      "batchError": "Batch error: {{error}}",
+      "complete": "Migration Complete! Uploaded: {{success}}, Failed: {{fail}}",
+      "failed": "Migration Failed: {{error}}",
+      "button": "Migrate Local Products to DB",
+      "migrating": "Migrating Data..."
+    },
+    "stats": {
+      "totalRevenue": "Total Revenue",
+      "activeOrders": "Active Orders",
+      "productsInStock": "Products in Stock",
+      "activeNow": "Active Now",
+      "change": {
+        "lastMonth": "from last month",
+        "lastHour": "since last hour",
+        "newProducts": "new products"
+      }
+    },
+    "systemStatus": {
+      "title": "System Status",
+      "desc": "Database connection and sync status.",
+      "connected": "Supabase Connected"
+    }
+  },
+  "footer": {
+    "newsletterTitle": "STAY UP TO DATE ABOUT OUR LATEST OFFERS",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeNewsletter": "Subscribe to Newsletter",
+    "company": "COMPANY",
+    "help": "HELP",
+    "faq": "FAQ",
+    "resources": "RESOURCES",
+    "about": "About",
+    "features": "Features",
+    "works": "Works",
+    "career": "Career",
+    "customerSupport": "Customer Support",
+    "deliveryDetails": "Delivery Details",
+    "termsConditions": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "account": "Account",
+    "manageDeliveries": "Manage Deliveries",
+    "orders": "Orders",
+    "payments": "Payments",
+    "freeEbooks": "Free eBooks",
+    "developmentTutorial": "Development Tutorial",
+    "howTo": "How to - Blog",
+    "youtubePlaylist": "Youtube Playlist",
+    "aboutDesc": "We have products that suits your style and which you're proud to buy. For your baby's comfort.",
+    "copyright": "Shop.co © 2000-{{year}}, All Rights Reserved",
+    "contact": "Contact Us",
+    "address": "123 Baby Street, Cairo, Egypt",
+    "quickLinks": "Quick Links",
+    "customerService": "Customer Service"
   }
 }

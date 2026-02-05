@@ -1,0 +1,18 @@
+{
+  "status": "commited",
+  "type": "backend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:8080",
+  "backendAuthType": "public",
+  "executionArgs": {
+    "projectName": "stroller-chic",
+    "projectPath": "c:\\Users\\DELL\\Desktop\\New folder (2)\\stroller-chic",
+    "testIds": [],
+    "additionalInstruction": "IMPORTANT: The backend is NOT available. You MUST generate tests that MOCK all API network requests (e.g. using page.route() in Playwright or equivalent) to return dummy successful 200 responses. Do NOT attempt to hit real endpoints. Focus on verifying UI rendering, navigation, and client-side success states. Ignore 'backend verification' steps in the plan.",
+    "envs": {
+      "API_KEY": "sk-user-XiFeo4q5IopygCxFamIM-p4EfTcNGXxP4GIdzhkbQ7sel08CSHZ_bdfVs5EW5LjOS9YevTent0y1-rWY0-JlQ1IhNoy1aJ4VjdxV0OzoVTd0TrgfPt4mJZ-DztqSmVN_U_s"
+    }
+  },
+  "serverPort": 54776,
+  "proxy": "http://9cfc1afa-1eea-4a6f-a906-a8b193a2ff43:ke4s8VzgtRlKGKLWAjm2pkfXrOAZMIBt@tun.testsprite.com:8080"
+}

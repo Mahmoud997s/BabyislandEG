@@ -1,0 +1,66 @@
+[
+  {
+    "category_id": "kafh-almntjat",
+    "name_ar": "كافة المنتجات",
+    "name_en": "All Products",
+    "slug": "kafh-almntjat",
+    "url": null,
+    "parent": null
+  },
+  {
+    "category_id": "strollers-gear",
+    "name_ar": "عربات وتنقل",
+    "name_en": "Strollers & Gear",
+    "slug": "strollers-gear",
+    "url": null,
+    "parent": "kafh-almntjat"
+  },
+  {
+    "category_id": "feeding",
+    "name_ar": "مستلزمات الرضاعة",
+    "name_en": "Feeding",
+    "slug": "feeding",
+    "url": null,
+    "parent": "kafh-almntjat"
+  },
+  {
+    "category_id": "bathing",
+    "name_ar": "مستلزمات الاستحمام",
+    "name_en": "Bathing",
+    "slug": "bathing",
+    "url": null,
+    "parent": "kafh-almntjat"
+  },
+  {
+    "category_id": "toys",
+    "name_ar": "ألعاب أطفال",
+    "name_en": "Toys",
+    "slug": "toys",
+    "url": null,
+    "parent": "kafh-almntjat"
+  },
+  {
+    "category_id": "clothing",
+    "name_ar": "ملابس",
+    "name_en": "Clothing",
+    "slug": "clothing",
+    "url": null,
+    "parent": "kafh-almntjat"
+  },
+  {
+    "category_id": "maternity",
+    "name_ar": "مستلزمات الأم",
+    "name_en": "Maternity",
+    "slug": "maternity",
+    "url": null,
+    "parent": "kafh-almntjat"
+  },
+  {
+    "category_id": "nursery",
+    "name_ar": "غرفة الطفل",
+    "name_en": "Nursery",
+    "slug": "nursery",
+    "url": null,
+    "parent": "kafh-almntjat"
+  }
+]

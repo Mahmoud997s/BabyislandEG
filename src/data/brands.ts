@@ -1,0 +1,17 @@
+export const BRANDS = [
+    { name: "Chicco", src: "/brands/chicco.svg" },
+    { name: "Joie", src: "/brands/joie.svg" },
+    { name: "Kinderkraft", src: "/brands/kinderkraft.svg" },
+    { name: "Kidilo", src: "/brands/kidilo.svg" },
+    { name: "Belecoo", src: "/brands/belecoo.svg" },
+    { name: "Umbrella", src: "/brands/umbrella.svg" },
+    { name: "True Baby", src: "/brands/true-baby.svg" },
+    { name: "Safari Baby", src: "/brands/safari-baby.svg" },
+    { name: "Canpol Babies", src: "/brands/canpol-babies.svg" },
+    { name: "Philips Avent", src: "/brands/philips-avent.svg" },
+    { name: "Mastela", src: "/brands/mastela.svg" },
+    { name: "Junior", src: "/brands/junior.svg" },
+    { name: "Le Queen", src: "/brands/le-queen.svg" },
+    { name: "Lovi", src: "/brands/lovi.svg" },
+    { name: "Graco", src: "/brands/graco.svg" },
+];

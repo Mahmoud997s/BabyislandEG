@@ -32,6 +32,8 @@ const sizeClasses = {
   },
 };
 
+import { useTranslation } from "react-i18next";
+
 export function PriceDisplay({
   price,
   compareAtPrice,
@@ -40,25 +42,30 @@ export function PriceDisplay({
   className,
   showCurrency = true,
 }: PriceDisplayProps) {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
+
   const formatPrice = (value: number) => {
-    return value.toLocaleString("ar-EG");
+    return value.toLocaleString(i18n.language === 'ar' ? 'ar-EG' : 'en-US');
   };
+
+  const currencySymbol = i18n.language === 'ar' ? 'ج.م' : 'EGP';
 
   const classes = sizeClasses[size];
 
   return (
     <div className={cn("flex items-center gap-2 flex-wrap", className)}>
-      <span className={cn(classes.current, "text-primary")}>
+      <span className={cn(classes.current, "text-secondary")}>
         {formatPrice(price)}
-        {showCurrency && <span className="text-sm font-normal mr-1">ج.م</span>}
+        {showCurrency && <span className={cn("text-sm font-normal", isRTL ? "mr-1" : "ml-1")}>{currencySymbol}</span>}
       </span>
-      
+
       {compareAtPrice && compareAtPrice > price && (
         <span className={cn(classes.compare, "text-muted-foreground line-through")}>
           {formatPrice(compareAtPrice)}
         </span>
       )}
-      
+
       {discountPercentage && discountPercentage > 0 && (
         <span className={cn(
           classes.discount,

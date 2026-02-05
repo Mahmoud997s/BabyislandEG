@@ -1,0 +1,473 @@
+[
+  {
+    "id": "TC001",
+    "title": "Home Page Load and Render",
+    "description": "Verify the Home Page loads correctly and all key components render as expected on supported browsers.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Home Page URL"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that the main banner, navigation menu, and footer are visible and rendered"
+      },
+      {
+        "type": "assertion",
+        "description": "Validate responsive layout on desktop and mobile screen sizes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no JavaScript or rendering errors occur during page load"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Shop Page Product Listing Display",
+    "description": "Verify the Shop Page displays a comprehensive catalog of luxury baby strollers with correct details.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Shop Page"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that product tiles/cards display product names, images, prices, and brief descriptions"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure product listings update dynamically if the backend catalog changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm pagination or infinite scroll (if applicable) loads additional products without errors"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Product Details Page Display and Accuracy",
+    "description": "Verify detailed product information page shows accurate data for selected strollers including images, specs, and pricing.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Select a product from the Shop Page to open the Product Details Page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify product images load correctly and can be viewed in a gallery or zoom"
+      },
+      {
+        "type": "assertion",
+        "description": "Check all product specifications and price details match expected backend data"
+      },
+      {
+        "type": "assertion",
+        "description": "Validate presence and functionality of 'Add to Cart' button"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Shopping Cart Add, Modify, and Remove Items",
+    "description": "Verify that users can add products to the cart, update quantities, and remove items with correct updates reflecting in the UI.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Add a product from the Product Details Page to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Cart Page"
+      },
+      {
+        "type": "assertion",
+        "description": "Check if the added product appears with correct quantity, price, and total"
+      },
+      {
+        "type": "action",
+        "description": "Modify the quantity of the product in the cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that the price and total update accordingly"
+      },
+      {
+        "type": "action",
+        "description": "Remove the product from the cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart is empty and an appropriate message is shown"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Checkout Process with Valid Input",
+    "description": "Ensure the checkout process completes successfully when valid payment and shipping details are entered.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Add one or more products to the cart"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Checkout Page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid shipping address and payment information"
+      },
+      {
+        "type": "action",
+        "description": "Submit the order"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify order confirmation page is shown with order details"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that backend order records are created correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Checkout Process with Invalid Input Handling",
+    "description": "Verify the Checkout Page handles invalid or incomplete shipping/payment inputs with proper validation messages.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Checkout Page with items in the cart"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid shipping address details (e.g., missing required fields)"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the order"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify validation messages are displayed for the missing or invalid fields"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid payment information (e.g., incorrect card number format)"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the order"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm appropriate error messages prevent order submission"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "User Registration Happy Path",
+    "description": "Ensure new users can successfully register with valid inputs and receive confirmation.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Registration Page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid user details including email and password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm registration success message or redirection to login or dashboard"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "User Registration Input Validation Errors",
+    "description": "Verify user registration form displays proper validation errors for invalid or missing fields.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Registration Page"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form with missing mandatory fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Check the presence of validation error messages for required fields"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid email format"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify error message for invalid email format"
+      },
+      {
+        "type": "action",
+        "description": "Enter passwords that do not meet complexity requirements or mismatch"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm password validation error messages appear correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "User Login Success",
+    "description": "Verify that a registered user can log in successfully with valid credentials.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Login Page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid registered email and password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm user is redirected to intended landing page or dashboard with personalized content"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "User Login Failure with Invalid Credentials",
+    "description": "Verify that invalid login attempts show appropriate error messages without revealing sensitive information.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the Login Page"
+      },
+      {
+        "type": "action",
+        "description": "Enter incorrect email or password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that an error message is displayed indicating invalid credentials"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Admin Dashboard Access and Product Management",
+    "description": "Verify authorized admin users can access the Admin Dashboard to add, update, and delete products without errors.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as an admin user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Admin Dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard and product management UI load successfully"
+      },
+      {
+        "type": "action",
+        "description": "Add a new product with valid details"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm product appears in the catalog list"
+      },
+      {
+        "type": "action",
+        "description": "Edit an existing product's details"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify changes are saved and displayed correctly"
+      },
+      {
+        "type": "action",
+        "description": "Delete a product"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure product is removed from the catalog"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Admin Dashboard Order Management",
+    "description": "Verify that admin users can view and update orders efficiently with no unauthorized access.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as an admin user"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to the Orders section in the Admin Dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify order list loads with accurate details"
+      },
+      {
+        "type": "action",
+        "description": "Update order status or details"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm updates save successfully without errors"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Unauthorized Access Prevention for Admin Dashboard",
+    "description": "Ensure that non-admin users cannot access or perform actions in the Admin Dashboard.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Log in as a non-admin registered user"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to navigate to the Admin Dashboard URL"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is denied or redirected to a safe page"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to perform admin operations via API or UI"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm actions are rejected and proper error messages are returned"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Local Development Environment Setup Verification",
+    "description": "Validate that the local development environment can be set up, built, and deployed successfully using provided instructions and tooling.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Clone the project repository"
+      },
+      {
+        "type": "action",
+        "description": "Install dependencies using Bun package manager"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure that all dependencies install without errors"
+      },
+      {
+        "type": "action",
+        "description": "Run the development server locally"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm the app loads correctly in a browser"
+      },
+      {
+        "type": "action",
+        "description": "Build the project for production"
+      },
+      {
+        "type": "assertion",
+        "description": "Check build output completes without errors"
+      },
+      {
+        "type": "action",
+        "description": "Deploy the built version locally or to test environment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deployed app runs correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "UI Responsiveness and Accessibility Compliance",
+    "description": "Verify that UI components across pages are responsive and meet accessibility standards.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open key pages (Home, Shop, Product Details, Cart, Checkout, Login, Register, Admin Dashboard)"
+      },
+      {
+        "type": "assertion",
+        "description": "Test page layouts on multiple screen sizes (desktop, tablet, mobile)"
+      },
+      {
+        "type": "assertion",
+        "description": "Check for accessible elements: semantic markup, color contrast, keyboard navigation, and screen reader compatible labels"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no visual or layout breakage occurs when resizing or zooming the pages"
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+{
+    "tech_stack": [
+        "TypeScript",
+        "React",
+        "Vite",
+        "TailwindCSS",
+        "Shadcn UI",
+        "React Router",
+        "Tanstack Query",
+        "Zod",
+        "Zustand",
+        "Supabase"
+    ],
+    "features": [
+        {
+            "name": "Home Page",
+            "description": "Landing page of the e-commerce site",
+            "files": [
+                "src/pages/Index.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Shop Page",
+            "description": "Product listing page",
+            "files": [
+                "src/pages/Shop.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Product Details",
+            "description": "Detailed view of a product",
+            "files": [
+                "src/pages/ProductDetailsPage.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Cart",
+            "description": "Shopping cart page",
+            "files": [
+                "src/pages/CartPage.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Checkout",
+            "description": "Checkout process",
+            "files": [
+                "src/pages/CheckoutPage.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Login",
+            "description": "User login page",
+            "files": [
+                "src/pages/LoginPage.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Register",
+            "description": "User registration page",
+            "files": [
+                "src/pages/RegisterPage.tsx"
+            ],
+            "api_doc": {}
+        },
+        {
+            "name": "Admin Dashboard",
+            "description": "Admin area for managing the store",
+            "files": [
+                "src/pages/admin/Dashboard.tsx"
+            ],
+            "api_doc": {}
+        }
+    ]
+}

@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { useSettings } from "@/hooks/use-settings";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 import {
   Facebook,
   Instagram,
@@ -6,170 +9,249 @@ import {
   Phone,
   Mail,
   MapPin,
+  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const footerLinks = {
-  quickLinks: [
-    { href: "/", label: "الرئيسية" },
-    { href: "/shop", label: "المتجر" },
-    { href: "/about", label: "من نحن" },
-    { href: "/contact", label: "تواصل معنا" },
-  ],
-  customerService: [
-    { href: "/shipping", label: "الشحن والإرجاع" },
-    { href: "/privacy", label: "سياسة الخصوصية" },
-    { href: "/terms", label: "الشروط والأحكام" },
-  ],
-  categories: [
-    { href: "/shop?category=lightweight", label: "خفيفة الوزن" },
-    { href: "/shop?category=travel-system", label: "نظام السفر" },
-    { href: "/shop?category=twin", label: "توأم" },
-    { href: "/shop?category=jogger", label: "رياضية" },
-    { href: "/shop?category=premium", label: "فاخرة" },
-  ],
-};
+import { Input } from "@/components/ui/input";
+import { LocaleLink } from "@/components/LocaleLink";
 
 export function Footer() {
+  const { settings } = useSettings();
+  const { t } = useTranslation();
+  const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+
+  const footerLinks = {
+    quickLinks: [
+      { href: "/", label: t('nav.home') },
+      { href: "/shop", label: t('nav.shop') },
+      { href: "/about", label: t('nav.about') },
+      { href: "/contact", label: t('nav.contact') },
+    ],
+    categories: [
+      { href: "/shop?category=strollers-gear", label: t('categories.strollersGear') },
+      { href: "/shop?category=feeding", label: t('categories.feeding') },
+      { href: "/shop?category=toys", label: t('categories.toys') },
+      { href: "/shop?category=nursery", label: t('categories.nursery') },
+      { href: "/shop?category=bathing", label: t('categories.bathing') },
+    ],
+    customerService: [
+      { href: "/track-order", label: t('nav.trackOrder') },
+      { href: "/account", label: t('nav.account') },
+      { href: "/contact", label: t('footer.customerSupport', 'Customer Support') },
+      { href: "/shipping", label: t('footer.shippingInfo', 'Shipping Info') },
+    ],
+  };
+
   return (
-    <footer className="bg-primary text-primary-foreground">
-      {/* Main Footer */}
-      <div className="container-main py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* About */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-primary-foreground flex items-center justify-center">
-                <span className="text-primary font-bold text-lg">ب</span>
+    <footer className="bg-transparent">
+      {/* Newsletter Section */}
+      <section className="bg-black text-white py-8 lg:py-10">
+        <div className="container-main">
+          <div className="bg-black rounded-[20px] p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-6">
+            <h2 className="text-2xl lg:text-4xl font-black uppercase max-w-xl text-center lg:text-left">
+              {t('footer.newsletterTitle', 'STAY UP TO DATE ABOUT OUR LATEST OFFERS')}
+            </h2>
+
+            <div className="w-full lg:w-auto flex flex-col gap-3 min-w-[350px]">
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input
+                  type="email"
+                  placeholder={t('footer.emailPlaceholder', 'Enter your email address')}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-12 pr-4 py-6 rounded-full bg-white text-black border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                />
               </div>
-              <span className="text-xl font-bold">بيبي ستورز</span>
+              <Button
+                className="w-full py-6 rounded-full bg-white text-black hover:bg-gray-100 font-semibold"
+                onClick={() => {
+                  console.log('Subscribe:', email);
+                  setEmail('');
+                }}
+              >
+                {t('footer.subscribeNewsletter', 'Subscribe to Newsletter')}
+              </Button>
             </div>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6">
-              نحن متخصصون في توفير أفضل عربات الأطفال الفاخرة من أشهر الماركات
-              العالمية. نهتم براحة طفلك وسلامته.
+          </div>
+        </div>
+      </section>
+
+      {/* Main Footer */}
+      <section className="bg-[#F0F0F0] pt-12 pb-6">
+        <div className="container-main">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 mb-8">
+            {/* Logo & About */}
+            <div className="lg:col-span-3">
+              <Link to="/" className="flex items-center gap-3 mb-4">
+                <img
+                  src="/babyisland_logo_exact.png"
+                  alt="BabyislandEG"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div className="flex flex-col">
+                  <span className="text-xl font-black leading-tight" style={{ fontFamily: "'Nexa', sans-serif" }}>
+                    <span className="text-foreground">Babyisland</span>
+                    <span className="text-[#F97316]">EG</span>
+                  </span>
+                </div>
+              </Link>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                {t('footer.aboutDesc', 'Your trusted destination for all baby essentials. Quality products for your little ones.')}
+              </p>
+
+              {/* Contact Info */}
+              <div className="space-y-2 mb-4">
+                <a href="tel:+201234567890" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-4 h-4" />
+                  <span dir="ltr">+20 123 456 7890</span>
+                </a>
+                <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{t('footer.whatsapp', 'WhatsApp')}</span>
+                </a>
+                <a href="mailto:info@babyislandeg.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <Mail className="w-4 h-4" />
+                  <span>info@babyislandeg.com</span>
+                </a>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex items-center gap-3">
+                {settings?.facebook_url && (
+                  <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full w-9 h-9 border-gray-200 hover:bg-black hover:text-white transition-colors"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="w-4 h-4" />
+                    </Button>
+                  </a>
+                )}
+                {settings?.instagram_url && (
+                  <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full w-9 h-9 border-gray-200 hover:bg-black hover:text-white transition-colors"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="w-4 h-4" />
+                    </Button>
+                  </a>
+                )}
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full w-9 h-9 border-gray-200 hover:bg-black hover:text-white transition-colors"
+                    aria-label="Twitter"
+                  >
+                    <Twitter className="w-4 h-4" />
+                  </Button>
+                </a>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="lg:col-span-2">
+              <h3 className="font-bold text-base uppercase tracking-wider mb-6">
+                {t('footer.quickLinks', 'Quick Links')}
+              </h3>
+              <ul className="space-y-3">
+                {footerLinks.quickLinks.map((link) => (
+                  <li key={link.href}>
+                    <LocaleLink
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </LocaleLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Categories */}
+            <div className="lg:col-span-2">
+              <h3 className="font-bold text-base uppercase tracking-wider mb-6">
+                {t('nav.categories')}
+              </h3>
+              <ul className="space-y-3">
+                {footerLinks.categories.map((link) => (
+                  <li key={link.href}>
+                    <LocaleLink
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </LocaleLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Customer Service */}
+            <div className="lg:col-span-2">
+              <h3 className="font-bold text-base uppercase tracking-wider mb-6">
+                {t('footer.customerService', 'Customer Service')}
+              </h3>
+              <ul className="space-y-3">
+                {footerLinks.customerService.map((link) => (
+                  <li key={link.href}>
+                    <LocaleLink
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </LocaleLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Address */}
+            <div className="lg:col-span-3">
+              <h3 className="font-bold text-base uppercase tracking-wider mb-6">
+                {t('footer.address', 'Address')}
+              </h3>
+              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4 mt-0.5" />
+                <span>{t('footer.fullAddress', 'Cairo, Egypt')}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground">
+              © {currentYear} BabyislandEG. {t('footer.allRightsReserved', 'All Rights Reserved')}
             </p>
-            <div className="flex items-center gap-3">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </Button>
+
+            {/* Payment Icons */}
+            <div className="flex items-center gap-2">
+              <div className="px-2 py-1 bg-white rounded border border-gray-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" className="h-5 w-auto" />
+              </div>
+              <div className="px-2 py-1 bg-white rounded border border-gray-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-5 w-auto" />
+              </div>
+              <div className="px-2 py-1 bg-white rounded border border-gray-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-5 w-auto" />
+              </div>
+              <div className="px-2 py-1 bg-white rounded border border-gray-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Pay" className="h-4 w-auto" />
+              </div>
+              <div className="px-2 py-1 bg-white rounded border border-gray-200">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="Google Pay" className="h-5 w-auto" />
+              </div>
             </div>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold mb-4">روابط سريعة</h3>
-            <ul className="space-y-3">
-              {footerLinks.quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Customer Service */}
-          <div>
-            <h3 className="font-semibold mb-4">خدمة العملاء</h3>
-            <ul className="space-y-3">
-              {footerLinks.customerService.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="font-semibold mb-4">تواصل معنا</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-sm">
-                <MapPin className="w-5 h-5 shrink-0 mt-0.5" />
-                <span className="text-primary-foreground/80">
-                  القاهرة، مصر الجديدة
-                  <br />
-                  شارع الميرغني، عمارة 25
-                </span>
-              </li>
-              <li className="flex items-center gap-3 text-sm">
-                <Phone className="w-5 h-5 shrink-0" />
-                <a
-                  href="tel:+201234567890"
-                  className="text-primary-foreground/80 hover:text-primary-foreground ltr"
-                >
-                  +20 123 456 7890
-                </a>
-              </li>
-              <li className="flex items-center gap-3 text-sm">
-                <Mail className="w-5 h-5 shrink-0" />
-                <a
-                  href="mailto:info@babystores.eg"
-                  className="text-primary-foreground/80 hover:text-primary-foreground"
-                >
-                  info@babystores.eg
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="border-t border-primary-foreground/20">
-        <div className="container-main py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-primary-foreground/80">
-            © {new Date().getFullYear()} بيبي ستورز. جميع الحقوق محفوظة.
-          </p>
-          <div className="flex items-center gap-4">
-            <img
-              src="/placeholder.svg"
-              alt="Visa"
-              className="h-6 opacity-80"
-            />
-            <img
-              src="/placeholder.svg"
-              alt="Mastercard"
-              className="h-6 opacity-80"
-            />
-            <img
-              src="/placeholder.svg"
-              alt="Vodafone Cash"
-              className="h-6 opacity-80"
-            />
-          </div>
-        </div>
-      </div>
+      </section>
     </footer>
   );
 }
