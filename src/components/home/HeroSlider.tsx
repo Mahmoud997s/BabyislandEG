@@ -181,13 +181,13 @@ export function HeroSlider() {
                                 transition={{ delay: 0.5, duration: 0.6 }}
                                 className="flex flex-wrap gap-4"
                             >
-                                <Button size="xl" className="bg-black bg-none hover:bg-gray-900 text-white gap-2 font-bold rounded-full shadow-lg shadow-black/20 transition-all hover:-translate-y-1 h-14 px-8 text-lg" asChild>
+                                <Button size="xl" className="bg-[#F97316] bg-none hover:bg-[#ea580c] text-white gap-2 font-bold rounded-full shadow-lg shadow-orange-900/20 transition-all hover:-translate-y-1 h-14 px-8 text-lg border-0" asChild>
                                     <Link to="/shop">
                                         {t('home.shopNow')}
                                         {isRtl ? <ArrowLeft className="w-5 h-5 mr-1" /> : <ChevronRight className="w-5 h-5 ml-1" />}
                                     </Link>
                                 </Button>
-                                <Button size="xl" variant="outline" className="bg-transparent backdrop-blur-sm border-2 border-black hover:bg-black text-black hover:text-white font-bold rounded-full h-14 px-8 text-lg" asChild>
+                                <Button size="xl" variant="outline" className="bg-transparent backdrop-blur-sm border-2 border-white hover:bg-white text-white hover:text-[#0EA5E9] font-bold rounded-full h-14 px-8 text-lg" asChild>
                                     <Link to="/shop">{t('home.exploreCollection')}</Link>
                                 </Button>
                             </motion.div>
