@@ -98,22 +98,7 @@ export default function HomePage() {
 
 
 
-      {/* CTA */}
-      <section className="py-16 lg:py-24">
-        <div className="container-main">
-          <div className="bg-[#0EA5E9] rounded-3xl p-8 lg:p-16 text-center text-primary-foreground">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              {t('home.ctaTitle')}
-            </h2>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {t('home.ctaDesc')}
-            </p>
-            <Button className="bg-[#F97316] text-white hover:bg-[#F97316]/90" size="xl" asChild>
-              <Link to="/shop">{t('home.shopNow')}</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* CTA removed as per user request */}
     </Layout>
   );
 }

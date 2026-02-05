@@ -44,42 +44,40 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-transparent">
-      {/* Newsletter Section */}
-      <section className="bg-black text-white py-8 lg:py-10">
-        <div className="container-main">
-          <div className="bg-black rounded-[20px] p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-6">
-            <h2 className="text-2xl lg:text-4xl font-black uppercase max-w-xl text-center lg:text-left">
-              {t('footer.newsletterTitle', 'STAY UP TO DATE ABOUT OUR LATEST OFFERS')}
-            </h2>
+    <footer className="bg-transparent mt-20">
+      {/* Newsletter Section - Floating Card */}
+      <div className="container-main relative z-10">
+        <div className="bg-black rounded-[20px] p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl">
+          <h2 className="text-2xl lg:text-4xl font-black uppercase max-w-xl text-center lg:text-left text-white">
+            {t('footer.newsletterTitle', 'STAY UP TO DATE ABOUT OUR LATEST OFFERS')}
+          </h2>
 
-            <div className="w-full lg:w-auto flex flex-col gap-3 min-w-[350px]">
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <Input
-                  type="email"
-                  placeholder={t('footer.emailPlaceholder', 'Enter your email address')}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-12 pr-4 py-6 rounded-full bg-white text-black border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </div>
-              <Button
-                className="w-full py-6 rounded-full bg-white text-black hover:bg-gray-100 font-semibold"
-                onClick={() => {
-                  console.log('Subscribe:', email);
-                  setEmail('');
-                }}
-              >
-                {t('footer.subscribeNewsletter', 'Subscribe to Newsletter')}
-              </Button>
+          <div className="w-full lg:w-auto flex flex-col gap-3 min-w-[350px]">
+            <div className="relative">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Input
+                type="email"
+                placeholder={t('footer.emailPlaceholder', 'Enter your email address')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="pl-12 pr-4 py-6 rounded-full bg-white text-black border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+              />
             </div>
+            <Button
+              className="w-full py-6 rounded-full bg-white text-black hover:bg-gray-100 font-semibold"
+              onClick={() => {
+                console.log('Subscribe:', email);
+                setEmail('');
+              }}
+            >
+              {t('footer.subscribeNewsletter', 'Subscribe to Newsletter')}
+            </Button>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Main Footer */}
-      <section className="bg-[#F0F0F0] pt-12 pb-6">
+      {/* Main Footer - Overlapped Background */}
+      <section className="bg-[#F0F0F0] -mt-24 pt-32 pb-6 relative z-0">
         <div className="container-main">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 mb-8">
             {/* Logo & About */}
@@ -92,7 +90,7 @@ export function Footer() {
                 />
                 <div className="flex flex-col">
                   <span className="text-xl font-black leading-tight" style={{ fontFamily: "'Nexa', sans-serif" }}>
-                    <span className="text-foreground">Babyisland</span>
+                    <span className="text-[#0EA5E9]">Babyisland</span>
                     <span className="text-[#F97316]">EG</span>
                   </span>
                 </div>
