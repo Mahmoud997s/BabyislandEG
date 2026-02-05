@@ -43,7 +43,7 @@ export function Header() {
   const location = useLocation();
   const { getItemCount, openCart } = useCartStore();
   const { isAuthenticated, user, logout } = useAuthStore();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useLocaleNavigate();
   const itemCount = getItemCount();
 
@@ -212,7 +212,7 @@ export function Header() {
                 onClick={openCart}
                 aria-label="Cart"
               >
-                <ShoppingCart className="w-5 h-5" />
+                <ShoppingCart className={cn("w-5 h-5", i18n.language === 'en' && "scale-x-[-1]")} />
                 {itemCount > 0 && (
                   <motion.span
                     initial={{ scale: 0 }}

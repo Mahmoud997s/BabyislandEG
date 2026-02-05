@@ -36,12 +36,19 @@
     "pageInfo": "Page {{current}} of {{total}}"
   },
   "footer": {
+    "newsletterTitle": "STAY UP TO DATE ABOUT OUR LATEST OFFERS",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeNewsletter": "Subscribe to Newsletter",
     "aboutDesc": "We specialize in providing the best baby products.",
     "quickLinks": "Quick Links",
     "customerService": "Customer Service",
     "contact": "Contact Us",
-    "address": "Cairo, Heliopolis<br />El Merghany St, Building 25",
-    "rights": "© {{year}} BabyislandEG. All rights reserved."
+    "address": "Address",
+    "fullAddress": "Cairo, Heliopolis<br />El Merghany St, Building 25",
+    "rights": "© {{year}} BabyislandEG. All rights reserved.",
+    "whatsapp": "WhatsApp",
+    "shippingInfo": "Shipping Info",
+    "allRightsReserved": "All Rights Reserved"
   },
   "nav": {
     "home": "Home",
@@ -284,7 +291,8 @@
     "freeShippingCongrats": "🎉 Congratulations! Free shipping",
     "addMoreForFree": "Add products worth",
     "forFreeShipping": "for free shipping 🚚",
-    "free": "Free"
+    "free": "Free",
+    "viewCart": "View Cart"
   },
   "checkout": {
     "title": "Checkout",
@@ -455,36 +463,5 @@
       "desc": "Database connection and sync status.",
       "connected": "Supabase Connected"
     }
-  },
-  "footer": {
-    "newsletterTitle": "STAY UP TO DATE ABOUT OUR LATEST OFFERS",
-    "emailPlaceholder": "Enter your email address",
-    "subscribeNewsletter": "Subscribe to Newsletter",
-    "company": "COMPANY",
-    "help": "HELP",
-    "faq": "FAQ",
-    "resources": "RESOURCES",
-    "about": "About",
-    "features": "Features",
-    "works": "Works",
-    "career": "Career",
-    "customerSupport": "Customer Support",
-    "deliveryDetails": "Delivery Details",
-    "termsConditions": "Terms & Conditions",
-    "privacyPolicy": "Privacy Policy",
-    "account": "Account",
-    "manageDeliveries": "Manage Deliveries",
-    "orders": "Orders",
-    "payments": "Payments",
-    "freeEbooks": "Free eBooks",
-    "developmentTutorial": "Development Tutorial",
-    "howTo": "How to - Blog",
-    "youtubePlaylist": "Youtube Playlist",
-    "aboutDesc": "We have products that suits your style and which you're proud to buy. For your baby's comfort.",
-    "copyright": "Shop.co © 2000-{{year}}, All Rights Reserved",
-    "contact": "Contact Us",
-    "address": "123 Baby Street, Cairo, Egypt",
-    "quickLinks": "Quick Links",
-    "customerService": "Customer Service"
   }
 }

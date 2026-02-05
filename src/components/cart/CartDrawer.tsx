@@ -1,11 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart";
 import { PriceDisplay } from "@/components/ui/price-display";
 
 export function CartDrawer() {
+  const { t, i18n } = useTranslation();
   const {
     items,
     isOpen,
@@ -18,6 +20,10 @@ export function CartDrawer() {
 
   const subtotal = getSubtotal();
   const itemCount = getItemCount();
+
+  const formatPrice = (value: number) => {
+    return value.toLocaleString(i18n.language === 'ar' ? 'ar-EG' : 'en-US');
+  };
 
   return (
     <AnimatePresence>
@@ -44,9 +50,9 @@ export function CartDrawer() {
             <div className="flex items-center justify-between p-4 border-b">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5" />
-                <h2 className="text-lg font-semibold">سلة التسوق</h2>
+                <h2 className="text-lg font-semibold">{t('cart.title')}</h2>
                 <span className="text-sm text-muted-foreground">
-                  ({itemCount} منتج)
+                  ({itemCount} {t('cart.itemCount')})
                 </span>
               </div>
               <Button variant="ghost" size="icon" onClick={closeCart}>
@@ -59,12 +65,12 @@ export function CartDrawer() {
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <ShoppingBag className="w-16 h-16 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">سلتك فارغة</h3>
+                  <h3 className="text-lg font-medium mb-2">{t('cart.empty')}</h3>
                   <p className="text-sm text-muted-foreground mb-6">
-                    ابدأ التسوق واكتشف منتجاتنا المميزة
+                    {t('cart.emptyDesc')}
                   </p>
                   <Button onClick={closeCart} asChild>
-                    <Link to="/shop">تسوق الآن</Link>
+                    <Link to="/shop">{t('cart.shopNow')}</Link>
                   </Button>
                 </div>
               ) : (
@@ -93,11 +99,13 @@ export function CartDrawer() {
                           {item.product.name}
                         </h4>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                          اللون: {item.variant.color}
+                          {t('cart.color')}: {item.variant.color}
                         </p>
                         <div className="mt-2">
                           <PriceDisplay
                             price={item.product.price}
+                            compareAtPrice={item.product.compareAtPrice}
+                            discountPercentage={item.product.discountPercentage}
                             size="sm"
                             showCurrency={false}
                           />
@@ -163,20 +171,20 @@ export function CartDrawer() {
                 {subtotal < 5000 && (
                   <div className="bg-accent/50 rounded-lg p-3 text-center">
                     <p className="text-sm">
-                      أضف منتجات بقيمة{" "}
+                      {t('cart.addMoreForFree')}{" "}
                       <span className="font-bold text-primary">
-                        {(5000 - subtotal).toLocaleString("ar-EG")} ج.م
+                        {formatPrice(5000 - subtotal)} {t('common.egp')}
                       </span>{" "}
-                      للحصول على شحن مجاني 🚚
+                      {t('cart.forFreeShipping')}
                     </p>
                   </div>
                 )}
 
                 {/* Subtotal */}
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">المجموع الفرعي</span>
+                  <span className="text-muted-foreground">{t('cart.subtotal')}</span>
                   <span className="text-lg font-bold">
-                    {subtotal.toLocaleString("ar-EG")} ج.م
+                    {formatPrice(subtotal)} {t('common.egp')}
                   </span>
                 </div>
 
@@ -184,16 +192,17 @@ export function CartDrawer() {
                 <div className="space-y-2">
                   <Button className="w-full" size="lg" asChild>
                     <Link to="/checkout" onClick={closeCart}>
-                      إتمام الطلب
+                      {t('cart.checkout')}
                     </Link>
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full"
+                    size="lg"
                     onClick={closeCart}
                     asChild
                   >
-                    <Link to="/cart">عرض السلة</Link>
+                    <Link to="/cart">{t('cart.viewCart')}</Link>
                   </Button>
                 </div>
               </div>

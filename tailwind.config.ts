@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -150,10 +151,11 @@ export default {
         pulse: "pulse 2s ease-in-out infinite",
       },
       spacing: {
+        13: "3.25rem",
         section: "6rem",
         component: "3rem",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;
