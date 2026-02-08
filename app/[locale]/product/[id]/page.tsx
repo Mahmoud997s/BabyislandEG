@@ -32,10 +32,51 @@ export async function generateMetadata(
             title: title,
             description: finalDesc.substring(0, 160),
             images: product.images || [],
+            type: 'website',
+            locale: locale,
+            siteName: 'BabyislandEG',
         },
+        alternates: {
+            canonical: `https://babyislandeg.com/${locale}/product/${id}`,
+            languages: {
+                'en': `https://babyislandeg.com/en/product/${id}`,
+                'ar': `https://babyislandeg.com/ar/product/${id}`,
+            }
+        }
     }
 }
 
-export default function ProductDetailsPageWrapper() {
-    return <ProductDetailsPage />;
+export default async function ProductDetailsPageWrapper(props: { params: Promise<{ id: string; locale: string }> }) {
+    const { id, locale } = await props.params;
+    const product = await productsService.getProductById(id);
+
+    if (!product) return <ProductDetailsPage />;
+
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: locale === 'ar' ? product.name_ar : product.name,
+        image: product.images || [],
+        description: locale === 'ar' ? product.description_ar : product.description,
+        sku: product.id,
+        offers: {
+            '@type': 'Offer',
+            price: product.price,
+            priceCurrency: 'EGP',
+            availability: (product.stockStatus === 'in-stock' || product.stockStatus === 'low-stock') 
+                ? 'https://schema.org/InStock' 
+                : 'https://schema.org/OutOfStock',
+            url: `https://babyislandeg.com/${locale}/product/${id}`,
+        },
+    };
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ProductDetailsPage />
+        </>
+    );
 }

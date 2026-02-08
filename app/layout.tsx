@@ -41,11 +41,47 @@ const arefRuqaa = Aref_Ruqaa({
 });
 
 export const metadata: Metadata = {
-    title: "BabyislandEG | عربات الأطفال",
-    description: "Premium baby strollers and accessories - BabyislandEG - عربات أطفال فاخرة ومستلزماتها",
+    metadataBase: new URL('https://babyislandeg.com'),
+    title: {
+        default: "BabyislandEG | عربات الأطفال ومستلزماتها",
+        template: "%s | BabyislandEG"
+    },
+    description: "Premium baby strollers, high chairs, and accessories in Egypt. Shop top brands like Chicco, Joie, and more. عربات أطفال فاخرة ومستلزماتها في مصر.",
+    keywords: ["baby stroller", "baby gear", "egypt", "stroller chic", "baby island", "عربات أطفال", "مستلزمات بيبي", "شيكو", "جوي"],
+    authors: [{ name: "BabyislandEG" }],
     icons: {
         icon: "/favicon_custom.png",
         apple: "/favicon_custom.png",
+    },
+    openGraph: {
+        type: 'website',
+        locale: 'ar_EG',
+        alternateLocale: 'en_US',
+        url: 'https://babyislandeg.com',
+        siteName: 'BabyislandEG',
+        title: 'BabyislandEG | Premium Baby Gear',
+        description: 'Discover the best baby strollers and accessories in Egypt.',
+        images: [
+            {
+                url: '/og-image.jpg', // Ensure this exists or use a default product image
+                width: 1200,
+                height: 630,
+                alt: 'BabyislandEG',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'BabyislandEG',
+        description: 'Premium Baby Gear and Strollers in Egypt',
+        images: ['/og-image.jpg'], // Same here
+    },
+    alternates: {
+        canonical: 'https://babyislandeg.com',
+        languages: {
+            'en': 'https://babyislandeg.com/en',
+            'ar': 'https://babyislandeg.com/ar',
+        },
     },
 };
 
