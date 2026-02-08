@@ -130,11 +130,14 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   h1,
@@ -162,6 +165,11 @@
 
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-[#0EA5E9];
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 

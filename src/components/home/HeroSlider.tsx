@@ -215,8 +215,8 @@ export function HeroSlider() {
                                 transition={{ delay: 0.3, duration: 0.6 }}
                                 className={`font-black font-display leading-[0.9] drop-shadow-sm tracking-tighter
                                     ${HERO_SLIDES[current].layout === 'image-left' 
-                                        ? 'text-[#0EA5E9] text-5xl lg:text-7xl mb-0 flex flex-col items-center' 
-                                        : 'text-white text-4xl lg:text-6xl mb-4'}
+                                        ? 'text-[#0EA5E9] text-4xl md:text-5xl lg:text-7xl mb-0 flex flex-col items-center' 
+                                        : 'text-white text-3xl md:text-4xl lg:text-6xl mb-4'}
                                 `}
                             >
                                 {HERO_SLIDES[current].id === 0 ? (
@@ -242,8 +242,8 @@ export function HeroSlider() {
                                 transition={{ delay: 0.4, duration: 0.6 }}
                                 className={`font-bold leading-relaxed
                                     ${HERO_SLIDES[current].id === 0 
-                                        ? 'text-[#F97316] tracking-[0.2em] uppercase text-center text-sm lg:text-lg'
-                                        : 'text-white/90 text-base lg:text-xl mb-10 max-w-lg'}
+                                        ? 'text-[#F97316] tracking-[0.2em] uppercase text-center text-xs md:text-sm lg:text-lg'
+                                        : 'text-white/90 text-sm md:text-base lg:text-xl mb-6 lg:mb-10 max-w-lg'}
                                 `}
                             >
                                 {HERO_SLIDES[current].desc}
@@ -254,16 +254,16 @@ export function HeroSlider() {
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.5, duration: 0.6 }}
-                                    className="flex flex-wrap gap-4 mt-6"
+                                    className="flex flex-wrap gap-3 md:gap-4 mt-4 md:mt-6"
                                 >
-                                    <Button size="xl" className="bg-[#F97316] hover:bg-[#ea580c] text-white gap-2 font-bold rounded-full shadow-lg shadow-orange-900/20 transition-all hover:-translate-y-1 h-14 px-8 text-lg border-0" asChild>
+                                    <Button size="xl" className="bg-[#F97316] hover:bg-[#ea580c] text-white gap-2 font-bold rounded-full shadow-lg shadow-orange-900/20 transition-all hover:-translate-y-1 h-12 px-6 text-base md:h-14 md:px-8 md:text-lg border-0" asChild>
                                         <LocaleLink href="/shop">
                                             {t('home.shopNow')}
                                             {isRtl ? <ArrowLeft className="w-5 h-5 mr-1" /> : <ChevronRight className="w-5 h-5 ml-1" />}
                                         </LocaleLink>
                                     </Button>
                                     <Button size="xl" variant="outline" 
-                                        className={`backdrop-blur-sm border-2 font-bold rounded-full h-14 px-8 text-lg
+                                        className={`backdrop-blur-sm border-2 font-bold rounded-full h-12 px-6 text-base md:h-14 md:px-8 md:text-lg
                                             ${HERO_SLIDES[current].layout === 'image-left' 
                                                 ? 'bg-transparent border-[#0EA5E9] text-[#0EA5E9] hover:bg-[#0EA5E9] hover:text-white' 
                                                 : 'bg-transparent border-white text-white hover:bg-white hover:text-[#0EA5E9]'}

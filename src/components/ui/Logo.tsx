@@ -15,7 +15,7 @@ export function Logo({ className, showSlogan = true }: LogoProps) {
   return (
     <div className={cn("flex items-center gap-3 group shrink-0", className)}>
       <div className={cn(
-        "flex flex-col items-center justify-center gap-0 text-center",
+        "hidden sm:flex flex-col items-center justify-center gap-0 text-center",
         isRtl ? "order-1" : "order-2"
       )}>
         <span className="text-2xl font-black transition-all duration-300 group-hover:tracking-wide drop-shadow-sm leading-tight font-baskervville-sc">

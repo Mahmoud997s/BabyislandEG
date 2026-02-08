@@ -34,14 +34,14 @@ export const columns: ColumnDef<Product>[] = [
                             ? "indeterminate"
                             : false
                 }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(value === true)}
+                onCheckedChange={(value: boolean | "indeterminate") => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Select all"
             />
         ),
         cell: ({ row }) => (
             <Checkbox
                 checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(value === true)}
+                onCheckedChange={(value: boolean | "indeterminate") => row.toggleSelected(!!value)}
                 aria-label="Select row"
             />
         ),

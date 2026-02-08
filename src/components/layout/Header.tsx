@@ -127,7 +127,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full">
       {/* Top Bar */}
-      <div className="bg-black text-white text-sm py-2">
+      <div className="bg-black text-white text-xs sm:text-sm py-2">
         <div className="container-main flex items-center justify-center gap-2">
           <span suppressHydrationWarning>{t("header.topBar.freeShipping")}</span>
           <LocaleLink href="/shop" className="font-semibold underline">
@@ -142,7 +142,7 @@ export function Header() {
           <div className="flex flex-col gap-4">
             
             {/* Row 1: Logo - Nav - Actions */}
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-2 md:gap-4">
               
               {/* Mobile Menu (Hidden Desktop) */}
               <Button

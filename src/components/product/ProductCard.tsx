@@ -120,12 +120,12 @@ export function ProductCard({ product, className, priority = false }: ProductCar
               <p className="text-xs text-muted-foreground mb-1">{product.brand}</p>
 
               {/* Name */}
-              <h3 className="font-semibold text-foreground mb-1 line-clamp-1 group-hover:text-primary transition-colors">
+              <h3 className="font-semibold text-sm md:text-base text-foreground mb-1 line-clamp-1 group-hover:text-primary transition-colors">
                 {displayName}
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-muted-foreground mb-2 line-clamp-1 min-h-[1.25rem]">
+              <p className="text-xs md:text-sm text-muted-foreground mb-2 line-clamp-1 min-h-[1.25rem]">
                 {displayDescription}
               </p>
 
@@ -144,7 +144,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                   compareAtPrice={product.compareAtPrice}
                   discountPercentage={product.discountPercentage}
                   size="lg"
-                  className="text-lg font-bold"
+                  className="text-base md:text-lg font-bold"
                 />
               </div>
 

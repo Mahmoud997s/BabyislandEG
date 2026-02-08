@@ -87,7 +87,7 @@ export function BrandLogoSlider() {
             >
                 <div
                     ref={scrollerRef}
-                    className="flex gap-16 overflow-x-hidden whitespace-nowrap py-1 select-none cursor-grab active:cursor-grabbing text-start"
+                    className="flex gap-8 md:gap-16 overflow-x-hidden whitespace-nowrap py-1 select-none cursor-grab active:cursor-grabbing text-start"
                     dir="ltr" // Force LTR for correct math
                     onMouseDown={handleMouseDown}
                     onMouseUp={stopDragging}
