@@ -1,5 +1,9 @@
-import { supabase } from "@/lib/supabase";
+import { supabase as clientSupabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { Product } from "@/data/products";
+
+// Use Admin client on server-side to bypass RLS and avoid build-time browser client issues
+const supabase = typeof window === 'undefined' ? (supabaseAdmin || clientSupabase) : clientSupabase;
 
 // Helper to map DB row to Application Product Type
 
@@ -126,6 +130,7 @@ function mapDbToProduct(dbItem: any): Product {
 
 export const productsService = {
     async getAllProducts(): Promise<Product[]> {
+        if (!supabase) return [];
         const { data, error } = await supabase
             .from('products')
             .select('*, product_analytics(ranking_score)')
@@ -149,6 +154,7 @@ export const productsService = {
     },
 
     async getProductsByCategory(category: string): Promise<Product[]> {
+        if (!supabase) return [];
         let query = supabase.from('products').select('*');
 
         if (category !== "all") {
@@ -166,6 +172,7 @@ export const productsService = {
     },
 
     async getBestSellers(): Promise<Product[]> {
+        if (!supabase) return [];
         const { data, error } = await supabase
             .from('products')
             .select('*')
@@ -181,6 +188,7 @@ export const productsService = {
     },
 
     async getRelatedProducts(currentId: string, category?: string, limit: number = 4): Promise<Product[]> {
+        if (!supabase) return [];
         let query = supabase
             .from('products')
             .select('*')
@@ -207,6 +215,7 @@ export const productsService = {
         // Fallback: If not enough products in category, fetch random others efficiently
         if (products.length < limit) {
             const remaining = limit - products.length;
+            if (!supabase) return products;
             const { data: fallbackData } = await supabase
                 .from('products')
                 .select('*')
@@ -230,6 +239,7 @@ export const productsService = {
     async getProductById(id: string): Promise<Product | undefined> {
         // Try searching by ID first (if numeric)
         if (!isNaN(Number(id))) {
+            if (!supabase) return undefined;
             const { data } = await supabase
                 .from('products')
                 .select('*')
@@ -251,6 +261,7 @@ export const productsService = {
         sort?: string;
         search?: string;
     }): Promise<Product[]> {
+        if (!supabase) return [];
         let query = supabase.from('products').select('*');
 
         // Category - use simple 'category' column
@@ -313,6 +324,7 @@ export const productsService = {
     },
 
     async deleteProduct(id: string): Promise<boolean> {
+        if (!supabase) return false;
         const { error } = await supabase.from('products').delete().eq('id', id);
         if (error) {
             console.error("Error deleting product:", error);

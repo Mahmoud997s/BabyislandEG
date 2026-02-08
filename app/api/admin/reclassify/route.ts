@@ -1,27 +1,28 @@
-
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { SmartClassifier } from '@/services/classification/SmartClassifier';
+import { supabaseAdmin } from '@/lib/supabase-admin';
+// Remove top-level import
+// import { SmartClassifier } from '@/services/classification/SmartClassifier';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
-    // 1. Security Check
+    // 1. Security Check (Defense in Depth)
     const authHeader = request.headers.get('x-admin-key');
-    const adminKey = process.env.ADMIN_API_KEY;
+    const adminKey = process.env.ADMIN_API_KEY; 
+    const isKeyValid = adminKey && authHeader === adminKey;
 
-    if (!adminKey || authHeader !== adminKey) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!isKeyValid) {
+         const supabase = supabaseAdmin; 
+         return NextResponse.json({ error: 'Unauthorized: Invalid Admin Key' }, { status: 401 });
     }
 
     try {
         // 2. Parse Parameters (limit, offset)
         const { limit = 50, offset = 0 } = await request.json();
         
-        // 3. Init Supabase Admin Client
-        const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.SUPABASE_SERVICE_ROLE_KEY!,
-            { auth: { autoRefreshToken: false, persistSession: false } }
-        );
+        // 3. Supabase Admin Client
+        const supabase = supabaseAdmin;
+        if (!supabase) throw new Error('Supabase admin client not initialized');
 
         // 4. Fetch Batch
         const { data: products, error } = await supabase
@@ -35,6 +36,9 @@ export async function POST(request: Request) {
         // 5. Process Batch
         let updates = 0;
         const openAiKey = process.env.OPENAI_API_KEY;
+
+        // Dynamic import
+        const { SmartClassifier } = await import('@/services/classification/SmartClassifier');
 
         const results = await Promise.all(products.map(async (p: any) => {
             // Logic duplicated from apply-smart-rules.js but optimized for server

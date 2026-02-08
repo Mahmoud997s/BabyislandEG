@@ -31,7 +31,8 @@
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "strictNullChecks": true,
-    "target": "ES2017"
+    "target": "ES2017",
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",
@@ -41,6 +42,7 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "testsprite_tests"
   ]
 }

@@ -1,94 +1,76 @@
+import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// ============================================================================
-// Constants
-// ============================================================================
+export async function middleware(request: NextRequest) {
+    let response = NextResponse.next({
+        request: {
+            headers: request.headers,
+        },
+    });
 
-const SUPPORTED_LOCALES = ["ar", "en"] as const;
-const DEFAULT_LOCALE = "ar";
-
-type Locale = (typeof SUPPORTED_LOCALES)[number];
-
-// ============================================================================
-// Helpers
-// ============================================================================
-
-/**
- * Extract locale from pathname if present
- * @returns Locale if valid, null if missing/invalid
- */
-function getLocaleFromPathname(pathname: string): Locale | null {
-    const segments = pathname.split("/");
-    const potentialLocale = segments[1];
-
-    if (SUPPORTED_LOCALES.includes(potentialLocale as Locale)) {
-        return potentialLocale as Locale;
-    }
-    return null;
-}
-
-/**
- * Check if path should bypass middleware
- */
-function shouldBypassMiddleware(pathname: string): boolean {
-    return (
-        pathname.startsWith("/_next") ||
-        pathname.startsWith("/api") ||
-        pathname.startsWith("/admin") ||
-        pathname.includes(".")
+    const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+            cookies: {
+                getAll() {
+                    return request.cookies.getAll();
+                },
+                setAll(cookiesToSet) {
+                    cookiesToSet.forEach(({ name, value, options }) =>
+                        request.cookies.set(name, value)
+                    );
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    });
+                    cookiesToSet.forEach(({ name, value, options }) =>
+                        response.cookies.set(name, value, options)
+                    );
+                },
+            },
+        }
     );
+
+    // Refresh session if expired - required for Server Components
+    // https://supabase.com/docs/guides/auth/server-side/nextjs
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
+
+    // Admin Route Protection
+    if (request.nextUrl.pathname.startsWith("/admin")) {
+        // Allow login page
+        if (request.nextUrl.pathname === "/admin/login") {
+            return response;
+        }
+
+        // 1. Check Authentication
+        if (!user) {
+            return NextResponse.redirect(new URL("/admin/login", request.url));
+        }
+
+        // 2. Check Authorization (Role = admin)
+        // We fetch the profile to check the role. 
+        // Note: In a high-traffic app, you might want to cache this or use custom claims.
+        const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+
+        if (profile?.role !== "admin") {
+            // Logged in but not admin -> redirect to home or show error
+            return NextResponse.redirect(new URL("/", request.url));
+        }
+    }
+
+    return response;
 }
-
-// ============================================================================
-// Middleware
-// ============================================================================
-
-export function middleware(request: NextRequest) {
-    const { pathname, search } = request.nextUrl;
-
-    // 1. Bypass internal/static/admin paths
-    if (shouldBypassMiddleware(pathname)) {
-        return NextResponse.next();
-    }
-
-    // 2. Detect locale from URL
-    const detectedLocale = getLocaleFromPathname(pathname);
-
-    // 3. Valid locale path - add x-locale header for SSR
-    if (detectedLocale) {
-        const headers = new Headers(request.headers);
-        headers.set("x-locale", detectedLocale);
-        return NextResponse.next({ request: { headers } });
-    }
-
-    // 4. Root path - redirect to cookie preference or default
-    if (pathname === "/") {
-        const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
-        const targetLocale = (localeCookie && SUPPORTED_LOCALES.includes(localeCookie as Locale))
-            ? localeCookie
-            : DEFAULT_LOCALE;
-
-        return NextResponse.redirect(
-            new URL(`/${targetLocale}${search}`, request.url)
-        );
-    }
-
-    // 5. Missing locale - redirect with cookie preference or default
-    const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
-    const fallbackLocale = (localeCookie && SUPPORTED_LOCALES.includes(localeCookie as Locale))
-        ? localeCookie
-        : DEFAULT_LOCALE;
-
-    return NextResponse.redirect(
-        new URL(`/${fallbackLocale}${pathname}${search}`, request.url)
-    );
-}
-
-// ============================================================================
-// Config
-// ============================================================================
 
 export const config = {
-    matcher: ["/((?!_next|.*\\..*).*)"],
+    // Apply to admin routes and API admin routes
+    matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

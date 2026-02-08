@@ -21,7 +21,10 @@ export default function LocaleLayout({
 
         if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
             // Should be handled by middleware, but fallback:
-            router.replace("/ar");
+            // Redirect to default locale + current path (e.g. /cart -> /ar/cart)
+            if (typeof window !== "undefined") {
+                 router.replace(`/ar${window.location.pathname}`);
+            }
             return;
         }
 

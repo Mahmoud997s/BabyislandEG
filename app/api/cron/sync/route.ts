@@ -4,24 +4,30 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { syncService } from '@/services/syncService';
+// Remove top-level import
+// import { syncService } from '@/services/syncService';
 
 // Vercel Cron protection - only allow requests from Vercel
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
     try {
-        // Verify cron secret (optional security measure)
+        // Verify cron secret (Security P0)
         const authHeader = request.headers.get('authorization');
         const cronSecret = process.env.CRON_SECRET;
 
+        // If CRON_SECRET is set (Production), strict check. 
         if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
             return NextResponse.json(
-                { error: 'Unauthorized' },
+                { error: 'Unauthorized: Invalid Cron Secret' },
                 { status: 401 }
             );
         }
 
         console.log('[Cron/Sync] Starting automatic sync...');
 
+        // Dynamic import to avoid build-time static analysis issues with top-level side effects
+        const { syncService } = await import('@/services/syncService');
         const results = await syncService.syncStaleProducts();
 
         const summary = {
