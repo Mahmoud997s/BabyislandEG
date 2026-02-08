@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Barada Reqa';
+  src: url('/fonts/BaradaReqa.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium Baby Stroller Store - Design System */
+/* Luxury, clean, soft, Arabic-first RTL */
+
+@layer base {
+  :root {
+    /* Core Brand Colors - Elegant Blue & Orange */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    /* Slate 900 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary - Brand Blue (Sky 500) */
+    --primary: 199 89% 48%;
+    /* #0EA5E9 */
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary - Brand Orange (Orange 500) */
+    --secondary: 25 95% 53%;
+    /* #F97316 */
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted - Slate 100 */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    /* Accent - Slate 100 / Light Blue Tint */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+
+    /* Success - Emerald 500 */
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
+
+    /* Warning - Amber 500 */
+    --warning: 38 92% 50%;
+    --warning-foreground: 210 40% 98%;
+
+    /* Destructive - Red 500 */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* UI Elements */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 89% 48%;
+
+    --radius: 1rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom Brand Colors for Gradients/Accents */
+    --brand-blue: 199 89% 48%;
+    --brand-orange: 25 95% 53%;
+    --brand-dark: 222 47% 11%;
+    --brand-light: 210 40% 98%;
+
+    /* Shadows - Soft & Elegant */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-card: 0 4px 6px -1px rgba(14, 165, 233, 0.05), 0 2px 4px -2px rgba(14, 165, 233, 0.05);
+    --shadow-hover: 0 20px 25px -5px rgba(14, 165, 233, 0.15), 0 8px 10px -6px rgba(14, 165, 233, 0.1);
+    --shadow-button: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 25 95% 53%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 89% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Cairo', sans-serif;
+    @apply font-bold tracking-tight;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#0EA5E9]/50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#0EA5E9];
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(40 40% 97%) 0%, hsl(35 30% 92%) 100%);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-hover);
+    @apply -translate-y-1;
+  }
+
+  .btn-glow {
+    box-shadow: var(--shadow-button);
+    @apply transition-all duration-200;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 6px 20px -4px hsl(30 8% 20% / 0.35);
+    @apply -translate-y-0.5;
+  }
+
+  .badge-sale {
+    @apply bg-destructive text-destructive-foreground font-semibold;
+  }
+
+  .badge-new {
+    @apply bg-success text-success-foreground font-semibold;
+  }
+
+  .badge-featured {
+    background: linear-gradient(135deg, hsl(40 50% 75%) 0%, hsl(35 45% 65%) 100%);
+    @apply text-brand-charcoal font-semibold;
+  }
+
+  .price-current {
+    @apply text-primary font-bold;
+  }
+
+  .price-compare {
+    @apply text-muted-foreground line-through text-sm;
+  }
+
+  .trust-badge {
+    @apply flex items-center gap-2 text-sm text-muted-foreground;
+  }
+
+  .whatsapp-float {
+    @apply fixed bottom-6 left-6 z-50 p-4 rounded-full shadow-lg;
+    background-color: #25D366;
+    color: white;
+    @apply transition-transform duration-200 hover:scale-110;
+  }
+
+  .sticky-cart {
+    @apply fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md;
+    background-color: hsl(var(--background) / 0.95);
+    @apply border-t border-border shadow-lg p-4;
+  }
+
+  .gallery-thumb {
+    @apply border-2 border-transparent rounded-lg overflow-hidden cursor-pointer;
+    @apply transition-all duration-200 hover:border-primary;
+  }
+
+  .gallery-thumb.active {
+    @apply border-primary;
+  }
+
+  .rating-star {
+    @apply text-warning;
+  }
+
+  .rating-star-empty {
+    @apply text-muted;
+  }
+
+  .section-divider {
+    @apply w-16 h-1 rounded-full mx-auto;
+    background: linear-gradient(to right, hsl(var(--brand-gold)), hsl(var(--brand-sand)));
+  }
+
+  .container-main {
+    @apply max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .glass {
+    @apply backdrop-blur-lg border;
+    background-color: hsl(var(--background) / 0.8);
+    border-color: hsl(var(--border) / 0.5);
+  }
+
+  .shimmer {
+    @apply relative overflow-hidden;
+    background: linear-gradient(90deg,
+        hsl(var(--muted)) 0%,
+        hsl(var(--accent)) 50%,
+        hsl(var(--muted)) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+}
+
+@layer utilities {
+  .rtl {
+    direction: rtl;
+  }
+
+  .ltr {
+    direction: ltr;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--brand-gold)) 0%, hsl(var(--brand-sand)) 100%);
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .aspect-product {
+    aspect-ratio: 3/4;
+  }
+
+  .aspect-hero {
+    aspect-ratio: 16/9;
+  }
+
+  /* Marquee Animation for Brands */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-25%);
+    }
+
+    /* Loop point for 4x duplicated content */
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+    min-width: max-content;
+  }
+}
+
+/* App.css Content */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

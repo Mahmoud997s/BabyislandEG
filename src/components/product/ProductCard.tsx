@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import { LocaleLink } from "@/components/LocaleLink";
 import { motion } from "framer-motion";
 import { ShoppingCart, Eye } from "lucide-react";
 import { Product } from "@/data/products";
@@ -51,15 +53,18 @@ export function ProductCard({ product, className, priority = false }: ProductCar
         transition={{ duration: 0.4 }}
         className={cn("group relative h-full", className)}
       >
-        <Link to={`/product/${product.id}`} className="block h-full">
+        <LocaleLink href={`/product/${product.id}`} className="block h-full">
           <div className="glass rounded-2xl transition-all duration-300 hover:border-[#F97316]/50 hover:shadow-lg hover:-translate-y-1 overflow-hidden h-full flex flex-col group/card">
             {/* Image Container */}
-            <div className="relative aspect-square bg-transparent overflow-hidden flex items-center justify-center p-4 shrink-0">
+            <div className="relative aspect-square bg-white overflow-hidden flex items-center justify-center shrink-0">
               <img
-                src={defaultVariant.images[0]}
+                src={defaultVariant.images[0] || "/placeholder.svg"}
                 alt={displayName}
+                onError={(e) => {
+                  e.currentTarget.src = "/placeholder.svg";
+                }}
                 loading={priority ? "eager" : "lazy"}
-                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
               />
 
               {/* Badges */}
@@ -164,7 +169,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
               </div>
             </div>
           </div>
-        </Link>
+        </LocaleLink>
       </motion.div>
 
       <QuickViewModal

@@ -1,5 +1,8 @@
-import { Navigate, useLocation } from "react-router-dom";
+"use client";
+
+import { useRouter, usePathname } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
+import { useEffect } from "react";
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -7,9 +10,18 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
     const { isAuthenticated, isLoading } = useAuthStore();
-    const location = useLocation();
+    const router = useRouter();
+    const pathname = usePathname();
 
-    // Show nothing while loading session
+    useEffect(() => {
+        if (!isLoading && !isAuthenticated) {
+            // Get locale from pathname
+            const locale = pathname?.split('/')[1] || 'ar';
+            router.replace(`/${locale}/login`);
+        }
+    }, [isAuthenticated, isLoading, router, pathname]);
+
+    // Show loading spinner while checking auth
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -18,10 +30,11 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         );
     }
 
-    // Redirect to login if not authenticated
+    // Don't render children if not authenticated
     if (!isAuthenticated) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return null;
     }
 
     return <>{children}</>;
 }
+

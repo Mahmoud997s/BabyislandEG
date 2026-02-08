@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,7 +28,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2, Upload, ChevronLeft, Save, Plus, Trash2, GripVertical } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
@@ -67,7 +69,7 @@ type ProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductForm({ initialData }: { initialData?: any }) {
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const form = useForm<ProductFormValues>({
         resolver: zodResolver(productSchema),
@@ -170,7 +172,7 @@ export default function ProductForm({ initialData }: { initialData?: any }) {
                 toast.success("Product created successfully!");
             }
 
-            navigate("/admin/products");
+            router.push("/admin/products");
         } catch (error: any) {
             toast.error(error.message);
             console.error(error);
@@ -186,7 +188,7 @@ export default function ProductForm({ initialData }: { initialData?: any }) {
                 {/* Header Actions */}
                 <div className="flex items-center justify-between sticky top-0 z-10 bg-slate-50/80 backdrop-blur-sm py-4 border-b mb-6">
                     <div className="flex items-center gap-4">
-                        <Button variant="ghost" size="sm" onClick={() => navigate("/admin/products")} type="button">
+                        <Button variant="ghost" size="sm" onClick={() => router.push("/admin/products")} type="button">
                             <ChevronLeft className="w-4 h-4 mr-2" /> Back
                         </Button>
                         <h1 className="text-xl font-bold text-slate-900">
@@ -194,7 +196,7 @@ export default function ProductForm({ initialData }: { initialData?: any }) {
                         </h1>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Button variant="outline" type="button" onClick={() => navigate("/admin/products")}>Discard</Button>
+                        <Button variant="outline" type="button" onClick={() => router.push("/admin/products")}>Discard</Button>
                         <Button type="submit" disabled={loading}>
                             {loading && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
                             Save Product

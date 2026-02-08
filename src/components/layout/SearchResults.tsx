@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import { LocaleLink } from "@/components/LocaleLink";
 import { Product } from "@/data/products";
 import { formatCurrency } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -39,14 +41,14 @@ export function SearchResults({ results, isLoading, onClose, query }: SearchResu
                         <ul className="divide-y divide-gray-50">
                             {results.map((product) => (
                                 <li key={product.id}>
-                                    <Link
-                                        to={`/product/${product.id}`}
+                                    <LocaleLink
+                                        href={`/product/${product.id}`}
                                         className="flex items-center gap-4 p-3 hover:bg-gray-50 transition-colors group"
                                         onClick={onClose}
                                     >
                                         <div className="w-12 h-12 rounded-lg bg-white border p-1 shrink-0 flex items-center justify-center">
                                             <img
-                                                src={product.images[0]}
+                                                src={product.images?.[0] || '/placeholder.png'}
                                                 alt={product.name}
                                                 className="w-full h-full object-contain group-hover:scale-110 transition-transform"
                                             />
@@ -62,18 +64,18 @@ export function SearchResults({ results, isLoading, onClose, query }: SearchResu
                                         <div className="text-sm font-bold text-primary whitespace-nowrap">
                                             {formatCurrency(product.price)}
                                         </div>
-                                    </Link>
+                                    </LocaleLink>
                                 </li>
                             ))}
                         </ul>
                         <div className="p-2 bg-gray-50/50 border-t text-center">
-                            <Link
-                                to={`/shop?search=${encodeURIComponent(query)}`}
+                            <LocaleLink
+                                href={`/shop?search=${encodeURIComponent(query)}`}
                                 className="text-xs text-primary hover:underline font-medium"
                                 onClick={onClose}
                             >
                                 عرض جميع النتائج
-                            </Link>
+                            </LocaleLink>
                         </div>
                     </motion.div>
                 ) : (

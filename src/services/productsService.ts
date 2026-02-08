@@ -2,9 +2,60 @@ import { supabase } from "@/lib/supabase";
 import { Product } from "@/data/products";
 
 // Helper to map DB row to Application Product Type
+
+const VALID_CATEGORIES = new Set([
+    'baby-care',
+    'strollers-gear',
+    'feeding',
+    'toys',
+    'nursery',
+    'bathing',
+    'clothing',   // NEW (Active)
+    'maternity'   // NEW (Active)
+]);
+
+const LEGACY_MAP: Record<string, string> = {
+    'clothes': 'clothing',       // Map legacy 'clothes' to new standard 'clothing'
+    'mum': 'maternity',          // Map legacy 'mum' to 'maternity'
+    'mom': 'maternity'           // Map legacy 'mom' to 'maternity'
+};
+
+function isValidCategory(ids: any): boolean {
+    return Array.isArray(ids) && ids.length >= 2 && VALID_CATEGORIES.has(ids[1]);
+}
+
+function resolveCategory(ids: any): { ids: string[], legacy?: string, needsReview: boolean } {
+    // 1. Valid Category -> Keep it
+    if (isValidCategory(ids)) {
+        return { ids, needsReview: false };
+    }
+
+    // 2. Legacy Handling -> Map & Track
+    if (Array.isArray(ids) && ids.length >= 2) {
+        const slug = ids[1];
+        if (LEGACY_MAP[slug]) {
+            return {
+                ids: ['kafh-almntjat', LEGACY_MAP[slug]],
+                legacy: slug,
+                needsReview: false // It's handled
+            };
+        }
+    }
+
+    // 3. Fallback -> Uncategorized & Flag
+    return {
+        ids: ['kafh-almntjat', 'uncategorized'],
+        needsReview: true
+    };
+}
+
+// --- Safe Auto-Classifier Logic Removed (Moved to Backend API) ---
 // Helper to map DB row to Application Product Type
 function mapDbToProduct(dbItem: any): Product {
     const isOutOfStock = (dbItem.stock || 0) <= 0;
+
+    // Resolve Category Logic
+    const catResult = resolveCategory(dbItem.category_ids);
 
     // Ensure images have full URL if stored as relative paths
     const price = Number(dbItem.price);
@@ -17,7 +68,7 @@ function mapDbToProduct(dbItem: any): Product {
     const rawImages = dbItem.images || [];
     const processedImages = rawImages.map((img: string) => {
         if (img.startsWith('http')) return img;
-        return `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/store-assets/${img}`;
+        return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/store-assets/${img}`;
     });
 
     return {
@@ -36,7 +87,11 @@ function mapDbToProduct(dbItem: any): Product {
         description: dbItem.description || "",
         description_ar: dbItem.description_ar,
         features: dbItem.features || [],
-        category: dbItem.category || "lightweight",
+        category: catResult.ids[1] || "uncategorized",
+        // GUARDRAIL: Legacy Mapping + Strict Validation
+        category_ids: catResult.ids,
+        legacyCategory: catResult.legacy,
+        needsReview: dbItem.needsReview || catResult.needsReview,
         brand: dbItem.brand || "Generic",
         isNew: dbItem.isNew || false,
         isBestSeller: dbItem.isBestSeller || false,
@@ -73,7 +128,7 @@ export const productsService = {
     async getAllProducts(): Promise<Product[]> {
         const { data, error } = await supabase
             .from('products')
-            .select('*')
+            .select('*, product_analytics(ranking_score)')
             .order('created_at', { ascending: false });
 
         if (error) {
@@ -81,7 +136,16 @@ export const productsService = {
             return [];
         }
 
-        return data.map(mapDbToProduct);
+        // Map the joined score
+        const mapped = data.map(item => {
+            const p = mapDbToProduct(item);
+            // Handle joined data
+            const analytics = Array.isArray(item.product_analytics) ? item.product_analytics[0] : item.product_analytics;
+            if (analytics) p.ranking_score = analytics.ranking_score;
+            return p;
+        });
+
+        return mapped;
     },
 
     async getProductsByCategory(category: string): Promise<Product[]> {
@@ -114,6 +178,53 @@ export const productsService = {
         }
 
         return data.map(mapDbToProduct);
+    },
+
+    async getRelatedProducts(currentId: string, category?: string, limit: number = 4): Promise<Product[]> {
+        let query = supabase
+            .from('products')
+            .select('*')
+            .neq('id', currentId); // Exclude current product
+
+        if (category) {
+            query = query.eq('category', category);
+        }
+
+        // We fetch slightly more to allow for some random-like selection if possible, 
+        // or just fetch the limit directly for maximum performance.
+        // For strict performance, just fetch limit.
+        query = query.limit(limit);
+
+        const { data, error } = await query;
+
+        if (error) {
+            console.error("Error loading related products:", error);
+            return [];
+        }
+
+        let products = data.map(mapDbToProduct);
+
+        // Fallback: If not enough products in category, fetch random others efficiently
+        if (products.length < limit) {
+            const remaining = limit - products.length;
+            const { data: fallbackData } = await supabase
+                .from('products')
+                .select('*')
+                .neq('id', currentId)
+                // If we had category, filter OUT this category to avoid duplicates (though ID check handles it mostly)
+                //.neq('category', category) // Optional
+                .limit(remaining);
+
+            if (fallbackData) {
+                const fallbackProducts = fallbackData.map(mapDbToProduct);
+                // Filter out duplicates just in case
+                const existingIds = new Set(products.map(p => p.id));
+                const uniqueFallback = fallbackProducts.filter(p => !existingIds.has(p.id));
+                products = [...products, ...uniqueFallback];
+            }
+        }
+
+        return products;
     },
 
     async getProductById(id: string): Promise<Product | undefined> {
@@ -176,8 +287,11 @@ export const productsService = {
                     query = query.order('created_at', { ascending: false });
                     break;
                 case 'best-sellers':
-                    // Assuming 'reviews' count is a proxy for popularity/sales if 'sales_count' doesn't exist
-                    // Or check if 'isBestSeller' is a boolean, we can sort by it (descending puts true first)
+                    query = query.order('reviews', { ascending: false });
+                    break;
+                case 'recommended':
+                    // Fallback to reviews since ranking_score column is currently missing
+                    // This ensures the "Recommended" tab (default) is not empty
                     query = query.order('reviews', { ascending: false });
                     break;
                 default:
@@ -194,8 +308,8 @@ export const productsService = {
             return [];
         }
 
-        return data.map(mapDbToProduct);
-        return data.map(mapDbToProduct);
+        let products = data.map(mapDbToProduct);
+        return products;
     },
 
     async deleteProduct(id: string): Promise<boolean> {

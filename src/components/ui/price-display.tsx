@@ -4,7 +4,7 @@ interface PriceDisplayProps {
   price: number;
   compareAtPrice?: number;
   discountPercentage?: number;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
   className?: string;
   showCurrency?: boolean;
 }
@@ -29,6 +29,16 @@ const sizeClasses = {
     current: "text-3xl font-bold",
     compare: "text-lg",
     discount: "text-base px-3 py-1",
+  },
+  "2xl": {
+    current: "text-4xl font-bold",
+    compare: "text-xl",
+    discount: "text-lg px-3 py-1",
+  },
+  "3xl": {
+    current: "text-5xl font-bold",
+    compare: "text-2xl",
+    discount: "text-xl px-4 py-1.5",
   },
 };
 

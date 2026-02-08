@@ -103,7 +103,7 @@ export function BrandLogoSlider() {
                             className="relative group shrink-0 inline-flex items-center justify-center transition-opacity duration-300"
                         >
                             <img
-                                src={`${brand.src}?v=${new Date().getTime()}`}
+                                src={brand.src}
                                 alt={brand.name}
                                 className="h-8 lg:h-10 w-auto object-contain max-h-12 pointer-events-none select-none transition-all duration-300 transform hover:scale-125 drop-shadow-sm"
                             />

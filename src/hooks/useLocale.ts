@@ -1,11 +1,14 @@
-import { useParams } from 'react-router-dom';
+"use client";
+
+import { useParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 
 /**
  * Hook to get current locale and build locale-aware paths
  */
 export function useLocale() {
-    const { locale } = useParams<{ locale: string }>();
+    const params = useParams();
+    const locale = params?.locale as string;
     const { i18n } = useTranslation();
 
     const currentLocale = locale || i18n.language || 'ar';

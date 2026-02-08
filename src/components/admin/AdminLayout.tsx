@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import { Outlet, useNavigate, useLocation, Link } from "react-router-dom";
+"use client";
+
+import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { LocaleLink } from "@/components/LocaleLink";
 import { supabase } from "@/lib/supabase";
 import {
     LayoutDashboard,
@@ -20,32 +23,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export default function AdminLayout() {
-    const [loading, setLoading] = useState(true);
+interface AdminLayoutProps {
+    children: React.ReactNode;
+}
+
+export default function AdminLayout({ children }: AdminLayoutProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-        checkUser();
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            if (!session) navigate("/admin/login");
-        });
-
-        return () => subscription.unsubscribe();
-    }, [navigate]);
-
-    const checkUser = async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-            navigate("/admin/login");
-        }
-        setLoading(false);
-    };
+    const router = useRouter();
+    const pathname = usePathname();
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
-        navigate("/admin/login");
+        router.push("/admin/login");
     };
 
     const menuItems = [
@@ -62,7 +51,7 @@ export default function AdminLayout() {
         { label: "Settings", icon: Settings, path: "/admin/settings" },
     ];
 
-    if (loading) return null;
+
 
     return (
         <div className="min-h-screen bg-slate-50 flex font-sans" dir="ltr">
@@ -76,7 +65,7 @@ export default function AdminLayout() {
                 <div className="h-full flex flex-col">
                     {/* Logo Area */}
                     <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-                        <Link to="/" className="flex items-center gap-3 group">
+                        <LocaleLink href="/" className="flex items-center gap-3 group">
                             <img
                                 src="/babyisland_logo_exact.png"
                                 alt="BabyislandEG"
@@ -91,7 +80,7 @@ export default function AdminLayout() {
                                     Admin Dashboard
                                 </span>
                             </div>
-                        </Link>
+                        </LocaleLink>
                         <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-slate-400 hover:text-slate-600 transition-colors">
                             <X className="w-6 h-6" />
                         </button>
@@ -100,11 +89,11 @@ export default function AdminLayout() {
                     {/* Navigation */}
                     <nav className="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
                         {menuItems.map((item) => {
-                            const isActive = location.pathname === item.path;
+                            const isActive = pathname === item.path;
                             return (
-                                <Link
+                                <LocaleLink
                                     key={item.path}
-                                    to={item.path}
+                                    href={item.path}
                                     onClick={() => setSidebarOpen(false)}
                                     className={cn(
                                         "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden",
@@ -121,7 +110,7 @@ export default function AdminLayout() {
                                         isActive ? "text-[#0EA5E9]" : "text-slate-400 group-hover:text-slate-600"
                                     )} />
                                     <span>{item.label}</span>
-                                </Link>
+                                </LocaleLink>
                             );
                         })}
                     </nav>
@@ -153,7 +142,7 @@ export default function AdminLayout() {
 
                 <main className="flex-1 p-4 lg:p-8 overflow-x-hidden">
                     <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Outlet />
+                        {children}
                     </div>
                 </main>
             </div>

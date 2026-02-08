@@ -37,7 +37,7 @@ const getArray = <T>(key: string): T[] => {
     return Array.isArray(data) ? data : [];
 };
 
-export const storage = {
+export const storageService = {
     get,
     set,
     remove,

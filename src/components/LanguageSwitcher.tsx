@@ -1,12 +1,15 @@
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+"use client";
+
+import { useRouter, useParams, usePathname, useSearchParams } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Globe } from 'lucide-react';
 
 export function LanguageSwitcher() {
     const { i18n } = useTranslation();
-    const navigate = useNavigate();
-    const location = useLocation();
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const { locale } = useParams<{ locale: string }>();
 
     const currentLocale = locale || i18n.language || 'ar';
@@ -14,14 +17,17 @@ export function LanguageSwitcher() {
 
     const handleSwitch = () => {
         // Replace locale in current path
-        const pathWithoutLocale = location.pathname.replace(/^\/(ar|en)/, '');
-        const newPath = `/${targetLocale}${pathWithoutLocale || '/'}${location.search}`;
+        const pathWithoutLocale = pathname.replace(/^\/(ar|en)/, '');
+        const searchString = searchParams.toString() ? `?${searchParams.toString()}` : '';
+        const newPath = `/${targetLocale}${pathWithoutLocale || '/'}${searchString}`;
 
-        // Save preference
-        localStorage.setItem('locale', targetLocale);
+        // Save preference logic REMOVED to respect "URL IS KING"
+        // Only sync happens in layout.tsx based on URL.
+        // We do NOT manually set localStorage here before navigation.
+        // Just navigate.
 
         // Navigate
-        navigate(newPath);
+        router.push(newPath);
     };
 
     return (

@@ -25,6 +25,7 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
     const [comment, setComment] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [visibleReviews, setVisibleReviews] = useState(4);
 
     useEffect(() => {
         loadReviews();
@@ -183,40 +184,60 @@ export function ProductReviews({ productId }: ProductReviewsProps) {
 
             {/* Reviews List */}
             {reviews.length === 0 ? (
-                <Card>
+                <Card className="border-dashed shadow-none bg-muted/30">
                     <CardContent className="py-12 text-center">
-                        <MessageSquare className="w-12 h-12 mx-auto text-slate-300 mb-4" />
-                        <p className="text-slate-500">لا توجد تقييمات بعد. كن أول من يقيّم هذا المنتج!</p>
+                        <MessageSquare className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                        <p className="text-muted-foreground">لا توجد تقييمات بعد. كن أول من يقيّم هذا المنتج!</p>
                     </CardContent>
                 </Card>
             ) : (
-                <div className="space-y-4">
-                    {reviews.map((review, index) => (
-                        <motion.div
-                            key={review.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.05 }}
-                        >
-                            <Card>
-                                <CardContent className="pt-6">
-                                    <div className="flex items-start justify-between mb-3">
-                                        <div>
-                                            <p className="font-semibold">{review.customer_name}</p>
-                                            <p className="text-xs text-slate-500">
+                <div className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir="ltr"> {/* Enforce LTR for grid order or keep RTL depending on language, but 2-col structure is key */}
+                        {reviews.slice(0, visibleReviews).map((review, index) => (
+                            <motion.div
+                                key={review.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.05 }}
+                                className="h-full"
+                            >
+                                <Card className="h-full flex flex-col shadow-sm hover:shadow-md transition-shadow">
+                                    <CardContent className="pt-6 flex-1 flex flex-col gap-3 text-right" dir="auto">
+                                        <div className="flex items-start justify-between">
+                                            <div className="flex flex-col gap-1">
+                                                 <span className="font-bold text-foreground">{review.customer_name}</span>
+                                                 {renderStars(review.rating)}
+                                            </div>
+                                            <span className="text-xs text-muted-foreground">
                                                 {new Date(review.created_at).toLocaleDateString("ar-EG")}
-                                            </p>
+                                            </span>
                                         </div>
-                                        {renderStars(review.rating)}
-                                    </div>
-                                    {review.title && (
-                                        <p className="font-medium mb-2">{review.title}</p>
-                                    )}
-                                    <p className="text-slate-600 leading-relaxed">{review.comment}</p>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
-                    ))}
+                                        
+                                        {review.title && (
+                                            <h4 className="font-bold text-sm text-foreground">{review.title}</h4>
+                                        )}
+                                        
+                                        <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                                            "{review.comment}"
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {visibleReviews < reviews.length && (
+                        <div className="flex justify-center pt-4">
+                            <Button 
+                                variant="outline" 
+                                size="lg" 
+                                onClick={() => setVisibleReviews(prev => prev + 4)}
+                                className="min-w-[200px] rounded-full"
+                            >
+                                تحميل المزيد
+                            </Button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

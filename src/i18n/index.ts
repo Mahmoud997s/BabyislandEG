@@ -1,59 +1,75 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 import ar from './locales/ar.json';
 import en from './locales/en.json';
 
+// Supported locales
+export const SUPPORTED_LOCALES = ['ar', 'en'] as const;
+export type Locale = (typeof SUPPORTED_LOCALES)[number];
+export const DEFAULT_LOCALE: Locale = 'ar';
+
+// Translation resources
 const resources = {
   ar: { translation: ar },
   en: { translation: en },
 };
 
-// Get saved locale or default to 'ar'
-const getSavedLocale = (): string => {
-  if (typeof window === 'undefined') return 'ar';
-
-  // Check URL first
-  const pathLocale = window.location.pathname.split('/')[1];
-  if (pathLocale === 'ar' || pathLocale === 'en') {
-    localStorage.setItem('locale', pathLocale);
-    return pathLocale;
+// SSR-safe locale detection
+// On server: returns default locale (actual locale set via x-locale header in layout)
+// On client: reads from URL path
+export const getLocaleFromPath = (): Locale => {
+  if (typeof window === 'undefined') {
+    return DEFAULT_LOCALE;
   }
 
-  // Then localStorage
-  return localStorage.getItem('locale') || 'ar';
+  const pathSegments = window.location.pathname.split('/');
+  const pathLocale = pathSegments[1];
+
+  if (SUPPORTED_LOCALES.includes(pathLocale as Locale)) {
+    return pathLocale as Locale;
+  }
+
+  return DEFAULT_LOCALE;
 };
 
+// Initialize i18next - SSR safe
+// Uses default locale on server, syncs to URL on client via layout
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    lng: getSavedLocale(),
-    fallbackLng: 'ar',
-    supportedLngs: ['ar', 'en'],
+    lng: DEFAULT_LOCALE, // Default for SSR, client syncs via layout
+    fallbackLng: DEFAULT_LOCALE,
+    supportedLngs: SUPPORTED_LOCALES as unknown as string[],
     interpolation: {
-      escapeValue: false,
+      escapeValue: false, // React already escapes
     },
-    detection: {
-      order: ['path', 'localStorage'],
-      lookupFromPathIndex: 0,
-      caches: ['localStorage'],
+    react: {
+      useSuspense: false, // Disable suspense for SSR compatibility
     },
   });
 
-// Update document direction and language
-export const updateDocumentDirection = (locale: string) => {
-  const dir = locale === 'ar' ? 'rtl' : 'ltr';
-  document.documentElement.dir = dir;
-  document.documentElement.lang = locale;
-  localStorage.setItem('locale', locale);
+// Change language helper - call this from client components
+export const changeLocale = (locale: Locale): void => {
+  if (!SUPPORTED_LOCALES.includes(locale)) {
+    console.warn(`Unsupported locale: ${locale}`);
+    return;
+  }
+
+  i18n.changeLanguage(locale);
+
+  // Sync to localStorage for persistence (client-only)
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('locale', locale);
+    // Set cookie for middleware to see
+    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`;
+  }
 };
 
-// Initialize direction on load
-if (typeof window !== 'undefined') {
-  updateDocumentDirection(getSavedLocale());
-}
+// Get text direction for a locale
+export const getDirection = (locale: Locale): 'rtl' | 'ltr' => {
+  return locale === 'ar' ? 'rtl' : 'ltr';
+};
 
 export default i18n;

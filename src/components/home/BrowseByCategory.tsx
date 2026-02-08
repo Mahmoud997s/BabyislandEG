@@ -1,5 +1,7 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { LocaleLink } from "@/components/LocaleLink";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -7,103 +9,123 @@ import { productsService } from "@/services/productsService";
 import { categories } from "@/data/products";
 import { ArrowRight } from "lucide-react";
 
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const categoryKeyMap: Record<string, string> = {
+    'baby-care': 'babyCare',
     'strollers-gear': 'strollersGear',
     'feeding': 'feeding',
     'toys': 'toys',
     'nursery': 'nursery',
-    'bathing': 'bathing'
+    'bathing': 'bathing',
+    'shoes': 'shoes',
+    'clothing': 'clothes',
+    'diapering': 'diapering',
+    'health': 'health',
+    'maternity': 'maternity',
+    'gifts': 'gifts',
+    'travel': 'travel',
+    'junior': 'junior'
 };
 
-// Fallback images styled to match the new design
+// Note: We use high-quality curated images for categories to maintain a professional brand feel.
+// Dynamic product images are often too inconsistent for a premium circular layout.
 const fallbackImages: Record<string, string> = {
-    'strollers-gear': 'https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=2070&auto=format&fit=crop',
-    'feeding': 'https://images.unsplash.com/photo-1542993529-8a6c8e3cc59e?q=80&w=2070&auto=format&fit=crop',
-    'toys': 'https://images.unsplash.com/photo-1515488046738-142d7732d84c?q=80&w=2073&auto=format&fit=crop',
-    'nursery': 'https://images.unsplash.com/photo-1512918760530-7727521524be?q=80&w=2076&auto=format&fit=crop',
-    'bathing': 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=2070&auto=format&fit=crop'
+    'baby-care': '/categories/baby-care.png',
+    'junior': '/categories/junior.png',
+    'strollers-gear': '/categories/strollers-gear.png',
+    'feeding': '/categories/feeding.png',
+    'toys': '/categories/toys.png', 
+    'nursery': '/categories/nursery.png', 
+    'bathing': '/categories/bathing.png',
+    'shoes': 'https://images.unsplash.com/photo-1510280131138-048d613df184?w=600&q=80',
+    'clothing': '/categories/clothing.png', 
+    'diapering': 'https://images.unsplash.com/photo-1622323719171-881b37265842?w=600&q=80',
+    'health': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80',
+    'maternity': '/categories/maternity.png',
+    'gifts': 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&q=80',
+    'travel': 'https://images.unsplash.com/photo-1544652478-6653e09f9039?w=600&q=80',
 };
 
 export const BrowseByCategory = () => {
     const { t, i18n } = useTranslation();
-    const [categoryImages, setCategoryImages] = useState<Record<string, string>>(fallbackImages);
-    const isRtl = i18n.dir() === 'rtl';
+    const direction = i18n.dir();
+    
+    // Using curated images directly for a professional consistency
+    const categoryImages = fallbackImages;
 
-    useEffect(() => {
-        productsService.getAllProducts().then((allProducts) => {
-            const newImages: Record<string, string> = { ...fallbackImages };
-            categories.slice(0, 4).forEach(cat => {
-                const product = allProducts.find(p => p.category === cat.id && p.images && p.images.length > 0);
-                if (product && product.images && product.images[0]) {
-                    newImages[cat.id] = product.images[0];
-                }
-            });
-            setCategoryImages(newImages);
-        });
-    }, []);
-
-    const displayCategories = categories.slice(0, 4);
+    // Original core categories + Clothing/Maternity as requested for consistency
+    const originalCategoryIds = ['baby-care', 'strollers-gear', 'feeding', 'toys', 'nursery', 'bathing', 'clothing', 'maternity'];
+    const displayCategories = categories.filter(cat => originalCategoryIds.includes(cat.id));
 
     return (
-        <section className="py-12 lg:py-20 bg-transparent">
+        <section className="py-8 lg:py-12 bg-transparent">
             <div className="container-main">
-                {/* Modern Header */}
-                <div className="flex flex-col items-center justify-center mb-12">
-                    <h2 className="text-3xl md:text-5xl font-black text-center uppercase font-display tracking-tight text-foreground">
-                        {t('home.browseByCategory', 'BROWSE BY CATEGORY')}
-                    </h2>
-                    <div className="w-24 h-1 bg-primary rounded-full mt-4" />
-                </div>
+                {/* Modern Header - Standardized */}
+                <h2 className="text-3xl lg:text-5xl font-extrabold text-center mb-8 uppercase tracking-tighter">
+                    {t('home.browseByCategory', 'BROWSE BY CATEGORY')}
+                </h2>
 
-                {/* Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
-                    {displayCategories.map((cat, index) => {
-                        const isWide = index === 1 || index === 2;
-                        const colSpan = isWide ? "md:col-span-2" : "md:col-span-1";
-
-                        return (
-                            <motion.div
-                                key={cat.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className={cn(colSpan, "relative group overflow-hidden rounded-[32px]")}
-                            >
-                                <Link
-                                    to={`/shop?category=${cat.id}`}
-                                    className="block w-full h-full bg-white border border-gray-100/50 shadow-sm hover:shadow-xl transition-all duration-500"
+                {/* Slider Layout */}
+                <Carousel
+                    opts={{
+                        align: 'start',
+                        loop: true,
+                        direction: direction as 'rtl' | 'ltr',
+                    }}
+                    plugins={[
+                        Autoplay({ delay: 4000, stopOnInteraction: false })
+                    ]}
+                    className="w-full relative px-4 sm:px-10"
+                    dir={direction}
+                >
+                    <CarouselContent className="-ml-2 md:-ml-6 py-4">
+                        {displayCategories.map((cat, index) => (
+                            <CarouselItem key={cat.id} className="pl-2 md:pl-6 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/6">
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                                    viewport={{ once: true }}
+                                    className="group flex flex-col items-center gap-3"
                                 >
-                                    {/* Text Content */}
-                                    <div className="absolute top-6 left-6 z-20">
-                                        <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                                            {t(`categories.${categoryKeyMap[cat.id] || cat.id}`)}
-                                        </h3>
-                                        <div className="flex items-center gap-2 mt-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                            <span className="text-sm font-medium text-muted-foreground">Shop Now</span>
-                                            <ArrowRight className={cn("w-4 h-4 text-primary", isRtl && "rotate-180")} />
+                                    <LocaleLink
+                                        href={cat.id === 'junior' ? '/shop?search=Junior' : `/shop?category=${cat.id}`}
+                                        className="relative block w-full aspect-square rounded-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-4 border-white shadow-md hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1"
+                                    >
+                                        {/* Image */}
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <img
+                                                src={categoryImages[cat.id] || fallbackImages[cat.id] || '/placeholder.png'}
+                                                alt={cat.name}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
                                         </div>
-                                    </div>
 
-                                    {/* Image */}
-                                    <div className={cn(
-                                        "absolute bottom-0 right-0 w-3/4 h-3/4 transition-all duration-700 ease-out group-hover:scale-110",
-                                        isRtl ? "left-0 right-auto" : "right-0"
-                                    )}>
-                                        <img
-                                            src={categoryImages[cat.id]}
-                                            alt={cat.name}
-                                            className="w-full h-full object-contain object-bottom mix-blend-multiply opacity-90 group-hover:opacity-100"
-                                        />
-                                    </div>
-
-                                    {/* Decorative Background Gradient (Very Subtle) */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-transparent pointer-events-none" />
-                                </Link>
-                            </motion.div>
-                        );
-                    })}
-                </div>
+                                        {/* Overlay on Hover */}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+                                    </LocaleLink>
+                                    
+                                    {/* Text Label */}
+                                    <h3 className="text-sm md:text-base font-bold text-center text-gray-800 group-hover:text-[#F97316] transition-colors">
+                                        {t(`categories.${categoryKeyMap[cat.id] || cat.id}`, cat.name)}
+                                    </h3>
+                                </motion.div>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    
+                    {/* Navigation Arrows */}
+                    <CarouselPrevious className="hidden sm:flex -left-2 sm:-left-4 border-none shadow-md bg-white/90 hover:bg-[#F97316] hover:text-white" />
+                    <CarouselNext className="hidden sm:flex -right-2 sm:-right-4 border-none shadow-md bg-white/90 hover:bg-[#F97316] hover:text-white" />
+                </Carousel>
             </div>
         </section>
     );

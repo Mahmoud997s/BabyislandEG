@@ -1,4 +1,6 @@
-import { useNavigate, useParams } from 'react-router-dom';
+"use client";
+
+import { useRouter, useParams, usePathname } from 'next/navigation';
 import { useCallback } from 'react';
 
 /**
@@ -6,27 +8,42 @@ import { useCallback } from 'react';
  * Returns a navigate function that automatically adds locale prefix
  */
 export function useLocaleNavigate() {
-    const navigate = useNavigate();
-    const { locale } = useParams<{ locale: string }>();
-    const currentLocale = locale || localStorage.getItem('locale') || 'ar';
+    const params = useParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    // Extract locale from pathname (Source of Truth)
+    const pathnameLocale = pathname?.split('/')[1];
+    const isValidLocale = pathnameLocale === 'en' || pathnameLocale === 'ar';
+    const currentLocale = isValidLocale ? pathnameLocale : (params?.locale as string || 'ar');
 
     const localeNavigate = useCallback(
         (to: string | number, options?: { replace?: boolean; state?: any }) => {
             if (typeof to === 'number') {
-                navigate(to);
+                if (to === -1) {
+                    router.back();
+                }
                 return;
             }
 
-            // Don't add locale prefix to admin routes
-            if (to.startsWith('/admin')) {
-                navigate(to, options);
+            // Don't add locale prefix to admin or api routes
+            if (to.startsWith('/admin') || to.startsWith('/api')) {
+                if (options?.replace) {
+                    router.replace(to);
+                } else {
+                    router.push(to);
+                }
                 return;
             }
 
             const localizedPath = `/${currentLocale}${to.startsWith('/') ? to : `/${to}`}`.replace(/\/\/$/, '/');
-            navigate(localizedPath, options);
+            if (options?.replace) {
+                router.replace(localizedPath);
+            } else {
+                router.push(localizedPath);
+            }
         },
-        [navigate, currentLocale]
+        [router, currentLocale]
     );
 
     return localeNavigate;

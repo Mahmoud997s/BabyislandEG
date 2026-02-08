@@ -89,8 +89,17 @@
     "strollersGear": "Strollers & Gear",
     "feeding": "Feeding",
     "toys": "Toys",
+    "babyCare": "Baby Care",
     "nursery": "Nursery",
     "bathing": "Bathing",
+    "shoes": "Shoes",
+    "clothes": "Clothes",
+    "diapering": "Diapering",
+    "health": "Health & Safety",
+    "maternity": "Maternity",
+    "gifts": "Gifts",
+    "travel": "Travel",
+    "junior": "Junior",
     "lightweight": "Lightweight",
     "lightweightDesc": "Easy to carry",
     "travelSystem": "Travel System",
@@ -228,6 +237,7 @@
     "categoriesDesc": "Choose what fits your needs",
     "whyChooseUs": "Why Choose Us?",
     "whyChooseUsDesc": "We offer you the best shopping experience",
+    "happyCustomers": "OUR HAPPY CUSTOMERS",
     "testimonials": "Customer Reviews",
     "testimonialsDesc": "What our customers say about us",
     "faq": "FAQ",
@@ -288,6 +298,7 @@
     "remove": "Remove",
     "color": "Color",
     "freeShippingNote": "Free shipping on orders over 5000 EGP",
+    "added": "Added to cart!",
     "freeShippingCongrats": "🎉 Congratulations! Free shipping",
     "addMoreForFree": "Add products worth",
     "forFreeShipping": "for free shipping 🚚",
@@ -462,6 +473,45 @@
       "title": "System Status",
       "desc": "Database connection and sync status.",
       "connected": "Supabase Connected"
+    }
+  },
+  "trackOrder": {
+    "title": "Track Your Order",
+    "subtitle": "Enter your order ID and phone number to check your status",
+    "cardTitle": "Order Information",
+    "cardDesc": "Enter text found in your email confirmation",
+    "orderIdLabel": "Order ID",
+    "orderIdPlaceholder": "e.g., 12345",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "e.g., 01234567890",
+    "button": "Track Order",
+    "loading": "Searching...",
+    "errors": {
+      "missing": "Please enter order ID and phone number",
+      "notFound": "Order not found. Please check your details."
+    },
+    "status": {
+      "title": "Order Status",
+      "updated": "Last updated",
+      "current": "Current Status"
+    },
+    "info": {
+      "title": "Order Details",
+      "id": "Order ID",
+      "name": "Name",
+      "city": "City",
+      "address": "Address",
+      "total": "Total"
+    },
+    "items": {
+      "title": "Items",
+      "quantity": "Quantity"
+    },
+    "steps": {
+      "pending": "Pending Review",
+      "confirmed": "Confirmed",
+      "shipped": "On the Way",
+      "delivered": "Delivered"
     }
   }
 }

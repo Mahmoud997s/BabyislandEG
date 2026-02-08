@@ -69,6 +69,24 @@ export const orderService = {
         }
 
         console.log('[Order] ✅ Created:', data.id);
+
+        // --- TRACKING: Increment Sales Count ---
+        // Fire and forget (don't await strictly or fail order if stats fail)
+        (async () => {
+            try {
+                for (const item of items) {
+                   const { error: statsError } = await supabase.rpc('increment_sales', { 
+                       p_id: item.product.id, 
+                       qty: item.quantity 
+                   });
+                   if (statsError) console.error('[Tracking] Failed to increment sales:', statsError.message);
+                }
+            } catch (e) {
+                console.error('[Tracking] Exception updating stats:', e);
+            }
+        })();
+        // ---------------------------------------
+
         return data as Order;
     },
 

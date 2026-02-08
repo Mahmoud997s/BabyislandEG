@@ -22,6 +22,11 @@ export default {
       fontFamily: {
         body: ["Cairo", "sans-serif"],
         display: ["Cairo", "sans-serif"],
+        fredoka: ["var(--font-fredoka)", "sans-serif"],
+        chewy: ["var(--font-chewy)", "cursive"],
+        "baskervville-sc": ["var(--font-baskervville-sc)", "serif"],
+        ruqaa: ["var(--font-aref-ruqaa)", "serif"],
+        "barada-reqa": ["'Barada Reqa'", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

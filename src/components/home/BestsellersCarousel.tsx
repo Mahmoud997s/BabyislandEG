@@ -37,7 +37,7 @@ export const BestsellersCarousel = ({ products }: BestsellersCarouselProps) => {
                 {products.map((product, index) => (
                     <CarouselItem
                         key={product.id}
-                        className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                        className="pl-2 md:pl-4 basis-1/2 md:basis-1/4 lg:basis-1/6"
                     >
                         <div className="h-full relative">
                             <MinimalProductCard product={product} />

@@ -1,0 +1,1681 @@
+{
+  "movedCount": {
+    "feeding": 19,
+    "strollers-gear": 57,
+    "toys": 21,
+    "baby-care": 209,
+    "bathing": 27,
+    "nursery": 21
+  },
+  "lowConfidence": [
+    {
+      "id": "2942",
+      "name": "بلازما اضاءة وموسيقى 035",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2791",
+      "name": "chicco natural feeling 250 ml 2+ blue",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2788",
+      "name": "chicco natural feeling 150 ml 0+ blue",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2787",
+      "name": "chicco natural feeling 150 ml 0+ pink",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2745",
+      "name": "Petit bebe premium shoulder bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2707",
+      "name": "ماصة فاكهة ترو +1",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2583",
+      "name": "فرشة اسنان سفاري",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2553",
+      "name": "سكاتة ترو كروية 6-12",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2521",
+      "name": "Lovi silicone Dynamic",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2476",
+      "name": "junior baby gift box prince 10pc",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2472",
+      "name": "junior baby gift box 10pc princess",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2470",
+      "name": "Junior gift box zoo 10 pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "3212",
+      "name": "Activity Cube Box",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "4847",
+      "name": "Infantino Ergonomic hoodie",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "4931",
+      "name": "Changing stand unit",
+      "score": 4,
+      "winner": "baby-care"
+    },
+    {
+      "id": "5038",
+      "name": "lequeen 6th Silver bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5046",
+      "name": "Optical microscope",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5068",
+      "name": "Lovi trends harmony 120ml +0",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5069",
+      "name": "Lovi trends harmony 250ml +3",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5150",
+      "name": "Head protective",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5152",
+      "name": "Silicone shoes socks",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5154",
+      "name": "White socks 1pc",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5182",
+      "name": "Deluxe Baby changing unit",
+      "score": 4,
+      "winner": "baby-care"
+    },
+    {
+      "id": "5199",
+      "name": "Chicco special offer( boys)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5200",
+      "name": "Chicco special offer (girls)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5220",
+      "name": "Canpol washing liquid 500 ml",
+      "score": 4,
+      "winner": "baby-care"
+    },
+    {
+      "id": "5268",
+      "name": "Anti lost bracelet",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5276",
+      "name": "سكاتة بومة ترو كروية 0-6",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5277",
+      "name": "سكاتة دب ترو كروية 0-6",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5278",
+      "name": "ترو سكاتة كروية ذاتية الغلق 0-6",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5337",
+      "name": "Baby tent lovely baby",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5338",
+      "name": "Baby tent pj mask",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5390",
+      "name": "petit bebe premuim go bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5391",
+      "name": "petit bebe premium max bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5413",
+      "name": "police baby crawler",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5414",
+      "name": "motor speed baby crawler",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5421",
+      "name": "wooden hand knocks xylophone",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5427",
+      "name": "music phone function",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5443",
+      "name": "unicorn projector",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5459",
+      "name": "color dough 12 cans",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5470",
+      "name": "Dancing Cactus usb",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5478",
+      "name": "Princess Luo Mi",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5480",
+      "name": "the pretty girl beauty makeup",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5483",
+      "name": "Gyro Battle 4 players",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5491",
+      "name": "Tripod Easel board",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5514",
+      "name": "مسند تعليم جلوس حزام",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5516",
+      "name": "chicco back bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5518",
+      "name": "chicco shoulder bag captone",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5520",
+      "name": "chicco shoulder 1 bocket bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5521",
+      "name": "chicco shoulder 2 pocket bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5538",
+      "name": "chicco natural feeling 250 ml 2+ pink",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5593",
+      "name": "silicon baby remote",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5688",
+      "name": "junior cool & wild baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5689",
+      "name": "junior elephant baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5690",
+      "name": "junior space journey baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5691",
+      "name": "junior sleepy girl baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5692",
+      "name": "junior bird & cloud baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5693",
+      "name": "junior pinky rabbit baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5784",
+      "name": "chicco natural feeling 250 ml 2+",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5798",
+      "name": "junior baby port royal animal",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5803",
+      "name": "junior baby port lets explore",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5804",
+      "name": "junior baby port rounded kashmir",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5815",
+      "name": "baby changing unit",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5837",
+      "name": "Foldable baby tablet table",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5856",
+      "name": "Canpol babies Socket Covers 4 pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5886",
+      "name": "Baby fence with basket",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5899",
+      "name": "Junior Bear Baby Romber 2pcs (0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5900",
+      "name": "Junior Bear Baby Romber 2pcs (3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5901",
+      "name": "Junior Bear Baby Romber 2pcs (6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5902",
+      "name": "Junior Bear Baby Romber 2pcs (9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5903",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5904",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5905",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5906",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5907",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5908",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5909",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5910",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5911",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5912",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5913",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5914",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5915",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(12-18)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5916",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(18-24)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5919",
+      "name": "Junior Baby Love Gift Box 10 Pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5920",
+      "name": "Junior Butterfly Baby Gift Box 5Pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2707",
+      "name": "ماصة فاكهة ترو +1",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2476",
+      "name": "junior baby gift box prince 10pc",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2472",
+      "name": "junior baby gift box 10pc princess",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "4847",
+      "name": "Infantino Ergonomic hoodie",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "4931",
+      "name": "Changing stand unit",
+      "score": 4,
+      "winner": "baby-care"
+    },
+    {
+      "id": "5182",
+      "name": "Deluxe Baby changing unit",
+      "score": 4,
+      "winner": "baby-care"
+    },
+    {
+      "id": "5815",
+      "name": "baby changing unit",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2942",
+      "name": "بلازما اضاءة وموسيقى 035",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2791",
+      "name": "chicco natural feeling 250 ml 2+ blue",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2788",
+      "name": "chicco natural feeling 150 ml 0+ blue",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2787",
+      "name": "chicco natural feeling 150 ml 0+ pink",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2745",
+      "name": "Petit bebe premium shoulder bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2583",
+      "name": "فرشة اسنان سفاري",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2553",
+      "name": "سكاتة ترو كروية 6-12",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2521",
+      "name": "Lovi silicone Dynamic",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2470",
+      "name": "Junior gift box zoo 10 pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "3212",
+      "name": "Activity Cube Box",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5038",
+      "name": "lequeen 6th Silver bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5046",
+      "name": "Optical microscope",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5068",
+      "name": "Lovi trends harmony 120ml +0",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5069",
+      "name": "Lovi trends harmony 250ml +3",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5150",
+      "name": "Head protective",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5152",
+      "name": "Silicone shoes socks",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5154",
+      "name": "White socks 1pc",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5199",
+      "name": "Chicco special offer( boys)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5200",
+      "name": "Chicco special offer (girls)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5220",
+      "name": "Canpol washing liquid 500 ml",
+      "score": 4,
+      "winner": "baby-care"
+    },
+    {
+      "id": "5268",
+      "name": "Anti lost bracelet",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5276",
+      "name": "سكاتة بومة ترو كروية 0-6",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5277",
+      "name": "سكاتة دب ترو كروية 0-6",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5278",
+      "name": "ترو سكاتة كروية ذاتية الغلق 0-6",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5337",
+      "name": "Baby tent lovely baby",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5338",
+      "name": "Baby tent pj mask",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5390",
+      "name": "petit bebe premuim go bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5391",
+      "name": "petit bebe premium max bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5413",
+      "name": "police baby crawler",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5414",
+      "name": "motor speed baby crawler",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5421",
+      "name": "wooden hand knocks xylophone",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5427",
+      "name": "music phone function",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5443",
+      "name": "unicorn projector",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5459",
+      "name": "color dough 12 cans",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5470",
+      "name": "Dancing Cactus usb",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5478",
+      "name": "Princess Luo Mi",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5480",
+      "name": "the pretty girl beauty makeup",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5483",
+      "name": "Gyro Battle 4 players",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5491",
+      "name": "Tripod Easel board",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5514",
+      "name": "مسند تعليم جلوس حزام",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5516",
+      "name": "chicco back bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5518",
+      "name": "chicco shoulder bag captone",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5520",
+      "name": "chicco shoulder 1 bocket bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5521",
+      "name": "chicco shoulder 2 pocket bag",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5538",
+      "name": "chicco natural feeling 250 ml 2+ pink",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5593",
+      "name": "silicon baby remote",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5688",
+      "name": "junior cool & wild baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5689",
+      "name": "junior elephant baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5690",
+      "name": "junior space journey baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5691",
+      "name": "junior sleepy girl baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5692",
+      "name": "junior bird & cloud baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5693",
+      "name": "junior pinky rabbit baby port",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5784",
+      "name": "chicco natural feeling 250 ml 2+",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5798",
+      "name": "junior baby port royal animal",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5803",
+      "name": "junior baby port lets explore",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5804",
+      "name": "junior baby port rounded kashmir",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5837",
+      "name": "Foldable baby tablet table",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5856",
+      "name": "Canpol babies Socket Covers 4 pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5886",
+      "name": "Baby fence with basket",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5899",
+      "name": "Junior Bear Baby Romber 2pcs (0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5900",
+      "name": "Junior Bear Baby Romber 2pcs (3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5901",
+      "name": "Junior Bear Baby Romber 2pcs (6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5902",
+      "name": "Junior Bear Baby Romber 2pcs (9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5903",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5904",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5905",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5906",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5907",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5908",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5909",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5910",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5911",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(0-3)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5912",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(3-6)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5913",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(6-9)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5914",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(9-12)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5915",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(12-18)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5916",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(18-24)",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5919",
+      "name": "Junior Baby Love Gift Box 10 Pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "5920",
+      "name": "Junior Butterfly Baby Gift Box 5Pcs",
+      "score": 0,
+      "winner": "strollers-gear"
+    },
+    {
+      "id": "2942",
+      "name": "بلازما اضاءة وموسيقى 035",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2791",
+      "name": "chicco natural feeling 250 ml 2+ blue",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2788",
+      "name": "chicco natural feeling 150 ml 0+ blue",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2787",
+      "name": "chicco natural feeling 150 ml 0+ pink",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2745",
+      "name": "Petit bebe premium shoulder bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2583",
+      "name": "فرشة اسنان سفاري",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2553",
+      "name": "سكاتة ترو كروية 6-12",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2521",
+      "name": "Lovi silicone Dynamic",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "2470",
+      "name": "Junior gift box zoo 10 pcs",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "3212",
+      "name": "Activity Cube Box",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5038",
+      "name": "lequeen 6th Silver bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5046",
+      "name": "Optical microscope",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5068",
+      "name": "Lovi trends harmony 120ml +0",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5069",
+      "name": "Lovi trends harmony 250ml +3",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5150",
+      "name": "Head protective",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5152",
+      "name": "Silicone shoes socks",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5154",
+      "name": "White socks 1pc",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5199",
+      "name": "Chicco special offer( boys)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5200",
+      "name": "Chicco special offer (girls)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5220",
+      "name": "Canpol washing liquid 500 ml",
+      "score": 4,
+      "winner": "feeding"
+    },
+    {
+      "id": "5268",
+      "name": "Anti lost bracelet",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5276",
+      "name": "سكاتة بومة ترو كروية 0-6",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5277",
+      "name": "سكاتة دب ترو كروية 0-6",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5278",
+      "name": "ترو سكاتة كروية ذاتية الغلق 0-6",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5337",
+      "name": "Baby tent lovely baby",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5338",
+      "name": "Baby tent pj mask",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5390",
+      "name": "petit bebe premuim go bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5391",
+      "name": "petit bebe premium max bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5413",
+      "name": "police baby crawler",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5414",
+      "name": "motor speed baby crawler",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5421",
+      "name": "wooden hand knocks xylophone",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5427",
+      "name": "music phone function",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5443",
+      "name": "unicorn projector",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5459",
+      "name": "color dough 12 cans",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5470",
+      "name": "Dancing Cactus usb",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5478",
+      "name": "Princess Luo Mi",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5480",
+      "name": "the pretty girl beauty makeup",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5483",
+      "name": "Gyro Battle 4 players",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5491",
+      "name": "Tripod Easel board",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5514",
+      "name": "مسند تعليم جلوس حزام",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5516",
+      "name": "chicco back bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5518",
+      "name": "chicco shoulder bag captone",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5520",
+      "name": "chicco shoulder 1 bocket bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5521",
+      "name": "chicco shoulder 2 pocket bag",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5538",
+      "name": "chicco natural feeling 250 ml 2+ pink",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5593",
+      "name": "silicon baby remote",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5688",
+      "name": "junior cool & wild baby port",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5689",
+      "name": "junior elephant baby port",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5690",
+      "name": "junior space journey baby port",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5691",
+      "name": "junior sleepy girl baby port",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5692",
+      "name": "junior bird & cloud baby port",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5693",
+      "name": "junior pinky rabbit baby port",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5784",
+      "name": "chicco natural feeling 250 ml 2+",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5798",
+      "name": "junior baby port royal animal",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5803",
+      "name": "junior baby port lets explore",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5804",
+      "name": "junior baby port rounded kashmir",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5837",
+      "name": "Foldable baby tablet table",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5856",
+      "name": "Canpol babies Socket Covers 4 pcs",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5886",
+      "name": "Baby fence with basket",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5899",
+      "name": "Junior Bear Baby Romber 2pcs (0-3)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5900",
+      "name": "Junior Bear Baby Romber 2pcs (3-6)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5901",
+      "name": "Junior Bear Baby Romber 2pcs (6-9)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5902",
+      "name": "Junior Bear Baby Romber 2pcs (9-12)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5903",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(0-3)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5904",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(3-6)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5905",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(6-9)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5906",
+      "name": "Junior Flower Baby Romber 1pcs long Sleev(9-12)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5907",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(0-3)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5908",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(3-6)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5909",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(6-9)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5910",
+      "name": "Junior Born to be cute Baby Romber 1pcs long Sleev(9-12)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5911",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(0-3)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5912",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(3-6)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5913",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(6-9)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5914",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(9-12)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5915",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(12-18)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5916",
+      "name": "Junior Born to be cute Baby Byjama 2pcs long Sleev(18-24)",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5919",
+      "name": "Junior Baby Love Gift Box 10 Pcs",
+      "score": 2,
+      "winner": "feeding"
+    },
+    {
+      "id": "5920",
+      "name": "Junior Butterfly Baby Gift Box 5Pcs",
+      "score": 2,
+      "winner": "feeding"
+    }
+  ],
+  "topKeywords": {},
+  "examples": [
+    {
+      "product_id": "3148",
+      "name": "Art feeding pillow",
+      "from": "nursery",
+      "to": "feeding",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2947",
+      "name": "Ferrari bike 12\"",
+      "from": "toys",
+      "to": "strollers-gear",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2932",
+      "name": "مفتاح عربية عضاضة smart remote",
+      "from": "feeding",
+      "to": "toys",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2870",
+      "name": "chicco care comb 2 pcs",
+      "from": "bathing",
+      "to": "baby-care",
+      "score": 56,
+      "reason": "Score 56 >= 5"
+    },
+    {
+      "product_id": "2817",
+      "name": "Shower cap 3d",
+      "from": "baby-care",
+      "to": "bathing",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2815",
+      "name": "اسكوتر 881",
+      "from": "toys",
+      "to": "strollers-gear",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2737",
+      "name": "سجادة بيبي",
+      "from": "toys",
+      "to": "nursery",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2703",
+      "name": "طقم شوكة ومعلقة مرنة",
+      "from": "baby-care",
+      "to": "feeding",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2605",
+      "name": "مقص وقصافة ترو",
+      "from": "feeding",
+      "to": "bathing",
+      "score": 40,
+      "reason": "Score 40 >= 5"
+    },
+    {
+      "product_id": "2604",
+      "name": "مقص سفاري",
+      "from": "feeding",
+      "to": "bathing",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2590",
+      "name": "قصافة سفاري دولفين",
+      "from": "feeding",
+      "to": "bathing",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2589",
+      "name": "قصافة ترو شخصيات",
+      "from": "feeding",
+      "to": "bathing",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2588",
+      "name": "قصافة ترو",
+      "from": "feeding",
+      "to": "bathing",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2558",
+      "name": "سكاتة مشطوفة سفاري0-3",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 20,
+      "reason": "Score 20 >= 5"
+    },
+    {
+      "product_id": "2438",
+      "name": "strawberry 3pcs set",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2437",
+      "name": "pink flower classic 3pc set",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2436",
+      "name": "mint classic 3pc set",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2434",
+      "name": "gray classic cut 2pc set",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2433",
+      "name": "elephant 2pc set",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    },
+    {
+      "product_id": "2432",
+      "name": "Whale 2pc Set",
+      "from": "feeding",
+      "to": "baby-care",
+      "score": 28,
+      "reason": "Score 28 >= 5"
+    }
+  ]
+}

@@ -1,7 +1,9 @@
+"use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { LocaleLink } from "@/components/LocaleLink";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart";
 import { PriceDisplay } from "@/components/ui/price-display";
@@ -25,6 +27,13 @@ export function CartDrawer() {
     return value.toLocaleString(i18n.language === 'ar' ? 'ar-EG' : 'en-US');
   };
 
+  // Determine animation direction based on language
+  // English (LTR): Drawer on Right. Slides in from Right (x: 100% -> 0)
+  // Arabic (RTL): Drawer on Left. Slides in from Left (x: -100% -> 0)
+  const isRtl = i18n.language === 'ar';
+  const slideInitial = { x: isRtl ? "-100%" : "100%" };
+  const slideExit = { x: isRtl ? "-100%" : "100%" };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -40,11 +49,11 @@ export function CartDrawer() {
 
           {/* Drawer */}
           <motion.div
-            initial={{ x: "-100%" }}
+            initial={slideInitial}
             animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
+            exit={slideExit}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed top-0 right-0 h-full w-full max-w-md bg-background shadow-xl z-50 flex flex-col"
+            className="fixed top-0 ltr:right-0 rtl:left-0 h-full w-full max-w-md bg-background shadow-xl z-50 flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
@@ -70,7 +79,7 @@ export function CartDrawer() {
                     {t('cart.emptyDesc')}
                   </p>
                   <Button onClick={closeCart} asChild>
-                    <Link to="/shop">{t('cart.shopNow')}</Link>
+                    <LocaleLink href="/shop">{t('cart.shopNow')}</LocaleLink>
                   </Button>
                 </div>
               ) : (
@@ -191,9 +200,9 @@ export function CartDrawer() {
                 {/* Actions */}
                 <div className="space-y-2">
                   <Button className="w-full" size="lg" asChild>
-                    <Link to="/checkout" onClick={closeCart}>
+                    <LocaleLink href="/checkout" onClick={closeCart}>
                       {t('cart.checkout')}
-                    </Link>
+                    </LocaleLink>
                   </Button>
                   <Button
                     variant="outline"
@@ -202,7 +211,7 @@ export function CartDrawer() {
                     onClick={closeCart}
                     asChild
                   >
-                    <Link to="/cart">{t('cart.viewCart')}</Link>
+                    <LocaleLink href="/cart">{t('cart.viewCart')}</LocaleLink>
                   </Button>
                 </div>
               </div>

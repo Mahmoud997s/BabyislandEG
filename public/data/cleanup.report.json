@@ -1,0 +1,9 @@
+{
+  "stats": {
+    "totalProcessed": 1702,
+    "idsFixed": 1454,
+    "slugsFixed": 1454,
+    "categoryFixes": 217,
+    "issues": {}
+  }
+}

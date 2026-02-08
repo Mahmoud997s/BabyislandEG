@@ -90,6 +90,7 @@ export function ProductFilters({
                     onChange={(e) => onSortChange(e.target.value)}
                     className="w-full p-2.5 rounded-md border bg-background text-sm focus:ring-2 focus:ring-primary/20 outline-none"
                 >
+                    <option value="recommended">{t("sort.recommended", "Recommended")}</option>
                     <option value="best-sellers">{t("common.bestSeller")}</option>
                     <option value="price-low">{t("sort.priceLowHigh")}</option>
                     <option value="price-high">{t("sort.priceHighLow")}</option>
