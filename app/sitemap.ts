@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
-import { productsService } from '@/services/products-service';
+import { productsService } from '../src/services/productsService';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const products = await productsService.getProducts(); // Fetch all products
+  const products = await productsService.getAllProducts(); // Fetch all products
   const baseUrl = 'https://babyislandeg.com';
 
   const productUrls = products.flatMap((product) => {
