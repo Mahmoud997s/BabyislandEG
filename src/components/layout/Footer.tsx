@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   const { settings } = useSettings();
@@ -51,18 +52,9 @@ export function Footer() {
         <div className="bg-black rounded-[20px] p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="flex flex-col gap-4 items-center lg:items-start text-center lg:text-start">
             {/* Logo Moved Here */}
-            <LocaleLink href="/" className="flex items-center gap-3">
-              <img
-                src="/babyisland_logo_exact.png"
-                alt="BabyislandEG"
-                className="w-12 h-12 rounded-full object-cover border-2 border-white/10"
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl font-black leading-tight" style={{ fontFamily: "'Nexa', sans-serif" }}>
-                  <span className="text-[#0EA5E9]">Babyisland</span>
-                  <span className="text-[#F97316]">EG</span>
-                </span>
-              </div>
+            {/* Logo Moved Here */}
+            <LocaleLink href="/">
+              <Logo />
             </LocaleLink>
             
             <h2 className="text-xl lg:text-3xl font-bold uppercase max-w-xl text-white">

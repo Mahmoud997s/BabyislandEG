@@ -30,6 +30,7 @@ import { Product } from "@/data/products";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLocaleNavigate } from "@/hooks/useLocaleNavigate";
 import { SafeText } from "@/components/SafeText";
+import { Logo } from "@/components/ui/Logo";
 
 interface NavLink {
   id: string;
@@ -155,27 +156,9 @@ export function Header() {
               </Button>
 
               {/* Logo */}
-              <LocaleLink href="/" className="flex items-center gap-3 group shrink-0">
-                <div className={cn(
-                  "hidden sm:flex flex-col items-center justify-center gap-0 text-center",
-                  i18n.language === 'ar' ? "order-1" : "order-2"
-                )}>
-                  <span className="text-2xl font-black transition-all duration-300 group-hover:tracking-wide drop-shadow-sm leading-tight font-baskervville-sc">
-                    <span className="text-[#0EA5E9]">Babyisland</span>
-                    <span className="text-[#F97316]">EG</span>
-                  </span>
-                  <span className="text-[10px] font-bold text-[#F97316] tracking-wider uppercase -mt-1" style={{ fontFamily: "'Cairo', sans-serif" }} suppressHydrationWarning>
-                    {t("header.slogan")}
-                  </span>
-                </div>
-                <img
-                  src="/babyisland_logo_exact.png"
-                  alt="BabyislandEG"
-                  className={cn(
-                    "w-12 h-12 rounded-full object-cover transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-lg ring-2 ring-white/50",
-                    i18n.language === 'ar' ? "order-2" : "order-1"
-                  )}
-                />
+              {/* Logo */}
+              <LocaleLink href="/" className="group shrink-0">
+                <Logo />
               </LocaleLink>
 
               {/* Desktop Navigation (Moved Here) */}
