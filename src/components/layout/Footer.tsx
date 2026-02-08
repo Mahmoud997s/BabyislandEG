@@ -96,13 +96,13 @@ export function Footer() {
 
               {/* Contact Info */}
               <div className="space-y-3 mb-6">
-                <a href="tel:+201234567890" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-[#0EA5E9] transition-colors group">
+                <a href="tel:+201062185805" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-[#0EA5E9] transition-colors group">
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                     <Phone className="w-4 h-4 text-[#0EA5E9]" />
                   </div>
-                  <span dir="ltr" className="font-semibold">+20 123 456 7890</span>
+                  <span dir="ltr" className="font-semibold">+20 106 218 5805</span>
                 </a>
-                <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-[#25D366] transition-colors group">
+                <a href="https://wa.me/201062185805" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-[#25D366] transition-colors group">
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                     <MessageCircle className="w-4 h-4 text-[#25D366]" />
                   </div>
@@ -118,8 +118,7 @@ export function Footer() {
 
               {/* Social Icons */}
               <div className="flex items-center gap-3">
-                {settings?.facebook_url && (
-                  <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/babyislandeg" target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
                       size="icon"
@@ -129,9 +128,7 @@ export function Footer() {
                       <Facebook className="w-5 h-5" />
                     </Button>
                   </a>
-                )}
-                {settings?.instagram_url && (
-                  <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/babyislandeg" target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
                       size="icon"
@@ -141,17 +138,6 @@ export function Footer() {
                       <Instagram className="w-5 h-5" />
                     </Button>
                   </a>
-                )}
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="rounded-full w-10 h-10 border-gray-200 bg-white hover:bg-black hover:text-white hover:border-black transition-all shadow-sm"
-                    aria-label="Twiter"
-                  >
-                    <Twitter className="w-5 h-5" />
-                  </Button>
-                </a>
               </div>
             </div>
 
