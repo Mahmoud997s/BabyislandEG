@@ -1,4 +1,9 @@
-# BabyislandEG - متجر عربات الأطفال الفاخرة
+# BabyislandEG - Luxury Baby Products
+
+Official repository for BabyislandEG e-commerce platform.
+
+## Repository
+[https://github.com/Mahmoud997s/BabyislandEG](https://github.com/Mahmoud997s/BabyislandEG)
 
 
 ## Technologies
