@@ -12,11 +12,11 @@
  */
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase-admin";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/auth-server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 // Validate and clamp page size
 function clampPageSize(size: number): number {
@@ -45,26 +45,10 @@ function validateDir(dir: string | null): boolean {
 export async function GET(request: NextRequest) {
     try {
         // 1. Security: Verify admin access
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
 
-        // Check app_metadata for admin role
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        // 2. Ensure supabaseAdmin is available
-        if (!supabaseAdmin) {
-            return NextResponse.json(
-                { error: "Server configuration error" },
-                { status: 500 }
-            );
-        }
 
         // 3. Parse query parameters
         const { searchParams } = new URL(request.url);

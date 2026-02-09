@@ -1,47 +1,28 @@
-import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase-admin';
-// Remove top-level import
-// import { SmartClassifier } from '@/services/classification/SmartClassifier';
+import "server-only";
+import { NextRequest, NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/auth-server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(request: Request) {
-    // 1. Security Check (Defense in Depth)
-    // 1. Security Check (Defense in Depth)
-    const authHeader = request.headers.get('x-admin-key');
-    const adminKey = process.env.ADMIN_API_KEY; 
-    const isKeyValid = adminKey && authHeader === adminKey;
-
-    if (!isKeyValid) {
-         // Fallback: Check for Admin Session (Cookie-based) via Middleware
-         // Since Middleware already protects /api/admin/*, we can theoretically trust it.
-         // But for defense-in-depth, we should verify it here too if we want to be 100% sure.
-         // However, creating a server client here to check session is expensive if middleware did it.
-         // Given P0 middleware implementation:
-         // Middleware checks session AND role='admin'.
-         // So if we reach here, and it wasn't a key access, it MUST be a session access allowed by middleware.
-         
-         // To differentiate between "Script with wrong key" vs "User with session":
-         // If authHeader is present but wrong -> 401.
-         // If authHeader is missing -> assume Session access (Middleware protected).
-         
-         if (authHeader && authHeader !== adminKey) {
-             return NextResponse.json({ error: 'Unauthorized: Invalid Admin Key' }, { status: 401 });
-         }
-         
-         // If no header, we rely on Middleware. 
-         // Double check: ensure we have a session? 
-         // For now, trusting Middleware is consistent with the "Session" path.
-    }
-
+export async function POST(request: NextRequest) {
     try {
+        // 1. Security Check (Defense in Depth)
+        const authHeader = request.headers.get('x-admin-key');
+        const adminKey = process.env.ADMIN_API_KEY; 
+        const isKeyValid = adminKey && authHeader === adminKey;
+
+        if (!isKeyValid) {
+             // Fallback: Check for Admin Session
+             await requireAdmin();
+        }
+
         // 2. Parse Parameters (limit, offset)
         const { limit = 50, offset = 0 } = await request.json();
         
         // 3. Supabase Admin Client
-        const supabase = supabaseAdmin;
-        if (!supabase) throw new Error('Supabase admin client not initialized');
-
+        const supabase = getSupabaseAdmin();
+        
         // 4. Fetch Batch
         const { data: products, error } = await supabase
             .from('products')

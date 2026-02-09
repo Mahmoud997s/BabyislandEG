@@ -5,13 +5,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { rateLimiter } from "@/lib/rateLimiter";
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 export async function POST(request: NextRequest) {
     try {
+        if (!supabaseUrl || !supabaseAnonKey) {
+             return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+        }
+
         const body = await request.json();
         const { email, password } = body;
 

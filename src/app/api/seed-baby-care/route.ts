@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { getSupabaseAdmin } from '@/lib/supabase-admin';
 
 // Helper to create product object
 const createProduct = (id: number, name: string, price: number, image: string, description: string) => ({
@@ -92,11 +92,9 @@ const products = [
 ];
 
 export async function GET() {
-    if (!supabaseAdmin) {
-        return NextResponse.json({ error: 'Admin client not configured' }, { status: 500 });
-    }
-
     try {
+        const supabaseAdmin = getSupabaseAdmin();
+
         const { data, error } = await supabaseAdmin
             .from('products')
             .upsert(products, { onConflict: 'slug' })

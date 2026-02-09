@@ -3,7 +3,7 @@
  * Handles automatic price and stock synchronization from source websites
  */
 
-import { supabaseAdmin as supabase } from '@/lib/supabase-admin';
+import { getSupabaseAdmin } from '@/lib/supabase-admin';
 import { AmazonScraper, NoonScraper, JumiaScraper, ScraperFactory, ScrapedProduct } from '@/lib/scrapers';
 
 // Register all scrapers
@@ -42,7 +42,7 @@ export const syncService = {
         };
 
         try {
-            if (!supabase) throw new Error('Supabase client not initialized');
+            const supabase = getSupabaseAdmin();
             // 1. Get product details with sync config
             const { data: product, error: fetchError } = await supabase
                 .from('products')
@@ -166,7 +166,6 @@ export const syncService = {
             // 5. Apply updates
             
             // Update Sync Config (Last Synced At)
-            if (!supabase) throw new Error('Supabase client not initialized');
             const { error: configError } = await supabase
                 .from('product_sync_config')
                 .update(configUpdates)
@@ -228,7 +227,7 @@ export const syncService = {
      * Sync all products that need updating
      */
     async syncStaleProducts(): Promise<SyncResult[]> {
-        if (!supabase) return [];
+        const supabase = getSupabaseAdmin();
         const { data: products, error } = await supabase
             .from('products')
             .select('id, product_sync_config!inner(last_synced_at, sync_enabled)') // Inner join to filter by sync_config
@@ -254,7 +253,7 @@ export const syncService = {
         status: 'success' | 'failed' | 'skipped',
         errorMessage?: string
     ): Promise<void> {
-        if (!supabase) return;
+        const supabase = getSupabaseAdmin();
         try {
             await supabase.from('sync_logs').insert({
                 product_id: productId,
@@ -273,7 +272,7 @@ export const syncService = {
      * Get sync history for a product
      */
     async getSyncHistory(productId: string, limit = 10) {
-        if (!supabase) return [];
+        const supabase = getSupabaseAdmin();
         const { data, error } = await supabase
             .from('sync_logs')
             .select('*')
@@ -293,7 +292,7 @@ export const syncService = {
      * Get sync stats
      */
     async getSyncStats() {
-        if (!supabase) return { totalSyncEnabled: 0, last24hSuccess: 0, last24hFailed: 0 };
+        const supabase = getSupabaseAdmin();
         const { data: totalProducts } = await supabase
             .from('product_sync_config')
             .select('product_id', { count: 'exact', head: true })

@@ -35,6 +35,8 @@ export async function updateRole(userId: string, updates: Partial<UserRole>) {
     const admin = await requireAdmin(); // Ensures authenticated admin
     const supabaseAdmin = createAdminClient();
 
+    if (!admin) throw new Error("Unauthorized");
+
     // Update Role
     const { error } = await supabaseAdmin
         .from('user_roles')
@@ -60,6 +62,8 @@ export async function deleteRole(userId: string) {
         .eq('user_id', userId);
 
     if (error) throw new Error(`Failed to delete role: ${error.message}`);
+
+    if (!admin) throw new Error("Unauthorized");
 
     // Log Activity
     await logActivityServer(admin.id, 'delete_role', 'user_role', userId);

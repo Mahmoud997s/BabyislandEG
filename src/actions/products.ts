@@ -1,13 +1,10 @@
 "use server";
 
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { revalidatePath } from "next/cache";
 
 function getAdminClient() {
-    if (!supabaseAdmin) {
-        throw new Error("Server configuration error: supbaseAdmin is not initialized");
-    }
-    return supabaseAdmin;
+    return getSupabaseAdmin();
 }
 
 export async function deleteProduct(id: string) {
@@ -45,4 +42,17 @@ export async function migrateProducts(products: any[]) {
     // Usually usage of supabase-admin directly in the loop
     // Implementation skipped for brevity unless needed
     return { success: true };
+}
+
+export async function bulkDeleteProducts(ids: string[]) {
+    try {
+        const admin = getAdminClient();
+        const { error } = await admin.from("products").delete().in("id", ids);
+        if (error) throw error;
+        revalidatePath("/admin/products");
+        return { success: true };
+    } catch (error) {
+        console.error("Bulk delete products error:", error);
+        throw error;
+    }
 }

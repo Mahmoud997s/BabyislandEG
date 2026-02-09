@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next dev -p 8080",
-    "build": "next build",
+    "build": "cross-env IS_BUILD=true next build",
     "start": "next start",
     "lint": "next lint",
     "clean": "rimraf .next node_modules/.cache",

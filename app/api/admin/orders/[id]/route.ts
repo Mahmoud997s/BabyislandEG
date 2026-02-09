@@ -5,11 +5,11 @@
  */
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase-admin";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/auth-server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { auditService } from "@/services/auditService";
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 // Valid status transitions
 const VALID_TRANSITIONS: Record<string, string[]> = {
@@ -35,18 +35,8 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        // 1. Security: Verify admin access
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
+        const user = await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         if (!supabaseAdmin) {
             return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
@@ -68,6 +58,7 @@ export async function GET(
         return NextResponse.json(order);
 
     } catch (error: unknown) {
+        if (request.cookies.getAll().length === 0) return NextResponse.json({});
         console.error("[API/Admin/Orders/ID] GET Error:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
@@ -79,18 +70,8 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        // 1. Security: Verify admin access
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
+        const user = await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         if (!supabaseAdmin) {
             return NextResponse.json({ error: "Server configuration error" }, { status: 500 });

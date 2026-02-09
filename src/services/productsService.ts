@@ -1,86 +1,12 @@
 import { supabase } from "@/lib/supabase";
 import { Product } from "@/data/products";
+import { mapDbToProduct } from "@/utils/product-mappers";
 
 // Client-side service. Uses 'supabase' (anon) for public data, and API routes for admin actions.
-
-const VALID_CATEGORIES = new Set([
-    'baby-care', 'strollers-gear', 'feeding', 'toys', 'nursery', 'bathing', 'clothing', 'maternity'
-]);
-
-const LEGACY_MAP: Record<string, string> = {
-    'clothes': 'clothing', 'mum': 'maternity', 'mom': 'maternity'
-};
-
-function isValidCategory(ids: any): boolean {
-    return Array.isArray(ids) && ids.length >= 2 && VALID_CATEGORIES.has(ids[1]);
-}
-
-function resolveCategory(ids: any): { ids: string[], legacy?: string, needsReview: boolean } {
-    if (isValidCategory(ids)) {
-        return { ids, needsReview: false };
-    }
-    if (Array.isArray(ids) && ids.length >= 2) {
-        const slug = ids[1];
-        if (LEGACY_MAP[slug]) {
-            return { ids: ['kafh-almntjat', LEGACY_MAP[slug]], legacy: slug, needsReview: false };
-        }
-    }
-    return { ids: ['kafh-almntjat', 'uncategorized'], needsReview: true };
-}
-
-// Export for use in other files if needed
-export function mapDbToProduct(dbItem: any): Product {
-    const isOutOfStock = (dbItem.stock || 0) <= 0;
-    const catResult = resolveCategory(dbItem.category_ids);
-    const price = Number(dbItem.price);
-    const fakeOriginalPrice = Math.round(price / 0.75);
-
-    const rawImages = dbItem.images || [];
-    const processedImages = rawImages.map((img: string) => {
-        if (img.startsWith('http')) return img;
-        return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/store-assets/${img}`;
-    });
-
-    return {
-        id: String(dbItem.id),
-        name: dbItem.name,
-        name_ar: dbItem.name_ar,
-        slug: dbItem.slug || dbItem.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
-        price: price,
-        images: processedImages,
-        compareAtPrice: fakeOriginalPrice,
-        discountPercentage: 25,
-        rating: Number(dbItem.rating) || 4.5,
-        reviewCount: Number(dbItem.reviews) || 0,
-        stockStatus: isOutOfStock ? "out-of-stock" : "in-stock",
-        stockQuantity: dbItem.stock || 0,
-        description: dbItem.description || "",
-        description_ar: dbItem.description_ar,
-        features: dbItem.features || [],
-        category: catResult.ids[1] || "uncategorized",
-        category_ids: catResult.ids,
-        legacyCategory: catResult.legacy,
-        needsReview: dbItem.needsReview || catResult.needsReview,
-        brand: dbItem.brand || "Generic",
-        isNew: dbItem.isNew || false,
-        isBestSeller: dbItem.isBestSeller || false,
-        isFeatured: dbItem.isFeatured || false,
-        tagline: dbItem.tagline || "",
-        tagline_ar: dbItem.tagline_ar,
-        specs: dbItem.specs || {
-            weight: "N/A", maxLoad: "N/A", foldType: "N/A", reclinePositions: 0,
-            wheelType: "Standard", suspension: false, canopy: "Standard",
-            basketSize: "Standard", suitableAge: "0+", dimensions: "N/A", foldedDimensions: "N/A"
-        },
-        warranty: dbItem.warranty || 1,
-        shippingEstimate: dbItem.shippingEstimate || "3-5 business days",
-        variants: dbItem.variants || [
-            { color: "Default", colorHex: "#000000", images: processedImages, inStock: !isOutOfStock }
-        ]
-    };
-}
+// Shared logic is imported from @/utils/product-mappers to avoid spaghetti.
 
 export const productsService = {
+
     // PUBLIC: Uses Anon Client
     async getAllProducts(): Promise<Product[]> {
         const { data, error } = await supabase

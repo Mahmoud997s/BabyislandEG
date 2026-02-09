@@ -4,8 +4,8 @@
  */
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase-admin";
-import { createClient } from "@/lib/supabase/server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { requireAdmin } from "@/lib/auth-server";
 
 export const dynamic = "force-dynamic";
 
@@ -32,25 +32,8 @@ function formatDate(date: Date): string {
 export async function GET(request: NextRequest) {
     try {
         // 1. Security: Verify admin access
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        // 2. Ensure supabaseAdmin is available
-        if (!supabaseAdmin) {
-            return NextResponse.json(
-                { error: "Server configuration error" },
-                { status: 500 }
-            );
-        }
+        await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         const startOfToday = getStartOfTodayUTC();
         const sevenDaysAgo = getDaysAgo(7);

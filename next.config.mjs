@@ -86,6 +86,9 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: false,
     },
+    env: {
+        IS_BUILD: process.env.IS_BUILD,
+    },
 };
 
 export default nextConfig;

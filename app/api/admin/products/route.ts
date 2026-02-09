@@ -5,8 +5,8 @@
  */
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase-admin";
-import { createClient } from "@/lib/supabase/server";
+import { requireAdmin } from "@/lib/auth-server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export const dynamic = "force-dynamic";
 
@@ -14,21 +14,8 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
     try {
         // 1. Security: Verify admin access
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        if (!supabaseAdmin) {
-            return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
-        }
+        await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         // 2. Parse query params
         const { searchParams } = new URL(request.url);
@@ -87,21 +74,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         // 1. Security: Verify admin access
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        if (!supabaseAdmin) {
-            return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
-        }
+        await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         // 2. Parse body
         const body = await request.json();

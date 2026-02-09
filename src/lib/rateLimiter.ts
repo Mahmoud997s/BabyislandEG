@@ -35,6 +35,11 @@ export const rateLimiter = {
             return { allowed: true, remaining: MAX_ATTEMPTS - 1, resetIn: WINDOW_MS };
         }
 
+        // Probabilistic cleanup (1% chance on every check) to avoid top-level setInterval
+        if (Math.random() < 0.01) {
+            setTimeout(() => this.cleanup(), 0);
+        }
+
         // Within window
         if (entry.count >= MAX_ATTEMPTS) {
             const resetIn = entry.resetTime - now;
@@ -90,7 +95,4 @@ export const rateLimiter = {
     },
 };
 
-// Cleanup every 5 minutes
-if (typeof setInterval !== 'undefined') {
-    setInterval(() => rateLimiter.cleanup(), 5 * 60 * 1000);
-}
+

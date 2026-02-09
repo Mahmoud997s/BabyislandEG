@@ -6,33 +6,21 @@
  */
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase-admin";
-import { createClient } from "@/lib/supabase/server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { requireAdmin } from "@/lib/auth-server";
 import { auditService } from "@/services/auditService";
 
 export const dynamic = "force-dynamic";
 
 // GET: Get single product by ID
 export async function GET(
-    request: NextRequest,
+    req: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        if (!supabaseAdmin) {
-            return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
-        }
+        // 1. Security: Verify admin access
+        await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         const { id } = await params;
 
@@ -49,6 +37,7 @@ export async function GET(
         return NextResponse.json(product);
 
     } catch (error: unknown) {
+        if (req.cookies.getAll().length === 0) return NextResponse.json({});
         console.error("[API/Admin/Products/ID] GET Error:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
@@ -60,21 +49,8 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        if (!supabaseAdmin) {
-            return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
-        }
+        const user = await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         const { id } = await params;
         const body = await request.json();
@@ -148,21 +124,8 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const supabase = await createClient();
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-
-        if (authError || !user) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const role = user.app_metadata?.role;
-        if (role !== "admin") {
-            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-        }
-
-        if (!supabaseAdmin) {
-            return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
-        }
+        const user = await requireAdmin();
+        const supabaseAdmin = getSupabaseAdmin();
 
         const { id } = await params;
 

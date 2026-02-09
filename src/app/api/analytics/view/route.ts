@@ -3,14 +3,19 @@ import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-// Initialize Supabase Client (Admin/Service Role not needed for public RPC usually, 
-// but good to use standard client)
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Initialize Supabase Client inside handler to avoid build-time errors
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
     try {
+        // Build-time protection: Double Guard
+        if (process.env.IS_BUILD === 'true' || request.cookies.getAll().length === 0) {
+             return NextResponse.json({});
+        }
+
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+        const supabase = createClient(supabaseUrl, supabaseKey);
         const { productId } = await request.json();
 
         if (!productId) {

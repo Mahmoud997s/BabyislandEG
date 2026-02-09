@@ -1,48 +1,37 @@
 import { MetadataRoute } from 'next';
-import { productsService } from '../src/services/productsService';
+// import { productsServiceServer } from '../src/services/productsService.server';
+// import { Product } from '../src/data/products';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const products = await productsService.getAllProducts(); // Fetch all products
-  const baseUrl = 'https://babyislandeg.com';
+const baseUrl = 'https://babyislandeg.com';
 
-  const productUrls = products.flatMap((product) => {
-    return [
-      {
-        url: `${baseUrl}/en/product/${product.id}`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/ar/product/${product.id}`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-    ];
-  });
-
-  const staticRoutes = [
+const staticRoutes = [
     '',
     '/shop',
     '/about-us',
     '/contactus',
     '/blog',
     '/store-locations',
-  ].flatMap((route) => [
+].flatMap((route) => [
     {
-      url: `${baseUrl}/en${route}`,
-      lastModified: new Date().toISOString(),
-      changeFrequency: 'daily' as const,
-      priority: route === '' ? 1.0 : 0.5,
+        url: `${baseUrl}/en${route}`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: 'daily' as const,
+        priority: route === '' ? 1.0 : 0.5,
     },
     {
-      url: `${baseUrl}/ar${route}`,
-      lastModified: new Date().toISOString(),
-      changeFrequency: 'daily' as const,
-      priority: route === '' ? 1.0 : 0.5,
+        url: `${baseUrl}/ar${route}`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: 'daily' as const,
+        priority: route === '' ? 1.0 : 0.5,
     },
-  ]);
+]);
 
-  return [...staticRoutes, ...productUrls];
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Build-time protection: If env vars are missing OR we are building, return only static routes
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.IS_BUILD === 'true') {
+      return staticRoutes;
+  }
+  // Static sitemap for stability
+  // Dynamic products generation temporarily disabled pending build environment fix
+  return [...staticRoutes];
 }

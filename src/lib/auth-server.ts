@@ -1,12 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 
 /**
  * Enforce Admin Role checking on the server.
  * Returns the user if authenticated and admin.
  * Redirects or throws otherwise.
  */
-export async function requireAdmin() {
+export async function requireAdmin(): Promise<User> {
     const supabase = await createClient();
     const {
         data: { user },
@@ -42,5 +43,5 @@ export async function requireAdmin() {
     // Not an admin -> redirect
     redirect("/admin/login");
 
-    return user;
+    return user as User;
 }
