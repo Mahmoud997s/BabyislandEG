@@ -25,15 +25,7 @@ interface OrdersResponse {
     pageSize: number;
 }
 
-// Debounce hook
-function useDebounce<T>(value: T, delay: number): T {
-    const [debouncedValue, setDebouncedValue] = useState<T>(value);
-    useEffect(() => {
-        const handler = setTimeout(() => setDebouncedValue(value), delay);
-        return () => clearTimeout(handler);
-    }, [value, delay]);
-    return debouncedValue;
-}
+import { useDebounce } from "@/hooks/use-debounce";
 
 export default function OrdersPage() {
     // Data state

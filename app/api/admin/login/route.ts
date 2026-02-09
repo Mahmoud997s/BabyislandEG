@@ -3,7 +3,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { rateLimiter } from "@/lib/rateLimiter";
+import { loginRateLimiter } from "@/lib/rateLimiter";
 
 export const dynamic = 'force-dynamic';
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         
         // Rate limit by IP and email combination
         const identifier = `${ip}:${email.toLowerCase()}`;
-        const rateCheck = rateLimiter.check(identifier);
+        const rateCheck = loginRateLimiter.check(identifier);
 
         if (!rateCheck.allowed) {
             const minutesLeft = Math.ceil(rateCheck.resetIn / 60000);
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Success - reset rate limit for this identifier
-        rateLimiter.reset(identifier);
+        loginRateLimiter.reset(identifier);
 
         // Log successful admin login
         console.log(`[Auth] Admin login successful: ${email} from IP: ${ip}`);

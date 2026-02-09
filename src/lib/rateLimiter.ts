@@ -1,98 +1,103 @@
 /**
  * Rate Limiting Utility
- * Simple in-memory rate limiter for login attempts
- * For production, consider using Redis or @upstash/ratelimit
+ * Simple in-memory rate limiter for serverless environments.
+ * Note: Memory state is not shared between serverless function invocations (lambdas),
+ * so effectiveness depends on the runtime environment (Vercel uses shared memory for edge/serverless to some extent, but it's not guaranteed).
+ * For strict distributed rate limiting, use Redis (e.g., Upstash).
  */
+
+interface RateLimitConfig {
+    limit: number;      // Max requests
+    windowMs: number;   // Time window in milliseconds
+}
 
 interface RateLimitEntry {
     count: number;
     resetTime: number;
 }
 
-// In-memory store (Note: This resets on server restart)
-// For production, use Redis or Vercel KV
-const rateLimitStore = new Map<string, RateLimitEntry>();
+class MemoryRateLimiter {
+    private store = new Map<string, RateLimitEntry>();
+    private config: RateLimitConfig;
 
-// Configuration
-const MAX_ATTEMPTS = 5;        // Max login attempts
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes window
+    constructor(config: RateLimitConfig) {
+        this.config = config;
+    }
 
-export const rateLimiter = {
     /**
-     * Check if the identifier (IP or email) is rate limited
-     * Returns { allowed: boolean, remaining: number, resetIn: number }
+     * Check if the identifier is rate limited
      */
     check(identifier: string): { allowed: boolean; remaining: number; resetIn: number } {
         const now = Date.now();
-        const entry = rateLimitStore.get(identifier);
+        const entry = this.store.get(identifier);
 
-        // No entry or expired window
+        // cleanup probabilistically
+        if (Math.random() < 0.05) this.cleanup();
+
+        // New or expired entry
         if (!entry || now > entry.resetTime) {
-            rateLimitStore.set(identifier, {
+            this.store.set(identifier, {
                 count: 1,
-                resetTime: now + WINDOW_MS,
+                resetTime: now + this.config.windowMs,
             });
-            return { allowed: true, remaining: MAX_ATTEMPTS - 1, resetIn: WINDOW_MS };
+            return { 
+                allowed: true, 
+                remaining: this.config.limit - 1, 
+                resetIn: this.config.windowMs 
+            };
         }
 
-        // Probabilistic cleanup (1% chance on every check) to avoid top-level setInterval
-        if (Math.random() < 0.01) {
-            setTimeout(() => this.cleanup(), 0);
+        // Existing entry
+        if (entry.count >= this.config.limit) {
+            return { 
+                allowed: false, 
+                remaining: 0, 
+                resetIn: entry.resetTime - now 
+            };
         }
 
-        // Within window
-        if (entry.count >= MAX_ATTEMPTS) {
-            const resetIn = entry.resetTime - now;
-            return { allowed: false, remaining: 0, resetIn };
-        }
-
-        // Increment and allow
         entry.count++;
-        rateLimitStore.set(identifier, entry);
         return { 
             allowed: true, 
-            remaining: MAX_ATTEMPTS - entry.count, 
+            remaining: this.config.limit - entry.count, 
             resetIn: entry.resetTime - now 
         };
-    },
+    }
 
     /**
-     * Reset rate limit for an identifier (e.g., after successful login)
+     * Reset rate limit for an identifier
      */
     reset(identifier: string): void {
-        rateLimitStore.delete(identifier);
-    },
+        this.store.delete(identifier);
+    }
 
     /**
-     * Get rate limit status without incrementing
-     */
-    getStatus(identifier: string): { isLimited: boolean; remaining: number; resetIn: number } {
-        const now = Date.now();
-        const entry = rateLimitStore.get(identifier);
-
-        if (!entry || now > entry.resetTime) {
-            return { isLimited: false, remaining: MAX_ATTEMPTS, resetIn: 0 };
-        }
-
-        const isLimited = entry.count >= MAX_ATTEMPTS;
-        return { 
-            isLimited, 
-            remaining: Math.max(0, MAX_ATTEMPTS - entry.count),
-            resetIn: entry.resetTime - now 
-        };
-    },
-
-    /**
-     * Cleanup expired entries (call periodically)
+     * Cleanup expired entries
      */
     cleanup(): void {
         const now = Date.now();
-        for (const [key, entry] of rateLimitStore.entries()) {
+        for (const [key, entry] of this.store.entries()) {
             if (now > entry.resetTime) {
-                rateLimitStore.delete(key);
+                this.store.delete(key);
             }
         }
-    },
-};
+    }
+}
+
+// 1. Strict Login Limiter: 5 attempts / 15 mins
+export const loginRateLimiter = new MemoryRateLimiter({
+    limit: 5,
+    windowMs: 15 * 60 * 1000
+});
+
+// 2. Generic API Limiter: 60 requests / 1 min (e.g. for search endpoints)
+export const apiRateLimiter = new MemoryRateLimiter({
+    limit: 60,
+    windowMs: 60 * 1000
+});
+
+// Export default for backward compatibility if needed, aliased to login
+export const rateLimiter = loginRateLimiter; 
+
 
 

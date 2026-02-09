@@ -15,6 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth-server";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { redirect } from "next/navigation";
+import { apiRateLimiter } from "@/lib/rateLimiter";
 
 export const dynamic = 'force-dynamic';
 
@@ -47,6 +48,17 @@ export async function GET(request: NextRequest) {
         // 1. Security: Verify admin access
         await requireAdmin();
         const supabaseAdmin = getSupabaseAdmin();
+
+        // 2. Rate Limiting (100 req/min for orders to prevent scraping/spam)
+        const ip = request.headers.get("x-forwarded-for")?.split(",")[0] || "unknown";
+        const limitCheck = apiRateLimiter.check(`admin_api:${ip}`);
+        
+        if (!limitCheck.allowed) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again later." }, 
+                { status: 429, headers: { 'Retry-After': String(Math.ceil(limitCheck.resetIn / 1000)) } }
+            );
+        }
 
 
 
