@@ -1,86 +1,152 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { columns, Order } from "./columns";
-import { DataTable } from "../products/data-table"; // Reusing the generic DataTable
-import { supabase } from "@/lib/supabase";
+import { DataTable } from "../products/data-table";
 import {
-    Loader2, Search, Filter, LayoutGrid, List, SlidersHorizontal,
-    MoreHorizontal, CheckCircle2, Clock, XCircle, Truck, Package
+    Loader2, Search, Filter, LayoutGrid, List,
+    XCircle, CheckCircle2, Clock, Truck, Package,
+    ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { OrderActions } from "./order-actions";
 import { motion } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Types
+interface OrdersResponse {
+    rows: Order[];
+    total: number;
+    page: number;
+    pageSize: number;
+}
+
+// Debounce hook
+function useDebounce<T>(value: T, delay: number): T {
+    const [debouncedValue, setDebouncedValue] = useState<T>(value);
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value), delay);
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+    return debouncedValue;
+}
 
 export default function OrdersPage() {
+    // Data state
     const [data, setData] = useState<Order[]>([]);
-    const [filteredData, setFilteredData] = useState<Order[]>([]);
+    const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    // Filter state
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
+    const [paymentStatusFilter, setPaymentStatusFilter] = useState("all");
     const [viewMode, setViewMode] = useState<"list" | "board">("list");
 
-    useEffect(() => {
-        loadOrders();
-    }, []);
+    // Pagination state
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(25);
 
-    useEffect(() => {
-        filterOrders();
-    }, [data, searchQuery, statusFilter]);
+    // Sorting state
+    const [sortField, setSortField] = useState<"created_at" | "total_amount">("created_at");
+    const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
-    async function loadOrders() {
+    // Debounced search
+    const debouncedSearch = useDebounce(searchQuery, 400);
+
+    // Abort controller ref
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    // Fetch orders from API
+    const fetchOrders = useCallback(async () => {
+        // Abort previous request
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+        abortControllerRef.current = new AbortController();
+
         setLoading(true);
-        try {
-            const { data: orders, error } = await supabase
-                .from('orders')
-                .select('*')
-                .order('created_at', { ascending: false });
+        setError(null);
 
-            if (error) throw error;
-            setData(orders as Order[]);
-        } catch (error) {
-            console.error("Failed to fetch orders", error);
+        try {
+            const params = new URLSearchParams({
+                page: page.toString(),
+                pageSize: pageSize.toString(),
+                sort: sortField,
+                dir: sortDir,
+            });
+
+            if (statusFilter !== "all") params.set("status", statusFilter);
+            if (paymentStatusFilter !== "all") params.set("payment_status", paymentStatusFilter);
+            if (debouncedSearch) params.set("q", debouncedSearch);
+
+            const response = await fetch(`/api/admin/orders?${params.toString()}`, {
+                signal: abortControllerRef.current.signal,
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result: OrdersResponse = await response.json();
+            setData(result.rows);
+            setTotal(result.total);
+        } catch (err: unknown) {
+            if (err instanceof Error && err.name === "AbortError") {
+                return; // Ignore abort errors
+            }
+            console.error("Failed to fetch orders:", err);
+            setError("فشل في تحميل الطلبات. حاول مرة أخرى.");
         } finally {
             setLoading(false);
         }
-    }
+    }, [page, pageSize, statusFilter, paymentStatusFilter, debouncedSearch, sortField, sortDir]);
 
-    function filterOrders() {
-        let result = [...data];
+    // Effect to fetch orders
+    useEffect(() => {
+        fetchOrders();
+    }, [fetchOrders]);
 
-        // Search Filter
-        if (searchQuery) {
-            const lowerQuery = searchQuery.toLowerCase();
-            result = result.filter(order =>
-                order.customer_name?.toLowerCase().includes(lowerQuery) ||
-                order.id.toLowerCase().includes(lowerQuery) ||
-                order.phone?.toLowerCase().includes(lowerQuery)
-            );
-        }
+    // Reset to page 1 when filters change
+    useEffect(() => {
+        setPage(1);
+    }, [statusFilter, paymentStatusFilter, debouncedSearch]);
 
-        // Status Filter
-        if (statusFilter !== "all") {
-            result = result.filter(order => order.status === statusFilter);
-        }
-
-        setFilteredData(result);
-    }
+    // Pagination helpers
+    const totalPages = Math.ceil(total / pageSize);
+    const canPrevious = page > 1;
+    const canNext = page < totalPages;
 
     const formatCurrency = (val: number) => {
         return new Intl.NumberFormat("en-US", { style: "currency", currency: "EGP" }).format(val);
     };
 
-    if (loading) {
+    // Loading skeleton
+    if (loading && data.length === 0) {
         return (
-            <div className="flex h-screen items-center justify-center bg-slate-50/50">
-                <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
-                    <p className="text-slate-500 font-medium animate-pulse">Loading Orders...</p>
+            <div className="min-h-screen bg-slate-50/50 p-8 space-y-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <Skeleton className="h-10 w-64" />
+                    <Skeleton className="h-10 w-48" />
+                </div>
+                <Card className="border shadow-sm">
+                    <CardContent className="p-4">
+                        <div className="flex gap-4">
+                            <Skeleton className="h-10 w-96" />
+                            <Skeleton className="h-10 w-44" />
+                        </div>
+                    </CardContent>
+                </Card>
+                <div className="space-y-3">
+                    {[...Array(5)].map((_, i) => (
+                        <Skeleton key={i} className="h-16 w-full" />
+                    ))}
                 </div>
             </div>
         );
@@ -94,7 +160,7 @@ export default function OrdersPage() {
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-slate-900">Orders Management</h1>
                     <p className="text-slate-500 mt-1">
-                        Track and manage all customer orders in one place.
+                        {total.toLocaleString()} orders total
                     </p>
                 </div>
                 <div className="flex items-center gap-2 bg-white p-1 rounded-lg border shadow-sm">
@@ -120,27 +186,31 @@ export default function OrdersPage() {
             {/* Toolbar */}
             <Card className="border shadow-sm">
                 <CardContent className="p-4">
-                    <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                        <div className="relative w-full md:w-96">
+                    <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                        {/* Search */}
+                        <div className="relative w-full lg:w-96">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                             <Input
-                                placeholder="Search by Order ID, Customer, or Phone..."
+                                placeholder="Search by Order ID, Customer, Phone, Email..."
                                 className="pl-10"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
-                        <div className="flex items-center gap-3 w-full md:w-auto">
+
+                        {/* Filters */}
+                        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                            {/* Status Filter */}
                             <div className="flex items-center gap-2">
                                 <Filter className="w-4 h-4 text-slate-500" />
                                 <span className="text-sm font-medium text-slate-700">Status:</span>
                             </div>
                             <Select value={statusFilter} onValueChange={setStatusFilter}>
-                                <SelectTrigger className="w-[180px]">
-                                    <SelectValue placeholder="All Orders" />
+                                <SelectTrigger className="w-[150px]">
+                                    <SelectValue placeholder="All" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="all">All Orders</SelectItem>
+                                    <SelectItem value="all">All</SelectItem>
                                     <SelectItem value="pending">Pending</SelectItem>
                                     <SelectItem value="processing">Processing</SelectItem>
                                     <SelectItem value="shipped">Shipped</SelectItem>
@@ -148,9 +218,44 @@ export default function OrdersPage() {
                                     <SelectItem value="cancelled">Cancelled</SelectItem>
                                 </SelectContent>
                             </Select>
-                            {/* Clear Filters Button */}
-                            {(searchQuery || statusFilter !== "all") && (
-                                <Button variant="ghost" size="icon" onClick={() => { setSearchQuery(""); setStatusFilter("all"); }}>
+
+                            {/* Payment Status Filter */}
+                            <Select value={paymentStatusFilter} onValueChange={setPaymentStatusFilter}>
+                                <SelectTrigger className="w-[150px]">
+                                    <SelectValue placeholder="Payment" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Payments</SelectItem>
+                                    <SelectItem value="unpaid">Unpaid</SelectItem>
+                                    <SelectItem value="paid">Paid</SelectItem>
+                                    <SelectItem value="refunded">Refunded</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            {/* Page Size */}
+                            <Select value={pageSize.toString()} onValueChange={(v) => setPageSize(parseInt(v))}>
+                                <SelectTrigger className="w-[100px]">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="10">10</SelectItem>
+                                    <SelectItem value="25">25</SelectItem>
+                                    <SelectItem value="50">50</SelectItem>
+                                    <SelectItem value="100">100</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            {/* Clear Filters */}
+                            {(searchQuery || statusFilter !== "all" || paymentStatusFilter !== "all") && (
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => {
+                                        setSearchQuery("");
+                                        setStatusFilter("all");
+                                        setPaymentStatusFilter("all");
+                                    }}
+                                >
                                     <XCircle className="w-4 h-4 text-slate-500" />
                                 </Button>
                             )}
@@ -158,6 +263,16 @@ export default function OrdersPage() {
                     </div>
                 </CardContent>
             </Card>
+
+            {/* Error State */}
+            {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg flex items-center justify-between">
+                    <span>{error}</span>
+                    <Button variant="outline" size="sm" onClick={fetchOrders}>
+                        إعادة المحاولة
+                    </Button>
+                </div>
+            )}
 
             {/* Content Area */}
             {viewMode === "list" ? (
@@ -167,7 +282,56 @@ export default function OrdersPage() {
                     key="list-view"
                     className="bg-white rounded-xl border shadow-sm overflow-hidden"
                 >
-                    <DataTable columns={columns} data={filteredData} />
+                    {loading && data.length > 0 && (
+                        <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-10">
+                            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                        </div>
+                    )}
+                    <DataTable columns={columns} data={data} />
+
+                    {/* Pagination Controls */}
+                    <div className="flex items-center justify-between px-4 py-3 border-t bg-slate-50/50">
+                        <div className="text-sm text-slate-500">
+                            Showing {((page - 1) * pageSize) + 1}-{Math.min(page * pageSize, total)} of {total.toLocaleString()}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                disabled={!canPrevious}
+                                onClick={() => setPage(1)}
+                            >
+                                <ChevronsLeft className="h-4 w-4" />
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                disabled={!canPrevious}
+                                onClick={() => setPage(p => p - 1)}
+                            >
+                                <ChevronLeft className="h-4 w-4" />
+                            </Button>
+                            <span className="text-sm px-3 py-1 bg-white border rounded-md">
+                                Page {page} of {totalPages || 1}
+                            </span>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                disabled={!canNext}
+                                onClick={() => setPage(p => p + 1)}
+                            >
+                                <ChevronRight className="h-4 w-4" />
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                disabled={!canNext}
+                                onClick={() => setPage(totalPages)}
+                            >
+                                <ChevronsRight className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
                 </motion.div>
             ) : (
                 <motion.div
@@ -178,8 +342,8 @@ export default function OrdersPage() {
                 >
                     {/* Kanban Columns */}
                     {["pending", "processing", "shipped", "delivered"].map((status) => {
-                        const items = filteredData.filter(o => o.status === status);
-                        const statusConfig: Record<string, any> = {
+                        const items = data.filter(o => o.status === status);
+                        const statusConfig: Record<string, { label: string; icon: typeof Clock; color: string }> = {
                             pending: { label: "Pending", icon: Clock, color: "text-amber-600 bg-amber-50 border-amber-200" },
                             processing: { label: "Processing", icon: Package, color: "text-blue-600 bg-blue-50 border-blue-200" },
                             shipped: { label: "Shipped", icon: Truck, color: "text-purple-600 bg-purple-50 border-purple-200" },
