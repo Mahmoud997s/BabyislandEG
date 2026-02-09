@@ -16,11 +16,13 @@ export type Order = {
     shipping_fee?: number;
     status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
     payment_status: "paid" | "unpaid" | "refunded";
+    payment_method?: string;
     items: any; // JSONB
     shipping_address?: string;
     city?: string;
     phone?: string;
     email?: string;
+    notes?: string;
 };
 
 export const columns: ColumnDef<Order>[] = [
