@@ -18,9 +18,9 @@ export async function requireAdmin() {
     }
 
     // Check Role
-    // We prioritize metadata for speed and reliability
-    const metadataRole = user.user_metadata?.role;
-    if (metadataRole === "admin") {
+    // SECURITY: Use app_metadata.role (server-side only, cannot be modified by client)
+    const appMetadataRole = user.app_metadata?.role;
+    if (appMetadataRole === "admin") {
         return user;
     }
 

@@ -1,3 +1,4 @@
+import "server-only";
 import { createClient } from '@supabase/supabase-js';
 
 // Access the Service Role Key securely from environment variables

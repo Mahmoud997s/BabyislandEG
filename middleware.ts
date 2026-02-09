@@ -41,28 +41,35 @@ export async function middleware(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     // Admin Route Protection
-    if (request.nextUrl.pathname.startsWith("/admin")) {
+    const pathname = request.nextUrl.pathname;
+    const isAdminArea = pathname.startsWith("/admin") || pathname.startsWith("/api/admin");
+
+    if (isAdminArea) {
         // Allow login page
-        if (request.nextUrl.pathname === "/admin/login") {
+        if (pathname === "/admin/login") {
             return response;
         }
 
         // 1. Check Authentication
         if (!user) {
+            // For API routes, return 401 instead of redirect
+            if (pathname.startsWith("/api/admin")) {
+                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            }
             return NextResponse.redirect(new URL("/admin/login", request.url));
         }
 
         // 2. Check Authorization (Role = admin)
-        // We prioritize metadata for speed and reliability, and check the profile as a secondary verification.
-        const metadataRole = user.user_metadata?.role;
+        // SECURITY: Use app_metadata.role (server-side only, cannot be modified by client)
+        const appMetadataRole = user.app_metadata?.role;
         
-        if (metadataRole === "admin") {
+        if (appMetadataRole === "admin") {
             return response;
         }
 
-        // Fallback/Secondary verification via DB
+        // Fallback verification via DB (secondary check)
         try {
-            const { data: profile, error: profileError } = await supabase
+            const { data: profile } = await supabase
                 .from("profiles")
                 .select("role")
                 .eq("id", user.id)
@@ -75,7 +82,10 @@ export async function middleware(request: NextRequest) {
             console.error("Middleware profile lookup failed:", e);
         }
 
-        // Not an admin in metadata OR DB -> redirect to home
+        // Not an admin -> reject
+        if (pathname.startsWith("/api/admin")) {
+            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
         return NextResponse.redirect(new URL("/", request.url));
     }
 

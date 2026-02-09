@@ -97,16 +97,16 @@ async function promoteUser() {
     console.log("✅ تم تحديث جدول 'profiles' بنجاح.");
   }
 
-  // 3. Update Auth Metadata
-  console.log(`🔄 جاري تحديث صلاحيات الدخول...`);
+  // 3. Update Auth Metadata (app_metadata is secure, server-only)
+  console.log(`🔄 جاري تحديث صلاحيات الدخول (app_metadata)...`);
   const { error: authError } = await supabase.auth.admin.updateUserById(userId, {
-    user_metadata: { role: 'admin' }
+    app_metadata: { role: 'admin' }
   });
 
   if (authError) {
     console.error("❌ حصل مشكلة في تحديث صلاحيات الدخول:", authError.message);
   } else {
-    console.log("✅ تم تحديث صلاحيات المستخدم لـ 'admin' بنجاح.");
+    console.log("✅ تم تحديث صلاحيات المستخدم لـ 'admin' بنجاح (app_metadata).");
   }
 
   console.log("\n🎉 مبروك! الحساب بقى أدمن دلوقتي.");
