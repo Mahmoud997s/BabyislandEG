@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ProductForm from "@/components/admin/products/ProductForm";
-import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -17,20 +16,28 @@ export default function EditProductPage() {
         async function fetchProduct() {
             if (!id) return;
 
-            const { data, error } = await supabase
-                .from("products")
-                .select("*")
-                .eq("id", id)
-                .single();
+            try {
+                // Use Admin API to ensure we can see hidden/draft products
+                const res = await fetch(`/api/admin/products/${id}`, {
+                    credentials: "include"
+                });
 
-            if (error) {
-                toast.error("Failed to fetch product");
-                router.push("/admin/products");
-            } else {
+                if (!res.ok) {
+                    if (res.status === 404) throw new Error("Product not found");
+                    if (res.status === 401 || res.status === 403) throw new Error("Unauthorized");
+                    throw new Error("Failed to fetch product");
+                }
+
+                const data = await res.json();
                 console.log("Fetched product:", data);
                 setProduct(data);
+            } catch (error) {
+                console.error(error);
+                toast.error("Failed to fetch product details");
+                router.push("/admin/products");
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         }
 
         fetchProduct();
