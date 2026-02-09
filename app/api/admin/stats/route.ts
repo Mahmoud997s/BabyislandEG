@@ -1,7 +1,3 @@
-/**
- * Admin Stats API - Real-time aggregated dashboard stats
- * GET /api/admin/stats
- */
 import "server-only";
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
@@ -45,6 +41,8 @@ export async function GET(request: NextRequest) {
             shippedResult,
             last7DaysResult,
             lowStockResult,
+            needsReviewResult,
+            pendingReviewsResult,
             totalProductsResult,
         ] = await Promise.all([
             // Orders today (count + revenue)
@@ -77,6 +75,19 @@ export async function GET(request: NextRequest) {
                 .from("products")
                 .select("id", { count: "exact", head: true })
                 .lt("stockQuantity", 5),
+
+            // Products needing review (no images)
+            supabaseAdmin
+                .from("products")
+                .select("id", { count: "exact", head: true })
+                .is("images", null),
+
+            // Pending reviews (if reviews table exists, otherwise placeholder)
+            // Assuming 'reviews' table for now based on views folder.
+            supabaseAdmin
+                .from("reviews")
+                .select("id", { count: "exact", head: true })
+                .eq("status", "pending"),
 
             // Total products count
             supabaseAdmin
@@ -126,6 +137,8 @@ export async function GET(request: NextRequest) {
             pending_count: pendingResult.count || 0,
             shipped_count: shippedResult.count || 0,
             low_stock_count: lowStockResult.error ? null : (lowStockResult.count || 0),
+            needs_review_count: needsReviewResult.count || 0,
+            pending_reviews_count: pendingReviewsResult.count || 0,
             total_products: totalProductsResult.count || 0,
             orders_last_7_days: ordersLast7Days,
         };

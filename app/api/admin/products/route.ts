@@ -40,9 +40,22 @@ export async function GET(request: NextRequest) {
         }
 
         // Sorting
-        const validSortFields = ["created_at", "name", "price", "stockQuantity", "category"];
+        const validSortFields = ["created_at", "name", "price", "stockQuantity", "stock", "category"];
         const sortField = validSortFields.includes(sort) ? sort : "created_at";
         query = query.order(sortField, { ascending: dir });
+
+        // Stock filter
+        const stockFilter = searchParams.get("stock");
+        if (stockFilter === "low") {
+            query = query.lt("stockQuantity", 5);
+        }
+
+        // Missing data filter
+        const missingFilter = searchParams.get("missing");
+        if (missingFilter === "true" || missingFilter === "1") {
+            // Check for missing images or missing description
+            query = query.or("images.is.null,description.is.null,description.eq.''");
+        }
 
         // Pagination
         const from = (page - 1) * pageSize;
