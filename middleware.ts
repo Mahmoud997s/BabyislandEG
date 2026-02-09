@@ -53,18 +53,30 @@ export async function middleware(request: NextRequest) {
         }
 
         // 2. Check Authorization (Role = admin)
-        // We fetch the profile to check the role. 
-        // Note: In a high-traffic app, you might want to cache this or use custom claims.
-        const { data: profile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", user.id)
-            .single();
-
-        if (profile?.role !== "admin") {
-            // Logged in but not admin -> redirect to home or show error
-            return NextResponse.redirect(new URL("/", request.url));
+        // We prioritize metadata for speed and reliability, and check the profile as a secondary verification.
+        const metadataRole = user.user_metadata?.role;
+        
+        if (metadataRole === "admin") {
+            return response;
         }
+
+        // Fallback/Secondary verification via DB
+        try {
+            const { data: profile, error: profileError } = await supabase
+                .from("profiles")
+                .select("role")
+                .eq("id", user.id)
+                .single();
+
+            if (profile?.role === "admin") {
+                return response;
+            }
+        } catch (e) {
+            console.error("Middleware profile lookup failed:", e);
+        }
+
+        // Not an admin in metadata OR DB -> redirect to home
+        return NextResponse.redirect(new URL("/", request.url));
     }
 
     return response;

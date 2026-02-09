@@ -18,18 +18,29 @@ export async function requireAdmin() {
     }
 
     // Check Role
-    // Fetch role from profiles table
-    const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-
-    if (profile?.role !== "admin") {
-        // Log them out or redirect to unauthorized
-        // For now, redirect to login
-        redirect("/admin/login");
+    // We prioritize metadata for speed and reliability
+    const metadataRole = user.user_metadata?.role;
+    if (metadataRole === "admin") {
+        return user;
     }
+
+    // Fallback/Secondary verification via DB
+    try {
+        const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+
+        if (profile?.role === "admin") {
+            return user;
+        }
+    } catch (e) {
+        console.error("Server-side profile lookup failed:", e);
+    }
+
+    // Not an admin -> redirect
+    redirect("/admin/login");
 
     return user;
 }
