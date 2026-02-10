@@ -4,6 +4,7 @@ import { Cairo, Fredoka, Chewy, Shadows_Into_Light, Baskervville_SC, Aref_Ruqaa 
 import "./globals.css";
 import { ClientProviders } from "./providers";
 import { DirectionProvider } from "@/components/providers/DirectionProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cairo = Cairo({
     subsets: ["arabic", "latin"],
@@ -105,6 +106,7 @@ export default async function RootLayout({
                     <DirectionProvider />
                     {children}
                 </ClientProviders>
+                <SpeedInsights />
             </body>
         </html>
     );
